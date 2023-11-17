@@ -20,6 +20,8 @@ while True:
         cm.add_citation(c)
     if action == Commands.LIST:
         cm.print_all()
+    if action == Commands.HELP:
+        tui.help()
 
         
     

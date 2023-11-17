@@ -7,6 +7,8 @@ Käyttö:
 Valikko toimii antamalla kirjaimen ja toimimalla ohjeiden mukaan..
 
 kirjoita tähn jotain järkevää
+
+Apua komennolla [h,H,?]
 """
 
 class Commands(Enum):
@@ -21,19 +23,25 @@ commands = {
     'A'	: Commands.ADD,
     'a'	: Commands.ADD,    
     'L'	: Commands.LIST,
-    'l'	: Commands.LIST    
+    'l'	: Commands.LIST,    
+    'H'	: Commands.HELP,
+    'h'	: Commands.HELP,
+    '?'	: Commands.HELP
 }
 
 class Tui:
     def __init__(self):
         print(usage)
         
+    def help(self):
+        print("helppi")
+        
     def menu(self):
         while True:
             key = input("Anna komento: ")
             if key in commands.keys():
                 break
-            print(f"Komento {key} ei kelpaa")
+            print(f"Komento {key} ei kelpaa. Apua komennoilla [?,h,H]")
         return commands[key]
         
     def ask(self, question :str, validator = lambda a: True):
