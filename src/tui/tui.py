@@ -12,7 +12,8 @@ kirjoita tähn jotain järkevää
 class Commands(Enum):
     QUIT = 0,
     ADD = 1,
-    LIST = 2
+    LIST = 2,
+    HELP = 3
 
 commands = {
     'Q'	: Commands.QUIT,
@@ -33,16 +34,25 @@ class Tui:
             print(f"Komento {key} ei kelpaa")
         return commands[key]
         
-    def ask(self, question :str):
+    def ask(self, question :str, validator = lambda a: True):
         while True:
             a = input(f"Anna {question}: ")
-            if a != "":
+            if a != "" and validator(a):
                 break
             print(f"Syöte ei kelpaa")
         return a
             
         
 if __name__ == "__main__":
+    def year_validator(y):
+        try:
+            i=int(y)
+            if i<0 or i>2040:
+                return False
+        except:
+            return False
+        return True
+        
     tui = Tui()
     while True:
         action = tui.menu()
@@ -51,4 +61,5 @@ if __name__ == "__main__":
         if action == Commands.ADD:
             nimike=tui.ask("nimike")
             print(nimike)
-                
+            vuosi=tui.ask("vuosi",year_validator)
+            print(vuosi)    
