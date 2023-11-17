@@ -5,6 +5,6 @@
 Definition of done
 
 - User storyn mukainen toiminnallisuus toteutettu
-- Yksikkö- ja end-to-end-testaus tehty ja muotoilu tarkistettu (pylint)
+- Yksikkötestaus tehty ja muotoilu tarkistettu (pylint)
 - Dokumentoitu (docstring, asennusohjeet, käyttöohjeet)
 - Integroitu ja testattu CI-palvelimella
