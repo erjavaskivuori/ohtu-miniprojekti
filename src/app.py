@@ -1,8 +1,10 @@
+from logic.citationmanager import CitationManager
 from entities.citation import Citation
 from tui.tui import Tui,Commands
 from enum import Enum
 
 tui = Tui()
+cm = CitationManager()
 
 while True:
     action = tui.menu()
@@ -15,5 +17,10 @@ while True:
                 tui.ask("otsikko"),
                 tui.ask("vuosi",Citation.year_validator)
             )
+        cm.add_citation(c)
+    if action == Commands.LIST:
+        cm.print_all()
+
+        
     
     

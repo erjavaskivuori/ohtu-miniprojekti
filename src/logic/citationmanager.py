@@ -1,12 +1,11 @@
-from entities import citation
+from entities.citation import Citation
 
 class CitationManager():
     def __init__(self):
         self.all = []
 
-    def add_citation(self, type, author, title, year):
-        new_citation = citation.Citation(type, author, title, year)
-        self.all.append(new_citation)
+    def add_citation(self, citation :Citation):
+        self.all.append(citation)
         
     def return_all_citaions(self):
         return self.all

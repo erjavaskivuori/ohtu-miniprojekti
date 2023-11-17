@@ -19,7 +19,9 @@ commands = {
     'Q'	: Commands.QUIT,
     'q'	: Commands.QUIT,
     'A'	: Commands.ADD,
-    'a'	: Commands.ADD    
+    'a'	: Commands.ADD,    
+    'L'	: Commands.LIST,
+    'l'	: Commands.LIST    
 }
 
 class Tui:
