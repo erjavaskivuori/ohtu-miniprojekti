@@ -41,25 +41,10 @@ class Tui:
                 break
             print(f"Syöte ei kelpaa")
         return a
+
+
+
             
         
 if __name__ == "__main__":
-    def year_validator(y):
-        try:
-            i=int(y)
-            if i<0 or i>2040:
-                return False
-        except:
-            return False
-        return True
-        
-    tui = Tui()
-    while True:
-        action = tui.menu()
-        if action == Commands.QUIT:
-            break
-        if action == Commands.ADD:
-            nimike=tui.ask("nimike")
-            print(nimike)
-            vuosi=tui.ask("vuosi",year_validator)
-            print(vuosi)    
+    pass

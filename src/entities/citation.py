@@ -6,8 +6,9 @@ class Citation():
         self.author = author
         self.title = title
         self.year = year
-
-    def year_validator(self,year):
+        
+    @staticmethod
+    def year_validator(year):
         try:
             i=int(year)
             if i<0 or i>2040:
