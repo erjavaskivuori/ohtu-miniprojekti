@@ -1,6 +1,6 @@
 
 
-class Citation:
+class Citation():
     def __init__(self, type:str, author:str, title:str, year:int):
         self.type = type
         self.author = author
