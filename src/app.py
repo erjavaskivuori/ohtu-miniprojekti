@@ -1,4 +1,4 @@
-from logic.citationmanager import CitationManager
+from logic.citation_manager import CitationManager
 from entities.citation import Citation
 from tui.tui import Tui,Commands
 from enum import Enum

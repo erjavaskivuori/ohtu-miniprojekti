@@ -1,5 +1,5 @@
 import unittest
-from logic.citationmanager import CitationManager
+from logic.citation_manager import CitationManager
 from entities.citation import Citation
 
 class TestCitationManager(unittest.TestCase):
