@@ -13,15 +13,13 @@ class Tui:
 [32m*** TERVETULOA BIBSELLIIN ***[39m
 
 Luo, lajittele, muokkaa viitteitä ja vedosta niistä BiBTeX tiedosto.
-
 """
 
     usage = """
 Ohjelman käyttöliittymä mukailee jokaisen suosikkiohjelma fdisk:iä.
 Ohjelmaa siis käytetään niin, että valikossa syötetään toimintoa vastaava
 yksittäinen kirjain. Valittu toiminto sitten kyselee toiminnon suorittamiseen
-tarvittavat tiedot.
-"""
+tarvittavat tiedot."""
 
     commands = {
         'q': Commands.QUIT,
@@ -39,7 +37,7 @@ tarvittavat tiedot.
         Commands.LIST: "Listaa viitteet",
         Commands.HELP: "Tulosta valikko/ohjeet"
     }
-    
+
     categories = {
         "Viitteet": [Commands.ADD, Commands.LIST],
         "Sekalaista": [Commands.HELP],
@@ -53,8 +51,8 @@ tarvittavat tiedot.
         print(self.usage)
         print("\nApu:")
         for cat in self.categories:
-            print(f"\n  {cat}:")
-        
+            print("""[1m"""f"\n  {cat}""""[0m""")
+
             for desc in self.categories[cat]:
                 keys = []
                 for comm in self.commands:
@@ -62,6 +60,7 @@ tarvittavat tiedot.
                         keys.append(comm)
                 print(f"   {keys[0]}   {self.descriptions[desc]:40s}", end="")
                 print(f"[myös: {', '.join(keys[1:])}]" if len(keys)>1 else "")
+        print()
 
     def menu(self):
         while True:
@@ -78,4 +77,3 @@ tarvittavat tiedot.
                 break
             print("""[31m"""f"Syöte '{a}' ei kelpaa.""""[39m""")
         return a
-
