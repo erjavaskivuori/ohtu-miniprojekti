@@ -1,4 +1,4 @@
-"""Luokka, joka luo uuden sitaatin"""
+"""Luokka, joka luo uuden sitaattiolion"""
 
 class Citation():
     def __init__(self, type:str, author:str, title:str, year:int):
