@@ -24,40 +24,40 @@ Näin valittu toiminto sitten kysyy käyttäjältä tarvittavat tiedot.
 """
 
     commands = {
-        'Q'	: Commands.QUIT,
-        'q'	: Commands.QUIT,
-        'A'	: Commands.ADD,
-        'a'	: Commands.ADD,    
-        'L'	: Commands.LIST,
-        'l'	: Commands.LIST,
-        'P'	: Commands.LIST,
-        'p'	: Commands.LIST,
-        'H'	: Commands.HELP,
-        'h'	: Commands.HELP,
-        '?'	: Commands.HELP
+        'Q': Commands.QUIT,
+        'q': Commands.QUIT,
+        'A': Commands.ADD,
+        'a': Commands.ADD,
+        'L': Commands.LIST,
+        'l': Commands.LIST,
+        'P': Commands.LIST,
+        'p': Commands.LIST,
+        'H': Commands.HELP,
+        'h': Commands.HELP,
+        '?': Commands.HELP
     }
 
     descriptions = {
-        Commands.QUIT : "Lopeta ohjelma",
-        Commands.ADD : "Lisää viite",
-        Commands.LIST : "Listaa viitteet",
-        Commands.HELP : "Tulosta ohjeet" 
+        Commands.QUIT: "Lopeta ohjelma",
+        Commands.ADD: "Lisää viite",
+        Commands.LIST: "Listaa viitteet",
+        Commands.HELP: "Tulosta ohjeet"
     }
-    
+
     def __init__(self):
         print(self.greetings)
         self.help()
-        
+
     def help(self):
         print(self.usage)
         print("Komento:        Toiminto:")
         for desc in self.descriptions.keys():
             keys = ""
             for comm in self.commands:
-                if self.commands[comm]==desc:
-                    keys+=f"[{comm}]"
+                if self.commands[comm] == desc:
+                    keys += f"[{comm}]"
             print(f"{keys:16s}{self.descriptions[desc]}")
-        
+
     def menu(self):
         while True:
             key = input("(VALIKKO) Anna komento: ")
@@ -65,8 +65,8 @@ Näin valittu toiminto sitten kysyy käyttäjältä tarvittavat tiedot.
                 break
             print(f"Komento {key} ei kelpaa. Anna [?][h][H] saadaksesi apua.")
         return self.commands[key]
-        
-    def ask(self, question :str, validator = lambda a: True):
+
+    def ask(self, question: str, validator=lambda a: True):
         while True:
             a = input(f"Anna {question}: ")
             if a != "" and validator(a):
