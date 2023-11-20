@@ -14,3 +14,7 @@
 - Yksikkötestaus tehty ja muotoilu tarkistettu (pylint)
 - Dokumentoitu (docstring, asennusohjeet, käyttöohjeet)
 - Integroitu ja testattu CI-palvelimella
+
+[Github Actions](https://github.com/erjavaskivuori/ohtu-miniprojekti/actions)
+
+[Lisenssi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/LICENSE.md)
