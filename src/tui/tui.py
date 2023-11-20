@@ -1,16 +1,17 @@
+""" TEXT USER INTERFACE - Module for user actions in test mode """
 from enum import Enum
 
 class Commands(Enum):
-    QUIT = 0,
-    ADD = 1,
-    LIST = 2,
+    """ Commands """
+    QUIT = 0
+    ADD = 1
+    LIST = 2
     HELP = 3
 
 class Tui:
     """ Tui - Class for menu and user inputs in text mode """
 
-    greetings = """
-[32m*** TERVETULOA BIBSELLIIN ***[39m
+    greetings = "\033[32m*** TERVETULOA BIBSELLIIN ***\033[39m"+"""
 
 Luo, lajittele, muokkaa viitteitä ja vedosta niistä BiBTeX tiedosto.
 """
@@ -48,32 +49,35 @@ tarvittavat tiedot."""
         print(self.greetings)
 
     def help(self):
+        """ help() - prints out usage and command information """
         print(self.usage)
         print("\nApu:")
-        for cat in self.categories:
-            print("""[1m"""f"\n  {cat}""""[0m""")
+        for cat, cmd_in_cat in self.categories.items():
+            print(f"\n  \033[1m{cat}\033[0m")
 
-            for desc in self.categories[cat]:
+            for desc in cmd_in_cat:
                 keys = []
-                for comm in self.commands:
-                    if self.commands[comm] == desc:
-                        keys.append(comm)
+                for key, cmd in self.commands.items():
+                    if cmd == desc:
+                        keys.append(key)
                 print(f"   {keys[0]}   {self.descriptions[desc]:40s}", end="")
                 print(f"[myös: {', '.join(keys[1:])}]" if len(keys)>1 else "")
         print()
 
     def menu(self):
+        """ menu() - prints out menu prompt and demands valid command """
         while True:
             key = input("\nKomento (apu: syötä m): ")
-            if key in self.commands.keys():
+            if key in self.commands:
                 break
-            print("""[31m"""f"{key}: tuntematon komento.""""[39m""")
+            print(f"\033[31m{key}: tuntematon komento.\033[0m")
         return self.commands[key]
 
     def ask(self, question: str, validator=lambda a: True):
+        """ ask(str, function) - ask user for input and validates it """
         while True:
             a = input(f"\nSyötä {question}: ")
             if a != "" and validator(a):
                 break
-            print("""[31m"""f"Syöte '{a}' ei kelpaa.""""[39m""")
+            print(f"\033[31mSyöte '{a}' ei kelpaa.\033[0m")
         return a
