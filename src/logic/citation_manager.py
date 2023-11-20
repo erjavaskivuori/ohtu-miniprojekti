@@ -4,7 +4,7 @@ from entities.citation import Citation
 class CitationManager():
     """Socelluslogiikasta vastaava luokka.
     """
-    
+
     def __init__(self):
         """Luokan konstruktori. Luo uuden sovelluslogiikasta vastaavan palvelun.
         """
