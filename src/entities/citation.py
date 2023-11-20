@@ -2,8 +2,8 @@
 
 
 class Citation():
-    def __init__(self, type: str, author: str, title: str, year: int):
-        self.type = type
+    def __init__(self, citation_type: str, author: str, title: str, year: int):
+        self.type = citation_type
         self.author = author
         self.title = title
         self.year = year
@@ -14,7 +14,7 @@ class Citation():
             i = int(year)
             if i < 0 or i > 2040:
                 return False
-        except:
+        except ValueError:
             return False
         return True
 
