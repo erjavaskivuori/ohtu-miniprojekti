@@ -23,13 +23,12 @@ yksittäinen kirjain. Valittu toiminto sitten kyselee toiminnon suorittamiseen
 tarvittavat tiedot."""
 
     commands = {
-        'q': Commands.QUIT,
-        'a': Commands.ADD,
-        'p': Commands.LIST,
-        'l': Commands.LIST,
-        'm': Commands.HELP,
-        'h': Commands.HELP,
-        '?': Commands.HELP
+        'lopeta': Commands.QUIT,
+        'lisää': Commands.ADD,
+        'listaa': Commands.LIST,
+        'menu': Commands.HELP,
+        'apua': Commands.HELP,
+        'auta': Commands.HELP
     }
 
     descriptions = {
@@ -60,14 +59,14 @@ tarvittavat tiedot."""
                 for key, cmd in self.commands.items():
                     if cmd == desc:
                         keys.append(key)
-                print(f"   {keys[0]}   {self.descriptions[desc]:40s}", end="")
+                print(f"   {keys[0]:6s}   {self.descriptions[desc]:40s}", end="")
                 print(f"[myös: {', '.join(keys[1:])}]" if len(keys)>1 else "")
         print()
 
     def menu(self):
         """ menu() - prints out menu prompt and demands valid command """
         while True:
-            key = input("\nKomento (apu: syötä m): ")
+            key = input("\nKomento (apu: syötä menu): ")
             if key in self.commands:
                 break
             print(f"\033[31m{key}: tuntematon komento.\033[0m")
