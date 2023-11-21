@@ -1,15 +1,16 @@
 from entities.citation import Citation
+from db.citation_repository import citation_repository
 
 
 class CitationManager():
     """Socelluslogiikasta vastaava luokka.
     """
 
-    def __init__(self):
+    def __init__(self, citation_repo=citation_repository):
         """Luokan konstruktori. Luo uuden sovelluslogiikasta vastaavan palvelun.
         """
 
-        self.all = []
+        self._citation_repo = citation_repo
 
     def add_citation(self, citation: Citation):
         """Luo uuden sitaatin.
@@ -18,7 +19,7 @@ class CitationManager():
             citation: lisättävä sitaatti Citation-oliona.
         """
 
-        self.all.append(citation)
+        self._citation_repo.create_citation(citation)
 
     def return_all_citaions(self):
         """Listaa kaikki sitaatit.
@@ -27,13 +28,15 @@ class CitationManager():
             Palauttaa listan kaikista sitaateista.
         """
 
-        return self.all
+        return self._citation_repo.get_all_citations()
 
     def print_all(self):
         """Tulostaa kaikki sitaatit.
         """
 
-        for citation in self.all:
+        citations = self._citation_repo.get_all_citations()
+
+        for citation in citations:
             print(citation)
 
 #    def delete_citation(self, citation):

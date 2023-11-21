@@ -30,7 +30,7 @@ def create_tables(connection):
 
     cursor = connection.cursor()
 
-    cursor.execute("""CREATE TABLE IF NOT EXISTS citation (
+    cursor.execute("""CREATE TABLE IF NOT EXISTS citations (
         id INTEGER PRIMARY KEY,
         type TEXT, 
         author TEXT,
