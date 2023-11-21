@@ -24,3 +24,5 @@ jobs:
         run: poetry run pytest src
       - name: Pylint check
         run: poetry run pylint src
+      - name: Robot checks
+        run: poetry run robot src

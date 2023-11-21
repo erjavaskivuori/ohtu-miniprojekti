@@ -1,0 +1,3 @@
+*** Settings ***
+Library  ../AppLibrary.py
+
