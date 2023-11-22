@@ -1,5 +1,5 @@
-from citations.citation_type import CitationType
-from citations.new_citation import Citation
+"""Tarjoaa pääsyn Citation ja CitationType luokkaan"""
+from citations.new_citation import Citation, CitationType
 
 # named in a way that .bib accepts
 # Could be moved to a file of it's own
@@ -19,8 +19,14 @@ INPROCEEDINGS_STRINGS = [AUTHOR, TITLE, BOOK_TITLE, YEAR]
 
 
 class CitationFactory():
+    """Luo käyttövalmiin Citation olion kun sille antaa CitationTypen.
+    Citation olio sisältää kaikki vaaditut arvot CitationAttribute listalla
+    riippuen siitä mikä CitationType annettiin.
+    """
 
     def get_new_citation(self, citation_type: CitationType):
+        """Palauttaa uuden Citation objectin jonka attribuutit vastaavat annettua tyyppiä.
+        """
         # hopefully temporary "if else hell":
         match citation_type:
             case CitationType.BOOK:

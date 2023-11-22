@@ -1,4 +1,11 @@
-from citations.citation_type import CitationType
+from enum import Enum
+from citations.new_citation import CitationType
+
+class CitationType(Enum):
+    BOOK = 1
+    ARTICLE = 2
+    INPROCEEDINGS = 3
+
 
 class CitationAttribute:
     def __init__(self, name: str):
@@ -16,6 +23,7 @@ class CitationAttribute:
 
     def __str__(self):
         return self.name + ": " + self.value
+
 
 class Citation():
     def __init__(self, citation_type: CitationType, attribute_names: list[str]):
