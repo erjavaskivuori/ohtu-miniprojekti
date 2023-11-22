@@ -1,6 +1,7 @@
 from database_connection import form_database_connection
 from entities.citation import Citation
 
+
 class CitationRepository():
 
     def __init__(self, connection: form_database_connection):
@@ -14,12 +15,12 @@ class CitationRepository():
 
     def create_citation(self, citation: Citation):
         cursor = self._connection.cursor()
-        cursor.execute("""INSERT INTO citations (type, author, title, year) 
-                       VALUES (?, ?, ?, ?)""", \
-                        [citation.type, citation.author, citation.title, citation.year])
-        
+        cursor.execute("""INSERT INTO citations (type, author, title, year)
+                       VALUES (?, ?, ?, ?)""",
+                       [citation.type, citation.author, citation.title, citation.year])
+
         self._connection.commit()
-    
+
     def get_one_citation(self, title: str):
         """Hakee yhden sitaatin.
 
@@ -38,8 +39,7 @@ class CitationRepository():
             return None
 
         return Citation(row[0], row[1], row[2], row[3])
-    
-    
+
     def get_all_citations(self):
         cursor = self._connection.cursor()
         cursor.execute(
@@ -47,7 +47,6 @@ class CitationRepository():
         rows = cursor.fetchall()
 
         return [Citation(row[0], row[1], row[2], row[3]) for row in rows]
-    
 
     def clear_table(self):
         cursor = self._connection.cursor()

@@ -2,6 +2,7 @@
 from tui.stub_io import StubIO
 from app import App
 
+
 class AppLibrary:
     def __init__(self):
         self._io = StubIO()
@@ -20,4 +21,3 @@ class AppLibrary:
 
     def run_application(self):
         self._app.run()
- 

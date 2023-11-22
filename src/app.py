@@ -5,9 +5,11 @@ from entities.citation import Citation
 from tui.tui import Tui, Commands
 from tui.tui_io import TuiIO
 
+
 class App:
     """ THE APPLICATION !!! """
-    def __init__(self, io = TuiIO()):
+
+    def __init__(self, io=TuiIO()):
         self.tui = Tui(io)
         self.cm = CitationManager()
 
@@ -30,7 +32,7 @@ class App:
             if action == Commands.HELP:
                 self.tui.help()
 
+
 if __name__ == "__main__":
     app = App()
     app.run()
- 

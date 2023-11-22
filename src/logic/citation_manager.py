@@ -21,7 +21,6 @@ class CitationManager():
 
         self._citation_repo.create_citation(citation)
 
-    
     def return_one_citation(self, title: str):
         """Hakee yhden sitaatin.
 
@@ -33,8 +32,7 @@ class CitationManager():
         """
 
         return self._citation_repo.get_one_citation(title)
-    
-    
+
     def return_all_citaions(self):
         """Listaa kaikki sitaatit.
 

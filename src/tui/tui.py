@@ -1,12 +1,14 @@
 """ TEXT USER INTERFACE - Module for user actions in test mode """
 from enum import Enum
 
+
 class Commands(Enum):
     """ Commands """
     QUIT = 0
     ADD = 1
     LIST = 2
     HELP = 3
+
 
 class Tui():
     """ Tui - Class for menu and user inputs in text mode """
@@ -61,7 +63,8 @@ tarvittavat tiedot."""
                     if cmd == desc:
                         keys.append(key)
                 self.output(f"   {keys[0]:6s}   {self.descriptions[desc]:40s}")
-                self.output(f"[myös: {', '.join(keys[1:])}]\n" if len(keys)>1 else "\n")
+                self.output(f"[myös: {', '.join(keys[1:])}]\n" if len(
+                    keys) > 1 else "\n")
         self.output("\n")
 
     def menu(self):

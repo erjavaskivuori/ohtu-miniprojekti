@@ -1,5 +1,6 @@
 from database_connection import form_database_connection
 
+
 def initialize_database():
     """Alustaa tietokannan taulut."""
 
@@ -7,6 +8,7 @@ def initialize_database():
 
     drop_tables(connection)
     create_tables(connection)
+
 
 def drop_tables(connection):
     """Poistaa tietokannan taulut.
@@ -20,6 +22,7 @@ def drop_tables(connection):
     cursor.execute("DROP TABLE IF EXISTS citations;")
 
     connection.commit()
+
 
 def create_tables(connection):
     """Luo tietokannan taulut.
