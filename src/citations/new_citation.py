@@ -1,5 +1,4 @@
 from enum import Enum
-from citations.new_citation import CitationType
 
 class CitationType(Enum):
     BOOK = 1
