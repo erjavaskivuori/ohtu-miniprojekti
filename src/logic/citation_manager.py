@@ -21,6 +21,20 @@ class CitationManager():
 
         self._citation_repo.create_citation(citation)
 
+    
+    def return_one_citation(self, title: str):
+        """Hakee yhden sitaatin.
+
+        Args:
+            title: sitaatin otsikko.
+
+        Returns:
+            Palauttaa sitaatin, joka vastaa hakua. None jos sitaattia ei löydy.
+        """
+
+        return self._citation_repo.get_one_citation(title)
+    
+    
     def return_all_citaions(self):
         """Listaa kaikki sitaatit.
 
@@ -38,6 +52,12 @@ class CitationManager():
 
         for citation in citations:
             print(citation)
+
+    def clear_all(self):
+        """Tyhjentää tietokannan.
+        """
+
+        self._citation_repo.clear_table()
 
 #    def delete_citation(self, citation):
 #        None
