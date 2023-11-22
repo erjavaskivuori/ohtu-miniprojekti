@@ -21,7 +21,7 @@ class CitationRepository():
         self._connection.commit()
     
     def get_one_citation(self, title: str):
-        """_summary_
+        """Hakee yhden sitaatin.
 
         Args:
             title (str): title, jonka perusteella sitaatti haetaan
