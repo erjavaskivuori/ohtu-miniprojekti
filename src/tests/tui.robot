@@ -11,8 +11,9 @@ Print Help Menu
 
 Print Viitteet 
 	Input  listaa
+	input  lopeta
 	Run Application
-	Output Should Contain  listaa kaikista
+	Output Should Contain  lista kaikista
 
 *** Keywords ***
 Create Citation Article
