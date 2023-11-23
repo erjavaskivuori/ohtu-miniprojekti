@@ -8,6 +8,13 @@ Print Help Menu
 	Run Application
 	Output Should Contain  \nApu:\n
 
+
+Print Viitteet 
+	Input  listaa
+	input  lopeta
+	Run Application
+	Output Should Contain  lista kaikista
+
 *** Keywords ***
 Create Citation Article
 	Input  lisää

@@ -3,3 +3,7 @@ __pycache__
 .pytest_cache
 .coverage
 poetry.lock
+log.html
+output.xml
+report.html
+src/db/database.sqlite

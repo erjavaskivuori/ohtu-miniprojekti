@@ -16,7 +16,9 @@ class App:
     def run(self):
         """ This starts the application """
         while True:
+
             action = self.tui.menu()
+
             if action == Commands.QUIT:
                 break
             if action == Commands.ADD:
@@ -28,7 +30,8 @@ class App:
                 )
                 self.cm.add_citation(c)
             if action == Commands.LIST:
-                self.cm.print_all()
+                #self.cm.print_all()
+                self.tui.list_all()
             if action == Commands.HELP:
                 self.tui.help()
 
