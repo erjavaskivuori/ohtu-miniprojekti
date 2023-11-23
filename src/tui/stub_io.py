@@ -5,16 +5,13 @@ class StubIO:
         self.outputs = []
 
     def output(self, value):
-        #print(f"We are in StubIO.output(). Appending to output list:{value}")
-        self.outputs.append(value)
-        #print("arvot ovat:", self.outputs)
+        self.outputs.append(str(value))
 
-    def input(self, prompt):
+    def input(self):
         if len(self.inputs) > 0:
-            #print("We are in StubIO.input()")
             return self.inputs.pop(0)
-        #return ""
-        raise RuntimeError("No input given")
+        # If list of inputs is empry, give \0 as input continously
+        return "\0"
 
     def add_input(self, value):
         self.inputs.append(value)

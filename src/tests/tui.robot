@@ -2,18 +2,36 @@
 Resource  resource.robot
 
 *** Test Cases ***
+Application Starts
+	Run Application
+	Output Should Contain  TERVETULOA
+
+
+Menu Prompt Is Shown
+	Run Application
+	Output Should Contain  Komento (apu: syötä menu):
+
+
 Print Help Menu
 	Input  menu
-	Input  lopeta
 	Run Application
-	Output Should Contain  \nApu:\n
+	Output Should Contain  Apu:
 
 
 Print Citation List
 	Input  listaa
-	input  lopeta
 	Run Application
-	Output Should Contain  lista kaikista
+	Output Should Contain  a, a, a
+
+
+Adding Citation Gives Correct Prompts
+	Input  lisää
+	Run Application
+	Output Should Contain  Syötä tyyppi:
+	Output Should Contain  Syötä tekijä:
+	Output Should Contain  Syötä otsikko:
+	Output Should Contain  Syötä vuosi:
+
 
 *** Keywords ***
 Create Citation Article

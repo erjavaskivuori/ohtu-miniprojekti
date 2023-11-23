@@ -10,33 +10,38 @@ class App:
     """ THE APPLICATION !!! """
 
     def __init__(self, io=TuiIO()):
-        self.tui = Tui(io)
-        self.cm = CitationManager()
+        self._tui = Tui(io)
+        self._cm = CitationManager(self._tui)
 
     def run(self):
-        """ This starts the application """
+        """ This starts the application """        
+        self._tui.greet()
         while True:
 
-            action = self.tui.menu()
+            action = self._tui.menu()
 
+            if action == "\0":
+                break
             if action == Commands.QUIT:
                 break
             if action == Commands.ADD:
                 c = Citation(
-                    self.tui.ask("tyyppi"),
-                    self.tui.ask("tekijä"),
-                    self.tui.ask("otsikko"),
-                    self.tui.ask("vuosi", Citation.year_validator)
+                    self._tui.ask("tyyppi"),
+                    self._tui.ask("tekijä"),
+                    self._tui.ask("otsikko"),
+                    self._tui.ask("vuosi", Citation.year_validator)
                 )
-                self.cm.add_citation(c)
+                self._cm.add_citation(c)
+                                
             if action == Commands.LIST:
                 # tulostetaan kaikki viitteet CitationManagerin metodilla
                 # testaamista ajatellen tuloste pitäisi palauttaa ja kirjoittaa
                 # io:lla outputtiin
-                #self.cm.print_all()
-                self.tui.list_all()
+                #self._tui.list_all()
+                self._cm.print_all()
             if action == Commands.HELP:
-                self.tui.help()
+                self._tui.help()
+                
 
 
 if __name__ == "__main__":

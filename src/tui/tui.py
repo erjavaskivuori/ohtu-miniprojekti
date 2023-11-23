@@ -49,6 +49,9 @@ tarvittavat tiedot."""
     def __init__(self, io):
         self.input = io.input
         self.output = io.output
+
+    def greet(self):
+        """ greet() - greets user """
         self.output(self.greetings)
 
     def help(self):
@@ -71,8 +74,10 @@ tarvittavat tiedot."""
     def menu(self):
         """ menu() - prints out menu prompt and demands valid command """
         while True:
-            #self.output("\nKomento (apu: syötä menu): ")
-            key = self.input("\nKomento (apu: syötä menu): ")
+            self.output("\nKomento (apu: syötä menu): ")
+            key = self.input()
+            if key == "\0":
+                return "\0";
             if key in self.commands:
                 break
             self.output(f"\033[31m{key}: tuntematon komento.\033[0m\n")
@@ -81,9 +86,10 @@ tarvittavat tiedot."""
     def ask(self, question: str, validator=lambda a: True):
         """ ask(str, function) - ask user for input and validates it """
         while True:
-            #self.output(f"\nSyötä {question}: ")
-            prompt = f"\nSyötä {question}: "
-            a = self.input(prompt)
+            self.output(f"\nSyötä {question}: ")
+            a = self.input()
+            if a == "\0":
+                return "\0"
             if a != "" and validator(a):
                 break
             self.output(f"\033[31mSyöte '{a}' ei kelpaa.\033[0m\n")
@@ -96,3 +102,18 @@ tarvittavat tiedot."""
         info_message = """\nJos haluat listata viitteet tietokannasta,
         kommentoi pois App.py:stä self.cm.print_all()"""
         self.output(info_message)
+        
+    def print_item_entry(self, id :str, txt :str):
+        self.output(f"[id={id}]\t{txt}\n")
+    
+    def print_item_attribute(self, key :str, value :str):
+        self.output(f"\t{key%12}:{value}\n")
+    
+    def print(self, msg :str):
+        self.output(msg)
+        self.output("\n")
+    
+    def print_error(self, msg :str):
+        self.output("\033[31m*** VIRHE: "+msg+"\033[0m")
+        self.output("\n")
+    

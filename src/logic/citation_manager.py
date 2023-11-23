@@ -6,10 +6,10 @@ class CitationManager():
     """Socelluslogiikasta vastaava luokka.
     """
 
-    def __init__(self, citation_repo=citation_repository):
+    def __init__(self, tui, citation_repo=citation_repository):
         """Luokan konstruktori. Luo uuden sovelluslogiikasta vastaavan palvelun.
         """
-
+        self._tui = tui
         self._citation_repo = citation_repo
 
     def add_citation(self, citation: Citation):
@@ -49,7 +49,7 @@ class CitationManager():
         citations = self._citation_repo.get_all_citations()
 
         for citation in citations:
-            print(citation)
+            self._tui.print(citation)
 
     def clear_all(self):
         """Tyhjentää tietokannan.
