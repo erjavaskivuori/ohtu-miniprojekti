@@ -12,6 +12,7 @@ class AppLibrary:
         self._io.add_input(value)
 
     def output_should_contain(self, value):
+        print("We are in AppLibrary.output_should_contain()")
         outputs = self._io.outputs
 
         if not value in outputs:

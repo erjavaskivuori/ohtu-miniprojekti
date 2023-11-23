@@ -1,3 +1,5 @@
+#import sys, pdb
+
 """ TEXT USER INTERFACE - Module for user actions in test mode """
 from enum import Enum
 
@@ -52,6 +54,7 @@ tarvittavat tiedot."""
 
     def help(self):
         """ help() - prints out usage and command information """
+        #pdb.Pdb(stdout=sys.__stdout__).set_trace()
         self.output(self.usage)
         self.output("\nApu:\n")
         for cat, cmd_in_cat in self.categories.items():
@@ -70,8 +73,8 @@ tarvittavat tiedot."""
     def menu(self):
         """ menu() - prints out menu prompt and demands valid command """
         while True:
-            self.output("\nKomento (apu: syötä menu): ")
-            key = self.input()
+            #self.output("\nKomento (apu: syötä menu): ")
+            key = self.input("\nKomento (apu: syötä menu): ")
             if key in self.commands:
                 break
             self.output(f"\033[31m{key}: tuntematon komento.\033[0m\n")
@@ -80,9 +83,15 @@ tarvittavat tiedot."""
     def ask(self, question: str, validator=lambda a: True):
         """ ask(str, function) - ask user for input and validates it """
         while True:
-            self.output(f"\nSyötä {question}: ")
-            a = self.input()
+            #self.output(f"\nSyötä {question}: ")
+            prompt = f"\nSyötä {question}: "
+            a = self.input(prompt)
             if a != "" and validator(a):
                 break
             self.output(f"\033[31mSyöte '{a}' ei kelpaa.\033[0m\n")
         return a
+
+    def list_all(self):
+        #pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        print("we ar in Tui list_all()")
+        self.output("lista kaikista")
