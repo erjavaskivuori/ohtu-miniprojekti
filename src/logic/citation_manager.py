@@ -18,8 +18,25 @@ class CitationManager():
         Args:
             citation: lisättävä sitaatti Citation-oliona.
         """
-
         self._citation_repo.create_citation(citation)
+
+    def add_citation_by_user_input(self):
+        """Luo uuden sitaatin kysellen käyttäjältä.
+
+        Args:
+            -
+            
+        TODO:
+            * Make it ask relevant data for the citation type
+            * Handle error situation and return False            
+        """
+        self.add_citation( Citation(
+            self._tui.ask("tyyppi"),
+            self._tui.ask("tekijä"),
+            self._tui.ask("otsikko"),
+            self._tui.ask("vuosi", Citation.year_validator)
+        ) )
+        return True
 
     def return_one_citation(self, title: str):
         """Hakee yhden sitaatin.
@@ -44,12 +61,15 @@ class CitationManager():
 
     def print_all(self):
         """Tulostaa kaikki sitaatit.
+        
+            Tämä tässä vain esimerkkinä. CitationFactory ja Atribuutit käyttöön
         """
 
-        citations = self._citation_repo.get_all_citations()
-
-        for citation in citations:
-            self._tui.print(citation)
+        for c in  self._citation_repo.get_all_citations():
+            self._tui.print_item_entry( 0, c.title )
+            self._tui.print_item_attribute( "tyyppi", c.type )
+            self._tui.print_item_attribute( "tekijä", c.author )
+            self._tui.print_item_attribute( "vuosi", c.year )
 
     def clear_all(self):
         """Tyhjentää tietokannan.

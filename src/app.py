@@ -1,7 +1,6 @@
 """ app.py - The main application """
 
 from logic.citation_manager import CitationManager
-from entities.citation import Citation
 from tui.tui import Tui, Commands
 from tui.tui_io import TuiIO
 
@@ -20,24 +19,14 @@ class App:
 
             action = self._tui.menu()
 
-            if action == "\0":
+            if action == "\0": # Fast escape used ony by tests
                 break
             if action == Commands.QUIT:
                 break
             if action == Commands.ADD:
-                c = Citation(
-                    self._tui.ask("tyyppi"),
-                    self._tui.ask("tekijä"),
-                    self._tui.ask("otsikko"),
-                    self._tui.ask("vuosi", Citation.year_validator)
-                )
-                self._cm.add_citation(c)
-
+                if not self._cm.add_citation_by_user_input():
+                    self._tui.print_error("Viitten lisäys ei onnistunut")
             if action == Commands.LIST:
-                # tulostetaan kaikki viitteet CitationManagerin metodilla
-                # testaamista ajatellen tuloste pitäisi palauttaa ja kirjoittaa
-                # io:lla outputtiin
-                #self._tui.list_all()
                 self._cm.print_all()
             if action == Commands.HELP:
                 self._tui.help()

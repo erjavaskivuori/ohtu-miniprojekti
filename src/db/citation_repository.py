@@ -32,7 +32,8 @@ class CitationRepository():
         """
         cursor = self._connection.cursor()
         cursor.execute(
-            "SELECT * FROM citations WHERE title = ?", [title])
+            "SELECT type, author, title, year FROM citations WHERE title = ?",
+            [title])
         row = cursor.fetchone()
 
         if row is None:
@@ -43,7 +44,7 @@ class CitationRepository():
     def get_all_citations(self):
         cursor = self._connection.cursor()
         cursor.execute(
-            "SELECT * FROM citations")
+            "SELECT type, author, title, year FROM citations")
         rows = cursor.fetchall()
 
         return [Citation(row[0], row[1], row[2], row[3]) for row in rows]

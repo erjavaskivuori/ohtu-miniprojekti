@@ -67,8 +67,8 @@ tarvittavat tiedot."""
                     if cmd == desc:
                         keys.append(key)
                 self.output(f"   {keys[0]:6s}   {self.descriptions[desc]:40s}")
-                self.output(f"[myös: {', '.join(keys[1:])}]\n" if len(
-                    keys) > 1 else "\n")
+                self.output(f"[myös: {', '.join(keys[1:])}]\n"
+                        if len(keys) > 1 else "\n")
         self.output("\n")
 
     def menu(self):
@@ -76,11 +76,11 @@ tarvittavat tiedot."""
         while True:
             self.output("\nKomento (apu: syötä menu): ")
             key = self.input()
-            if key == "\0":
+            if key == "\0": # Fast escape used ony by tests
                 return "\0"
             if key in self.commands:
                 break
-            self.output(f"\033[31m{key}: tuntematon komento.\033[0m\n")
+            self.print_error(f"{key}: tuntematon komento.")
         return self.commands[key]
 
     def ask(self, question: str, validator=lambda a: True):
@@ -88,27 +88,30 @@ tarvittavat tiedot."""
         while True:
             self.output(f"\nSyötä {question}: ")
             a = self.input()
-            if a == "\0":
+            if a == "\0": # Fast escape used ony by tests
                 return "\0"
             if a != "" and validator(a):
                 break
-            self.output(f"\033[31mSyöte '{a}' ei kelpaa.\033[0m\n")
+            self.print_error(f"Syöte '{a}' ei kelpaa.")
         return a
 
 
     def print_item_entry(self, cite_id :str, txt :str):
-        self.output(f"[id={cite_id}]\t{txt}\n")
+        """ print_item_entry() - For printing identifying line of citation"""
+        self.output(f"\n\033[35mid:{cite_id}\t{txt}\033[0m\n")
 
 
     def print_item_attribute(self, key :str, value :str):
-        self.output(f"\t{key%12}:{value}\n")
+        """ print_item_attribute(key, value) -
+                    for printing attributes of citation just after id line"""
+        self.output(f"\t{key+':':12s}{value}\n")
 
 
     def print(self, msg :str):
-        self.output(msg)
-        self.output("\n")
+        """ print(msg) - Just for printing plain text """
+        self.output(str(msg)+"\n")
 
 
     def print_error(self, msg :str):
-        self.output("\033[31m*** VIRHE: "+msg+"\033[0m")
-        self.output("\n")
+        """ print_error(msg) - For printing ERROR messages in RED color """
+        self.output("\033[31m*** VIRHE: "+msg+"\033[0m\n")
