@@ -30,6 +30,9 @@ class App:
                 )
                 self.cm.add_citation(c)
             if action == Commands.LIST:
+                # tulostetaan kaikki viitteet CitationManagerin metodilla
+                # testaamista ajatellen tuloste pitäisi palauttaa ja kirjoittaa
+                # io:lla outputtiin
                 #self.cm.print_all()
                 self.tui.list_all()
             if action == Commands.HELP:

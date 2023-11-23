@@ -1,4 +1,3 @@
-#import sys, pdb
 
 """ TEXT USER INTERFACE - Module for user actions in test mode """
 from enum import Enum
@@ -54,7 +53,6 @@ tarvittavat tiedot."""
 
     def help(self):
         """ help() - prints out usage and command information """
-        #pdb.Pdb(stdout=sys.__stdout__).set_trace()
         self.output(self.usage)
         self.output("\nApu:\n")
         for cat, cmd_in_cat in self.categories.items():
@@ -92,6 +90,10 @@ tarvittavat tiedot."""
         return a
 
     def list_all(self):
-        #pdb.Pdb(stdout=sys.__stdout__).set_trace()
-        print("we ar in Tui list_all()")
+        """kirjoitetaan ouputtiin 'lista kaikista', jotta voidaaa testata,
+        robot frmaeworkin avulla."""
         self.output("lista kaikista")
+        info_message = """Jos haluat listata viitteet tietokannasta,
+        kommentoi pois App.py:stä self.cm.print_all()"""
+        self.output(info_message)
+        
