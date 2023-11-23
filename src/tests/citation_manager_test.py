@@ -1,11 +1,13 @@
 import unittest
 from logic.citation_manager import CitationManager
 from entities.citation import Citation
+from tui.tui import Tui
+from tui.tui_io import TuiIO
 
 
 class TestCitationManager(unittest.TestCase):
     def setUp(self):
-        self.manager = CitationManager()
+        self.manager = CitationManager(Tui(TuiIO()))
         self.manager.clear_all()  # Clear database before tests
         self.citation = Citation("a", "a", "a", 11)
         self.citation2 = Citation("b", "b", "b", 12)
