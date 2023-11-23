@@ -9,7 +9,7 @@ Print Help Menu
 	Output Should Contain  \nApu:\n
 
 
-Print Viitteet 
+Print Citation List
 	Input  listaa
 	input  lopeta
 	Run Application
