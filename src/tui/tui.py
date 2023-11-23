@@ -93,7 +93,6 @@ tarvittavat tiedot."""
         """kirjoitetaan ouputtiin 'lista kaikista', jotta voidaaa testata,
         robot frmaeworkin avulla."""
         self.output("lista kaikista")
-        info_message = """Jos haluat listata viitteet tietokannasta,
+        info_message = """\nJos haluat listata viitteet tietokannasta,
         kommentoi pois App.py:stä self.cm.print_all()"""
         self.output(info_message)
-        
