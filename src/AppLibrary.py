@@ -24,7 +24,7 @@ class AppLibrary:
         print("We are in AppLibrary.output_should_contain()")
         outputs = self._io.outputs
         found = [line for line in outputs if line.find(value)>0]
-        
+
         if not found:
             raise AssertionError(
                 f"String \"{value}\" is found in {str(outputs)}"

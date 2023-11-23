@@ -77,7 +77,7 @@ tarvittavat tiedot."""
             self.output("\nKomento (apu: syötä menu): ")
             key = self.input()
             if key == "\0":
-                return "\0";
+                return "\0"
             if key in self.commands:
                 break
             self.output(f"\033[31m{key}: tuntematon komento.\033[0m\n")
@@ -95,25 +95,20 @@ tarvittavat tiedot."""
             self.output(f"\033[31mSyöte '{a}' ei kelpaa.\033[0m\n")
         return a
 
-    def list_all(self):
-        """kirjoitetaan ouputtiin 'lista kaikista', jotta voidaaa testata,
-        robot frmaeworkin avulla."""
-        self.output("lista kaikista")
-        info_message = """\nJos haluat listata viitteet tietokannasta,
-        kommentoi pois App.py:stä self.cm.print_all()"""
-        self.output(info_message)
-        
-    def print_item_entry(self, id :str, txt :str):
-        self.output(f"[id={id}]\t{txt}\n")
-    
+
+    def print_item_entry(self, cite_id :str, txt :str):
+        self.output(f"[id={cite_id}]\t{txt}\n")
+
+
     def print_item_attribute(self, key :str, value :str):
         self.output(f"\t{key%12}:{value}\n")
-    
+
+
     def print(self, msg :str):
         self.output(msg)
         self.output("\n")
-    
+
+
     def print_error(self, msg :str):
         self.output("\033[31m*** VIRHE: "+msg+"\033[0m")
         self.output("\n")
-    

@@ -32,7 +32,7 @@ class App:
                     self._tui.ask("vuosi", Citation.year_validator)
                 )
                 self._cm.add_citation(c)
-                                
+
             if action == Commands.LIST:
                 # tulostetaan kaikki viitteet CitationManagerin metodilla
                 # testaamista ajatellen tuloste pitäisi palauttaa ja kirjoittaa
@@ -41,7 +41,6 @@ class App:
                 self._cm.print_all()
             if action == Commands.HELP:
                 self._tui.help()
-                
 
 
 if __name__ == "__main__":
