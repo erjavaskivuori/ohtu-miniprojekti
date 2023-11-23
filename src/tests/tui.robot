@@ -18,12 +18,6 @@ Print Help Menu
 	Output Should Contain  Apu:
 
 
-Print Citation List
-	Input  listaa
-	Run Application
-	Output Should Contain  a, a, a
-
-
 Adding Citation Gives Correct Prompts
 	Input  lisää
 	Run Application
@@ -31,6 +25,23 @@ Adding Citation Gives Correct Prompts
 	Output Should Contain  Syötä tekijä:
 	Output Should Contain  Syötä otsikko:
 	Output Should Contain  Syötä vuosi:
+
+
+Added Citation Can Be Found on Citation List
+	Create Citation Article
+	Input  listaa
+	Run Application
+	Output Should Contain  Nimi Sukunimi
+	Output Should Contain  Otsikko on Aina Kiva Olla
+
+
+Resetting Database Works
+	Create Citation Article
+	Run Application
+	Reset Database
+	Input  listaa
+	Run Application
+	Output Should Not Contain  Nimi Sukunimi
 
 
 *** Keywords ***
