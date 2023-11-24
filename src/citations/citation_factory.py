@@ -1,5 +1,5 @@
 """Tarjoaa pääsyn Citation ja CitationType luokkaan"""
-from citations.new_citation import Citation, CitationType
+from new_citation import Citation, CitationType
 
 # named in a way that .bib accepts
 # Could be moved to a file of it's own
@@ -23,8 +23,8 @@ class CitationFactory():
     Citation olio sisältää kaikki vaaditut arvot CitationAttribute listalla
     riippuen siitä mikä CitationType annettiin.
     """
-
-    def get_new_citation(self, citation_type: CitationType):
+    @staticmethod
+    def get_new_citation(citation_type: CitationType):
         """Palauttaa uuden Citation objectin jonka attribuutit vastaavat annettua tyyppiä.
         """
         # hopefully temporary "if else hell":
