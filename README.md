@@ -6,8 +6,10 @@
 ## Käyttöohjeet
 1. Ohjelma toimii komentorivillä. Sinulla tulee olla asennettuna [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) ja vähintään [Python](https://www.python.org/downloads/) 3.10.
 2. Kloonaa komentorivin komennolla `git clone git@github.com:erjavaskivuori/ohtu-miniprojekti.git` ohjelma haluttuun paikkaan.
-2. Suorita python ohjelma komennolla `python ohtu-miniprojekti/src/app.py`
-3. Ohjelma antaa kaikki ohjeet viitteiden hallintaan. Käskyillä `m`, `h` tai `?` saat kaikki komennot näkyviin.
+3. Asenna riippuvuudet komennolla `poetry install`
+4. Suorita tietokannan alustus komennolla `python3 ohtu-miniprojekti/src/build.py`
+5. Suorita python ohjelma komennolla `python3 ohtu-miniprojekti/src/app.py`
+6. Ohjelma antaa kaikki ohjeet viitteiden hallintaan. Käskyillä `menu`, `apua` tai `auta` saat kaikki komennot näkyviin.
 
 ## Definition of done
 
