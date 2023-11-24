@@ -50,8 +50,8 @@ class CitationRepository():
         column = 2
 
         for attribute in citation.attributes:
-            if row[column] == "":
-                continue
+            while row[column] == '':
+                column += 1
             attribute.set_value(row[column])
             column += 1
             
