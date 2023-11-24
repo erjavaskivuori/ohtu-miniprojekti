@@ -22,7 +22,7 @@ class CitationAttribute:
         self.value = value
 
     def __str__(self):
-        return self.name + ": " + self.value
+        return self.name + ": " + str(self.value)
 
 
 class Citation():

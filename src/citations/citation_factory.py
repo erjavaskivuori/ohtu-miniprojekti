@@ -12,9 +12,9 @@ BOOK_TITLE = "booktitle"
 # Requiredfields: author,title,year/date
 BOOK_STRINGS = [AUTHOR, TITLE, YEAR]
 # Requiredfields: author,title,journaltitle,year/date
-ARTICLE_STRINGS = [AUTHOR, TITLE, JOURNAL_TITLE, YEAR]
+ARTICLE_STRINGS = [AUTHOR, TITLE, YEAR, JOURNAL_TITLE]
 # Requiredfields: author,title,booktitle,year/date
-INPROCEEDINGS_STRINGS = [AUTHOR, TITLE, BOOK_TITLE, YEAR]
+INPROCEEDINGS_STRINGS = [AUTHOR, TITLE, YEAR,  BOOK_TITLE]
 # --------------------------------------
 
 

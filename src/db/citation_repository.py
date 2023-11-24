@@ -1,6 +1,8 @@
 from database_connection import form_database_connection
 from citations.new_citation import Citation, CitationType, CitationAttribute
-from citations.citation_factory import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, BOOK_TITLE
+from citations.citation_factory import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, \
+                                BOOK_TITLE, CitationFactory
+
 
 
 class CitationRepository():
@@ -16,11 +18,10 @@ class CitationRepository():
 
     def create_citation(self, citation: Citation):
         attributes = citation.get_attributes_dictionary()
-        print(attributes)
         cursor = self._connection.cursor()
         cursor.execute("""INSERT INTO citations (type, author, title, year, journal_title, book_title)
                        VALUES (?, ?, ?, ?, ?, ?)""",
-                       [citation.type.name, attributes.get(AUTHOR, ""), attributes.get(TITLE, ""), attributes.get(YEAR, ""), \
+                       [citation.type.value, attributes.get(AUTHOR, ""), attributes.get(TITLE, ""), attributes.get(YEAR, ""), \
                           attributes.get(JOURNAL_TITLE, ""), attributes.get(BOOK_TITLE, "")])
 
         self._connection.commit()
@@ -36,22 +37,52 @@ class CitationRepository():
         """
         cursor = self._connection.cursor()
         cursor.execute(
-            "SELECT type, author, title, year FROM citations WHERE title = ?",
-            [title])
+            "SELECT * FROM citations WHERE title = ?", [title])
         row = cursor.fetchone()
 
         if row is None:
             return None
 
-        return Citation(row[0], row[1], row[2], row[3])
+        type = row[1]
+
+        citation = CitationFactory.get_new_citation(CitationType(int(type)))
+
+        column = 2
+
+        for attribute in citation.attributes:
+            if row[column] == "":
+                continue
+            attribute.set_value(row[column])
+            column += 1
+            
+        return citation
 
     def get_all_citations(self):
         cursor = self._connection.cursor()
         cursor.execute(
-            "SELECT type, author, title, year FROM citations")
+            "SELECT * FROM citations")
         rows = cursor.fetchall()
 
-        return [Citation(row[0], row[1], row[2], row[3]) for row in rows]
+        if rows is None:
+            return None
+
+        citations = {}
+
+        for row in rows:
+            type = row[1]
+            citation = CitationFactory.get_new_citation(CitationType(int(type)))
+
+            column = 2
+
+            for attribute in citation.attributes:
+                while row[column] == '':
+                    column += 1
+                attribute.set_value(row[column])
+                column += 1
+                
+            citations[row[0]] = citation
+
+        return citations
 
     def clear_table(self):
         cursor = self._connection.cursor()
