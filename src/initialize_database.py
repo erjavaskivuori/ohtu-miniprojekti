@@ -38,7 +38,9 @@ def create_tables(connection):
         type TEXT, 
         author TEXT,
         title TEXT,
-        year INT);""")
+        year INT,
+        journal_title TEXT,
+        book_title TEXT);""")
 
     connection.commit()
 

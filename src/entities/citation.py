@@ -17,6 +17,6 @@ class Citation():
         except ValueError:
             return False
         return True
-
+    
     def __str__(self):
         return f"{self.type}, {self.author}, {self.title}, {self.year}"

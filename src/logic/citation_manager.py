@@ -1,4 +1,5 @@
-from entities.citation import Citation
+from citations.new_citation import Citation, CitationType, CitationAttribute
+from citations.citation_factory import CitationFactory
 from db.citation_repository import citation_repository
 
 
@@ -30,12 +31,28 @@ class CitationManager():
             * Make it ask relevant data for the citation type
             * Handle error situation and return False            
         """
-        self.add_citation( Citation(
-            self._tui.ask("tyyppi"),
-            self._tui.ask("tekijä"),
-            self._tui.ask("otsikko"),
-            self._tui.ask("vuosi", Citation.year_validator)
-        ) )
+
+        type = self._tui.ask('tyyppi, vaihtoehtoja ovat Book (1), Article (2) ja Inproceedings (3)', self.type_validator)
+        
+        
+
+        citation = CitationFactory.get_new_citation(CitationType(int(type)))
+
+        for attribute in citation.attributes:
+            attribute.set_value(self._tui.ask(attribute.name))
+
+        self.add_citation(citation)
+
+        return True
+    
+    @staticmethod
+    def type_validator(type):
+        try:
+            i = int(type)
+            if i < 1 or i > 3:
+                return False
+        except ValueError:
+            return False
         return True
 
     def return_one_citation(self, title: str):

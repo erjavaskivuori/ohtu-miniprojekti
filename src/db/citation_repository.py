@@ -1,5 +1,6 @@
 from database_connection import form_database_connection
-from entities.citation import Citation
+from citations.new_citation import Citation, CitationType, CitationAttribute
+from citations.citation_factory import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, BOOK_TITLE
 
 
 class CitationRepository():
@@ -14,10 +15,13 @@ class CitationRepository():
         self._connection = connection
 
     def create_citation(self, citation: Citation):
+        attributes = citation.get_attributes_dictionary()
+        print(attributes)
         cursor = self._connection.cursor()
-        cursor.execute("""INSERT INTO citations (type, author, title, year)
-                       VALUES (?, ?, ?, ?)""",
-                       [citation.type, citation.author, citation.title, citation.year])
+        cursor.execute("""INSERT INTO citations (type, author, title, year, journal_title, book_title)
+                       VALUES (?, ?, ?, ?, ?, ?)""",
+                       [citation.type.name, attributes.get(AUTHOR, ""), attributes.get(TITLE, ""), attributes.get(YEAR, ""), \
+                          attributes.get(JOURNAL_TITLE, ""), attributes.get(BOOK_TITLE, "")])
 
         self._connection.commit()
 
