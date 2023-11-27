@@ -27,6 +27,7 @@ Adding Book Gives Correct Prompt
 	Output Should Contain  Syötä title:
 	Output Should Contain  Syötä year:
 
+
 Added Citation Can Be Found on Citation List
 	Create Citation Article
 	Input  listaa
@@ -42,8 +43,6 @@ Resetting Database Works
 	Input  listaa
 	Run Application
 	Output Should Not Contain  Nimi Sukunimi
-
-
 
 
 *** Keywords ***

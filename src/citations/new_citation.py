@@ -37,10 +37,10 @@ class Citation():
         for attribute in self.attributes:
             return_string += str(attribute) + "\n"
         return return_string
-    
-    def get_attributes_dictionary(self):
-        dict = {}
-        for attribute in self.attributes:
-            dict[attribute.get_name()] = attribute.get_value()
 
-        return dict
+    def get_attributes_dictionary(self):
+        adict = {}
+        for attribute in self.attributes:
+            adict[attribute.get_name()] = attribute.get_value()
+
+        return adict
