@@ -18,14 +18,14 @@ Print Help Menu
 	Output Should Contain  Apu:
 
 
-Adding Citation Gives Correct Prompts
+Adding Book Gives Correct Prompt
 	Input  lisää
+	Input  1
 	Run Application
-	Output Should Contain  Syötä tyyppi:
-	Output Should Contain  Syötä tekijä:
-	Output Should Contain  Syötä otsikko:
-	Output Should Contain  Syötä vuosi:
-
+	Output Should Contain  Syötä tyypin numero
+	Output Should Contain  Syötä author:
+	Output Should Contain  Syötä title:
+	Output Should Contain  Syötä year:
 
 Added Citation Can Be Found on Citation List
 	Create Citation Article
@@ -44,10 +44,13 @@ Resetting Database Works
 	Output Should Not Contain  Nimi Sukunimi
 
 
+
+
 *** Keywords ***
 Create Citation Article
 	Input  lisää
-	Input  article
+	Input  2
 	Input  Nimi Sukunimi
 	Input  Otsikko on Aina Kiva Olla
 	Input  2004
+	Input  Joku journaltitle

@@ -104,7 +104,7 @@ tarvittavat tiedot."""
     def print_item_attribute(self, key :str, value :str):
         """ print_item_attribute(key, value) -
                     for printing attributes of citation just after id line"""
-        self.output(f"\t{key+':':12s}{value}\n")
+        self.output(f"\t{key+':':14s}{value}\n")
 
 
     def print(self, msg :str):
