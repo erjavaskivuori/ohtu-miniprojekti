@@ -32,8 +32,9 @@ class CitationManager():
             * Handle error situation and return False            
         """
 
-        citation_type = self._tui.ask('tyypin numero, vaihtoehtoja ovat Kirja (1), \
-                             Artikkeli (2) ja Inproceedings (3)', self.type_validator)
+        citation_type = self._tui.ask( \
+        'tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)', \
+        self.type_validator)
 
         citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
 
