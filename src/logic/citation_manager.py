@@ -32,7 +32,7 @@ class CitationManager():
             * Handle error situation and return False            
         """
 
-        type = self._tui.ask('tyypin numero, vaihtoehtoja ovat Book (1), Article (2) ja Inproceedings (3)', self.type_validator)
+        type = self._tui.ask('tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)', self.type_validator)
         
         citation = CitationFactory.get_new_citation(CitationType(int(type)))
 
@@ -85,7 +85,7 @@ class CitationManager():
         for key in citations:
             c = citations[key]
             attributes = c.get_attributes_dictionary()
-            self._tui.print_item_entry(key, attributes['title'])
+            self._tui.print_item_entry(key, attributes['otsikko'])
             self._tui.print_item_attribute("type", c.type.name)
             for attribute in attributes:
                 self._tui.print_item_attribute(attribute, attributes[attribute])
