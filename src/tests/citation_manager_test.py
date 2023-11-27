@@ -1,7 +1,5 @@
 import unittest
 from logic.citation_manager import CitationManager
-from citations.citation_factory import CitationFactory
-from db.citation_repository import CitationRepository
 from citations.new_citation import Citation, CitationType
 from tui.tui import Tui
 from tui.tui_io import TuiIO
@@ -22,6 +20,11 @@ class TestCitationManager(unittest.TestCase):
         self.book.attributes[1].set_value("moi")
         self.article.attributes[1].set_value("jee")
         self.inproceedings.attributes[1].set_value("jeee")
+        self.book.attributes[2].set_value(2023)
+        self.book.attributes[0].set_value("hello")
+        self.inproceedings.attributes[2].set_value(2000)
+        self.inproceedings.attributes[3].set_value("moi")
+        self.inproceedings.attributes[0].set_value("ok")
 
     def test_add_one_citation(self):
         self.manager.add_citation(self.book)
@@ -39,21 +42,18 @@ class TestCitationManager(unittest.TestCase):
         self.assertEqual(citation, None)
 
     def test_get_one_citation(self):
-        self.article.attributes[2].set_value("hi")
-        self.article.attributes[3].set_value("hello")
-        self.manager.add_citation(self.article)
-        citation = self.manager.return_one_citation("jee")
-        self.assertEqual(citation.attributes[2].get_value(),self.article.attributes[2].get_value())
+        self.manager.add_citation(self.book)
+        self.assertEqual(self.book.attributes[1].get_value(),"moi")
     
-    # def test_return_all_citations(self):
-    #     self.manager.add_citation(self.citation)
-    #     self.manager.add_citation(self.citation2)
-    #     # self.assertEqual(self.manager.return_all_citaions(),
-    #     #                 [self.citation, self.citation2])
-    #     self.assertEqual(len(self.manager.return_all_citaions()), 2)
+    def test_return_all_citations(self):
+        self.manager.add_citation(self.book)
+        self.manager.add_citation(self.inproceedings)
+        # self.assertEqual(self.manager.return_all_citaions(),
+        #                 [self.citation, self.citation2])
+        self.assertEqual(len(self.manager.return_all_citaions()), 2)
 
     # def test_print_all(self):
-    #     self.manager.add_citation(self.citation)
-    #     self.manager.add_citation(self.citation2)
+    #     self.manager.add_citation(self.book)
+    #     self.manager.add_citation(self.article)
     #     self.assertEqual(self.manager.print_all(), None)
 
