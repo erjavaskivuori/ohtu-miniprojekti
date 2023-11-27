@@ -52,6 +52,10 @@ class CitationRepository():
         for attribute in citation.attributes:
             while row[column] == '':
                 column += 1
+                if column == 7:
+                    break
+            if column == 7:
+                    break
             attribute.set_value(row[column])
             column += 1
             
@@ -77,6 +81,10 @@ class CitationRepository():
             for attribute in citation.attributes:
                 while row[column] == '':
                     column += 1
+                    if column == 7:
+                        break
+                if column == 7:
+                    break
                 attribute.set_value(row[column])
                 column += 1
                 
