@@ -23,9 +23,9 @@ Adding Book Gives Correct Prompt
 	Input  1
 	Run Application
 	Output Should Contain  Syötä tyypin numero
-	Output Should Contain  Syötä author:
-	Output Should Contain  Syötä title:
-	Output Should Contain  Syötä year:
+	Output Should Contain  Syötä kirjoittaja:
+	Output Should Contain  Syötä otsikko:
+	Output Should Contain  Syötä vuosi:
 
 
 Added Citation Can Be Found on Citation List
