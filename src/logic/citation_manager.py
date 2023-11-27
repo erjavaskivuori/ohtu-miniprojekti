@@ -1,4 +1,4 @@
-from citations.new_citation import Citation, CitationType, CitationAttribute
+from citations.new_citation import Citation, CitationType
 from citations.citation_factory import CitationFactory
 from db.citation_repository import citation_repository
 
@@ -32,9 +32,10 @@ class CitationManager():
             * Handle error situation and return False            
         """
 
-        type = self._tui.ask('tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)', self.type_validator)
-        
-        citation = CitationFactory.get_new_citation(CitationType(int(type)))
+        citation_type = self._tui.ask('tyypin numero, vaihtoehtoja ovat Kirja (1), \
+                             Artikkeli (2) ja Inproceedings (3)', self.type_validator)
+
+        citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
 
         for attribute in citation.attributes:
             attribute.set_value(self._tui.ask(attribute.name))
@@ -42,11 +43,11 @@ class CitationManager():
         self.add_citation(citation)
 
         return True
-    
+
     @staticmethod
-    def type_validator(type):
+    def type_validator(citation_type):
         try:
-            i = int(type)
+            i = int(citation_type)
             if i < 1 or i > 3:
                 return False
         except ValueError:
