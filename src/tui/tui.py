@@ -9,6 +9,8 @@ class Commands(Enum):
     ADD = 1
     LIST = 2
     HELP = 3
+    TAG = 4
+    BIB = 5
 
 
 class Tui():
@@ -30,20 +32,24 @@ tarvittavat tiedot."""
         'listaa': Commands.LIST,
         'menu': Commands.HELP,
         'apua': Commands.HELP,
-        'auta': Commands.HELP
+        'auta': Commands.HELP,
+        'tägää': Commands.TAG,
+        'tallenna': Commands.BIB
     }
 
     descriptions = {
         Commands.QUIT: "Lopeta ohjelma",
         Commands.ADD: "Lisää viite",
         Commands.LIST: "Listaa viitteet",
-        Commands.HELP: "Tulosta valikko/ohjeet"
+        Commands.HELP: "Tulosta valikko/ohjeet",
+        Commands.TAG: "Anna viitteelle tagi",
+        Commands.BIB: "Kirjoita viiteluettelo BiBTeX muodossa"
     }
 
     categories = {
-        "Viitteet": [Commands.ADD, Commands.LIST],
+        "Viitteet": [Commands.ADD, Commands.LIST, Commands.TAG],
         "Sekalaista": [Commands.HELP],
-        "Tallenna & Lopeta": [Commands.QUIT]
+        "Tallenna & Lopeta": [Commands.QUIT, Commands.BIB]
     }
 
     def __init__(self, io):
@@ -66,7 +72,7 @@ tarvittavat tiedot."""
                 for key, cmd in self.commands.items():
                     if cmd == desc:
                         keys.append(key)
-                self.output(f"   {keys[0]:6s}   {self.descriptions[desc]:40s}")
+                self.output(f"   {keys[0]:8s}   {self.descriptions[desc]:40s}")
                 self.output(f"[myös: {', '.join(keys[1:])}]\n"
                         if len(keys) > 1 else "\n")
         self.output("\n")
