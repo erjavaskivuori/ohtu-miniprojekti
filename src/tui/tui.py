@@ -5,19 +5,26 @@ from enum import Enum
 
 class Commands(Enum):
     """ Commands """
-    QUIT = 0
-    ADD = 1
-    LIST = 2
-    HELP = 3
-    TAG = 4
-    BIB = 5
-    SEARCH = 6
+    QUIT =	0
+    ADD =	1
+    LIST =	2
+    HELP =	3
+    TAG =	4
+    BIB =	5
+    SEARCH =	6
+
+class ANSI:
+    reset=	"\033[0m"
+    bold=	"\033[1m"
+    red=	"\033[31m"
+    green=	"\033[32m"
+    magenta=	"\033[35m"
 
 
 class Tui():
     """ Tui - Class for menu and user inputs in text mode """
 
-    greetings = "\033[32m*** TERVETULOA BIBSELLIIN ***\033[39m"+"""
+    greetings = ANSI.green+"*** TERVETULOA BIBSELLIIN ***"+ANSI.reset+"""
 
 Luo, lajittele, muokkaa viitteitä ja vedosta niistä BiBTeX tiedosto.
 """
@@ -28,32 +35,34 @@ Valittu toiminto sitten kyselee toiminnon suorittamiseen
 tarvittavat tiedot."""
 
     commands = {
-        'lopeta': Commands.QUIT,
-        'lisää': Commands.ADD,
-        'listaa': Commands.LIST,
-        'menu': Commands.HELP,
-        'apua': Commands.HELP,
-        'auta': Commands.HELP,
-        'tägää': Commands.TAG,
-        'tallenna': Commands.BIB,
-        'hae': Commands.SEARCH
+        'lopeta':	Commands.QUIT,
+        'poistu':	Commands.QUIT,
+        'pois':		Commands.QUIT,
+        'lisää':	Commands.ADD,
+        'listaa':	Commands.LIST,
+        'menu':		Commands.HELP,
+        'apua':		Commands.HELP,
+        'auta':		Commands.HELP,
+        'tägää':	Commands.TAG,
+        'tallenna':	Commands.BIB,
+        'hae':		Commands.SEARCH
     }
 
     descriptions = {
-        Commands.QUIT: "Lopeta ohjelma",
-        Commands.ADD: "Lisää viite",
-        Commands.LIST: "Listaa viitteet",
-        Commands.HELP: "Tulosta valikko/ohjeet",
-        Commands.TAG: "Anna viitteelle tagi",
-        Commands.BIB: "Kirjoita viiteluettelo BiBTeX muodossa",
-        Commands.SEARCH: "Hae viitteet tägillä"
+        Commands.QUIT:		"Lopeta ohjelma",
+        Commands.ADD:		"Lisää viite",
+        Commands.LIST:		"Listaa viitteet",
+        Commands.HELP:		"Tulosta valikko/ohjeet",
+        Commands.TAG:		"Anna viitteelle tagi",
+        Commands.BIB:		"Kirjoita viiteluettelo BiBTeX muodossa",
+        Commands.SEARCH:	"Hae viitteet tägillä"
     }
 
     categories = {
-        "Lisää ja päivitä": [Commands.ADD, Commands.TAG],
-        "Näytä": [Commands.LIST, Commands.SEARCH],
-        "Sekalaista": [Commands.HELP],
-        "Tallenna & Lopeta": [Commands.QUIT, Commands.BIB]
+        "Lisää ja päivitä":	[Commands.ADD, Commands.TAG],
+        "Näytä":		[Commands.LIST, Commands.SEARCH],
+        "Sekalaista":		[Commands.HELP],
+        "Tallenna & Lopeta":	[Commands.QUIT, Commands.BIB]
     }
 
     def __init__(self, io):
@@ -69,7 +78,7 @@ tarvittavat tiedot."""
         self.output(self.usage)
         self.output("\nApu:\n")
         for cat, cmd_in_cat in self.categories.items():
-            self.output(f"\n  \033[1m{cat}\033[0m\n")
+            self.output(f"\n  {ANSI.bold}{cat}{ANSI.reset}\n")
 
             for desc in cmd_in_cat:
                 keys = []
@@ -85,7 +94,14 @@ tarvittavat tiedot."""
         """ menu() - prints out menu prompt and demands valid command """
         while True:
             self.output("\nKomento (apu: syötä menu): ")
-            key = self.input()
+            try:
+                key = self.input()
+            except EOFError:		# Make Ctrl-D work exit
+                self.output("\n")
+                key = "\0"
+            except KeyboardInterrupt:	# Make Ctrl-C reset input
+                self.output("\n")
+                continue
             if key == "\0": # Fast escape used ony by tests
                 return "\0"
             if key in self.commands:
@@ -94,7 +110,13 @@ tarvittavat tiedot."""
         return self.commands[key]
 
     def ask(self, question: str, validator=lambda a: True):
-        """ ask(str, function) - ask user for input and validates it """
+        """ ask(str, func) - ask user for input and validates it 
+        
+            str:	String to output before asking for input
+            func:	Validator function for the sting.
+                        Defaults to the one which returns always true.
+        
+        """
         while True:
             self.output(f"\nSyötä {question}: ")
             a = self.input()
@@ -108,7 +130,7 @@ tarvittavat tiedot."""
 
     def print_item_entry(self, cite_id :str, txt :str):
         """ print_item_entry() - For printing identifying line of citation"""
-        self.output(f"\n\033[35mid:{cite_id}\t{txt}\033[0m\n")
+        self.output(f"{ANSI.magenta}id:{cite_id}\t{txt}{ANSI.reset}\n")
 
 
     def print_item_attribute(self, key :str, value :str):
@@ -124,4 +146,4 @@ tarvittavat tiedot."""
 
     def print_error(self, msg :str):
         """ print_error(msg) - For printing ERROR messages in RED color """
-        self.output("\033[31m*** VIRHE: "+msg+"\033[0m\n")
+        self.output(f"{ANSI.red}*** VIRHE: {msg}{ANSI.reset}\n")
