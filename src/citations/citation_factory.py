@@ -1,5 +1,5 @@
 """Tarjoaa pääsyn Citation ja CitationType luokkaan"""
-from citations.new_citation import Citation, CitationType
+from new_citation import Citation, CitationType
 
 # named in a way that .bib accepts
 # Could be moved to a file of it's own
