@@ -3,11 +3,11 @@ from citations.new_citation import Citation, CitationType
 
 # named in a way that .bib accepts
 # Could be moved to a file of it's own
-AUTHOR = "kirjoittaja"
-TITLE = "otsikko"
-YEAR = "vuosi"
-JOURNAL_TITLE = "nimi (journal)"
-BOOK_TITLE = "nimi (book)"
+AUTHOR = "author"
+TITLE = "title"
+YEAR = "year"
+JOURNAL_TITLE = "journaltitle"
+BOOK_TITLE = "booktitle"
 
 # Requiredfields: author,title,year/date
 BOOK_STRINGS = [AUTHOR, TITLE, YEAR]
