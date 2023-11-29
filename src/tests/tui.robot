@@ -18,14 +18,14 @@ Print Help Menu
 	Output Should Contain  Apu:
 
 
-Adding Book Gives Correct Prompt
+Adding Article Gives Correct Prompts
 	Input  lisää
-	Input  1
+	Input  2
 	Run Application
-	Output Should Contain  Syötä tyypin numero
-	Output Should Contain  Syötä kirjoittaja:
-	Output Should Contain  Syötä otsikko:
-	Output Should Contain  Syötä vuosi:
+	Output Should Contain  Syötä author:
+	Output Should Contain  Syötä title:
+	Output Should Contain  Syötä year:
+	Output Should Contain  Syötä journaltitle:
 
 
 Added Citation Can Be Found on Citation List
