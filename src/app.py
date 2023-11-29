@@ -30,6 +30,10 @@ class App:
                 self._cm.print_all()
             if action == Commands.HELP:
                 self._tui.help()
+            if action == Commands.TAG:
+                pass
+            if action == Commands.BIB:
+                pass
 
 
 if __name__ == "__main__":
