@@ -34,6 +34,8 @@ class App:
                 pass
             if action == Commands.BIB:
                 pass
+            if action == Commands.SEARCH:
+                pass
 
 
 if __name__ == "__main__":

@@ -87,7 +87,7 @@ class CitationManager():
         for key in citations:
             c = citations[key]
             attributes = c.get_attributes_dictionary()
-            self._tui.print_item_entry(key, attributes['otsikko'])
+            self._tui.print_item_entry(key, attributes['title'])
             self._tui.print_item_attribute("type", c.type.name)
             for attribute in attributes:
                 self._tui.print_item_attribute(attribute, attributes[attribute])

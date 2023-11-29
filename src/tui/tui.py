@@ -11,6 +11,7 @@ class Commands(Enum):
     HELP = 3
     TAG = 4
     BIB = 5
+    SEARCH = 6
 
 
 class Tui():
@@ -34,7 +35,8 @@ tarvittavat tiedot."""
         'apua': Commands.HELP,
         'auta': Commands.HELP,
         'tägää': Commands.TAG,
-        'tallenna': Commands.BIB
+        'tallenna': Commands.BIB,
+        'hae': Commands.SEARCH
     }
 
     descriptions = {
@@ -43,11 +45,13 @@ tarvittavat tiedot."""
         Commands.LIST: "Listaa viitteet",
         Commands.HELP: "Tulosta valikko/ohjeet",
         Commands.TAG: "Anna viitteelle tagi",
-        Commands.BIB: "Kirjoita viiteluettelo BiBTeX muodossa"
+        Commands.BIB: "Kirjoita viiteluettelo BiBTeX muodossa",
+        Commands.SEARCH: "Hae viitteet tägillä"
     }
 
     categories = {
-        "Viitteet": [Commands.ADD, Commands.LIST, Commands.TAG],
+        "Lisää ja päivitä": [Commands.ADD, Commands.TAG],
+        "Näytä": [Commands.LIST, Commands.SEARCH],
         "Sekalaista": [Commands.HELP],
         "Tallenna & Lopeta": [Commands.QUIT, Commands.BIB]
     }
