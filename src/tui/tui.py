@@ -1,5 +1,5 @@
 
-""" TEXT USER INTERFACE - Module for user actions in test mode """
+""" TEXT USER INTERFACE - Module for user actions in text mode """
 from enum import Enum
 
 
@@ -20,8 +20,8 @@ Luo, lajittele, muokkaa viitteitä ja vedosta niistä BiBTeX tiedosto.
 """
 
     usage = """
-Ohjelmaa käytetään niin, että valikossa syötetään toimintoa vastaava
-yksittäinen kirjain. Valittu toiminto sitten kyselee toiminnon suorittamiseen
+Ohjelmaa käytetään niin, että valikossa syötetään toiminto.
+Valittu toiminto sitten kyselee toiminnon suorittamiseen
 tarvittavat tiedot."""
 
     commands = {
