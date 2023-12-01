@@ -130,13 +130,13 @@ tarvittavat tiedot."""
 
     def print_item_entry(self, cite_id :str, txt :str):
         """ print_item_entry() - For printing identifying line of citation"""
-        self.output(f"{ANSI.magenta}id:{cite_id}\t{txt}{ANSI.reset}\n")
+        self.output(f"\n{ANSI.magenta}id:{cite_id}\t{txt}{ANSI.reset}\n")
 
 
     def print_item_attribute(self, key :str, value :str):
         """ print_item_attribute(key, value) -
                     for printing attributes of citation just after id line"""
-        self.output(f"\t{key+':':14s}{value}\n")
+        self.output(f"\t{key+':':30s}{value}\n")
 
 
     def print(self, msg :str):

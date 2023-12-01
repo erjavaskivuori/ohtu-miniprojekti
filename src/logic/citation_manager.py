@@ -127,8 +127,10 @@ class CitationManager():
             attributes = c.get_attributes_dictionary()
             self._tui.print_item_entry(key, attributes['title'])
             self._tui.print_item_attribute("type", c.type.name)
-            for attribute in attributes:
-                self._tui.print_item_attribute(attribute, attributes[attribute])
+            for key, value in attributes.items():
+                self._tui.print_item_attribute(
+                    f"{ATTR_TRANSLATIONS[key]} ({key})", value 
+                )
 
     def clear_all(self):
         """Tyhjentää tietokannan.
