@@ -46,7 +46,7 @@ def create_tables(connection):
     
     cursor.execute("""CREATE TABLE IF NOT EXISTS tags (
         id INTEGER PRIMARY KEY,
-        name TEXT);""")
+        tag TEXT);""")
     
     cursor.execute("""CREATE TABLE IF NOT EXISTS tagged (
         tag_id INTEGER REFERENCES tags,

@@ -16,7 +16,7 @@ class TagRepository():
 
         if tag not in all_tags:
             cursor = self._connection.cursor()
-            cursor.execute("""INSERT INTO tags (name) VALUES (?)""", [tag])
+            cursor.execute("""INSERT INTO tags (tag) VALUES (?)""", [tag])
             self._connection.commit()
 
             return cursor.lastrowid
@@ -36,7 +36,7 @@ class TagRepository():
 
         cursor = self._connection.cursor()
         cursor.execute(
-            "SELECT id, name FROM tags")
+            "SELECT id, tag FROM tags")
         rows = cursor.fetchall()
 
         tags = {}

@@ -1,5 +1,5 @@
 from database_connection import form_database_connection
-from citations.new_citation import Citation, CitationType
+from citations.new_citation import Citation, CitationType, CitationAttribute
 from citations.citation_factory import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, \
                                 BOOK_TITLE, CitationFactory
 
@@ -57,18 +57,30 @@ class CitationRepository():
         for attribute in citation.attributes:
             while row[column] == '':
                 column += 1
-                if column == 7:
+                if column == len(citation.attributes)-1:
                     break
-            if column == 7:
+            if column == len(citation.attributes)-1:
                 break
             attribute.set_value(row[column])
             column += 1
         return citation
-
+    """
+    id INTEGER PRIMARY KEY,
+        type TEXT, 
+        author TEXT,
+        title TEXT,
+        year INTEGER,
+        journal_title TEXT,
+        book_title TEXT
+"""
     def get_all_citations(self):
         cursor = self._connection.cursor()
         cursor.execute(
-            "SELECT * FROM citations")
+            """SELECT c.id, c.type, c.author, c.title,
+            c.year, c.journal_title, c.book_title, t2.tag
+            FROM citations c LEFT JOIN tagged t ON c.id=t.citation_id
+            LEFT JOIN tags t2 ON t2.id=t.tag_id
+            """)
         rows = cursor.fetchall()
 
         if rows is None:
@@ -80,14 +92,19 @@ class CitationRepository():
             citation_type = row[1]
             citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
 
+            if row[-1] is not None:
+                citation.attributes.append(CitationAttribute('tag'))
+
+                citation.attributes[-1].set_value(row[-1])
+
             column = 2
 
             for attribute in citation.attributes:
                 while row[column] == '':
                     column += 1
-                    if column == 7:
+                    if column == len(row):
                         break
-                if column == 7:
+                if column == len(row):
                     break
                 attribute.set_value(row[column])
                 column += 1
