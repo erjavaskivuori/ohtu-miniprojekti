@@ -17,6 +17,10 @@ Print Help Menu
 	Run Application
 	Output Should Contain  Apu:
 
+Wrong Input Gives Correct Prompt In Main Menu
+	Input  lop
+	Run Application
+	Output Should Contain  *** VIRHE: lop: tuntematon komento.
 
 Adding Article Gives Correct Prompts
 	Input  lisää
@@ -27,6 +31,12 @@ Adding Article Gives Correct Prompts
 	Output Should Contain  Syötä year:
 	Output Should Contain  Syötä journaltitle:
 
+Wrong Input Gives Correct Prompt In Add Citation Menu
+	Input  lisää
+	Input  viisi
+	Input  1
+	Run Application
+	Output Should Contain  *** VIRHE: Syöte 'viisi' ei kelpaa.
 
 Added Citation Can Be Found on Citation List
 	Create Citation Article
