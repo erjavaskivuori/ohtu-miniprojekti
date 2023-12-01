@@ -13,14 +13,6 @@ class CitationManager():
         self._tui = tui
         self._citation_repo = citation_repo
 
-    def add_citation(self, citation: Citation):
-        """Luo uuden sitaatin.
-
-        Args:
-            citation: lisättävä sitaatti Citation-oliona.
-        """
-        self._citation_repo.create_citation(citation)
-
     def add_citation_by_user_input(self):
         """Luo uuden sitaatin kysellen käyttäjältä.
 
