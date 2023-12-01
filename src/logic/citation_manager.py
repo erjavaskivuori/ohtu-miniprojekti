@@ -54,6 +54,27 @@ class CitationManager():
         except ValueError:
             return False
         return True
+    
+    def add_tag_for_citation(self):
+        
+        citation_id = self._tui.ask("Lista kaikista sitaateistasi:\n", 
+                                    self.print_all(), 
+                                    "\nAnna sen sitaatin id, jolle haluat lisätä tagin")
+        
+        tag = self._tui.ask("Lista olemassa olevista tageistasi:\n",
+                            self.print_all_tags(),
+                            "\nSyötä jokin yllä olevista tageista tai uusi tag")
+        
+
+    def get_all_tags(self):
+
+        all_tags = 0 #citation_repositoryyn tagit hakeva metodi
+
+    def print_all_tags(self):
+        
+        all_tags = self.get_all_tags()
+
+        # for loopilla print
 
     def return_one_citation(self, title: str):
         """Hakee yhden sitaatin.
@@ -78,8 +99,6 @@ class CitationManager():
 
     def print_all(self):
         """Tulostaa kaikki sitaatit.
-        
-            Tämä tässä vain esimerkkinä. CitationFactory ja Atribuutit käyttöön
         """
 
         citations = self._citation_repo.get_all_citations()
