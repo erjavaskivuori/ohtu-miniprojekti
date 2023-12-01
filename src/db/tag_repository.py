@@ -1,5 +1,6 @@
 from database_connection import form_database_connection
 
+
 class TagRepository():
     def __init__(self, connection: form_database_connection):
         """Luokan kontruktori.
@@ -20,7 +21,7 @@ class TagRepository():
             self._connection.commit()
 
             return cursor.lastrowid
-        
+
         else:
             return all_tags[tag]
 
@@ -35,7 +36,8 @@ class TagRepository():
         tag_id = self.create_new_tag(tag)
 
         cursor = self._connection.cursor()
-        cursor.execute("""INSERT INTO tagged (tag_id, citation_id) VALUES (?, ?)""", [tag_id, citation_id])
+        cursor.execute("""INSERT INTO tagged (tag_id, citation_id) VALUES (?, ?)""", [
+                       tag_id, citation_id])
         self._connection.commit()
 
     def get_all_tags(self):
@@ -51,7 +53,6 @@ class TagRepository():
             tags[row[1]] = row[0]
 
         return tags
-
 
 
 tag_repository = TagRepository(form_database_connection())

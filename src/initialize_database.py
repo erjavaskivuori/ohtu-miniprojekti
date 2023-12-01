@@ -43,11 +43,11 @@ def create_tables(connection):
         year INTEGER,
         journal_title TEXT,
         book_title TEXT);""")
-    
+
     cursor.execute("""CREATE TABLE IF NOT EXISTS tags (
         id INTEGER PRIMARY KEY,
         tag TEXT);""")
-    
+
     cursor.execute("""CREATE TABLE IF NOT EXISTS tagged (
         tag_id INTEGER REFERENCES tags,
         citation_id INTEGER REFERENCES citations);""")

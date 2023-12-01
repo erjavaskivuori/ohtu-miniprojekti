@@ -1,4 +1,4 @@
-#pylint: disable=w0613
+# pylint: disable=w0613
 class StubIO:
     def __init__(self, inputs=None):
         self.inputs = inputs or []

@@ -1,8 +1,7 @@
 from database_connection import form_database_connection
 from citations.new_citation import Citation, CitationType, CitationAttribute
 from citations.citation_factory import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, \
-                                BOOK_TITLE, CitationFactory
-
+    BOOK_TITLE, CitationFactory
 
 
 class CitationRepository():
@@ -22,9 +21,9 @@ class CitationRepository():
         cursor.execute("""INSERT INTO citations (type, author, title, year, \
                         journal_title, book_title)
                        VALUES (?, ?, ?, ?, ?, ?)""",
-                       [citation.type.value, attributes.get(AUTHOR, ""), \
-                        attributes.get(TITLE, ""), attributes.get(YEAR, ""), \
-                        attributes.get(JOURNAL_TITLE, ""), \
+                       [citation.type.value, attributes.get(AUTHOR, ""),
+                        attributes.get(TITLE, ""), attributes.get(YEAR, ""),
+                        attributes.get(JOURNAL_TITLE, ""),
                         attributes.get(BOOK_TITLE, "")])
 
         self._connection.commit()
@@ -50,7 +49,8 @@ class CitationRepository():
 
         citation_type = row[1]
 
-        citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
+        citation = CitationFactory.get_new_citation(
+            CitationType(int(citation_type)))
 
         column = 2
 
@@ -73,6 +73,7 @@ class CitationRepository():
         journal_title TEXT,
         book_title TEXT
 """
+
     def get_all_citations(self):
         cursor = self._connection.cursor()
         cursor.execute(
@@ -90,7 +91,8 @@ class CitationRepository():
 
         for row in rows:
             citation_type = row[1]
-            citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
+            citation = CitationFactory.get_new_citation(
+                CitationType(int(citation_type)))
 
             if row[-1] is not None:
                 citation.set_tag(row[-1])
@@ -115,5 +117,6 @@ class CitationRepository():
         cursor = self._connection.cursor()
         cursor.execute("DELETE FROM citations")
         self._connection.commit()
+
 
 citation_repository = CitationRepository(form_database_connection())

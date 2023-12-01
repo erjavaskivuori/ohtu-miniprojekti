@@ -13,13 +13,13 @@ class App:
         self._cm = CitationManager(self._tui)
 
     def run(self):
-        """ This starts the application """        
+        """ This starts the application """
         self._tui.greet()
         while True:
 
             action = self._tui.menu()
 
-            if action == "\0": # Fast escape used ony by tests
+            if action == "\0":  # Fast escape used ony by tests
                 break
             if action == Commands.QUIT:
                 break
