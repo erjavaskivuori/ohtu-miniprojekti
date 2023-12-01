@@ -1,4 +1,4 @@
-from citations.new_citation import Citation, CitationType
+from citations.new_citation import Citation, CitationType, CitationAttribute
 from citations.citation_factory import CitationFactory
 from db.citation_repository import citation_repository
 
@@ -75,6 +75,26 @@ class CitationManager():
         all_tags = self.get_all_tags()
 
         # for loopilla print
+
+    def create_with_tag(self):
+        citation_type = self._tui.ask( \
+        'tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)', \
+        self.type_validator)
+
+        citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
+
+        for attribute in citation.attributes:
+            attribute.set_value(self._tui.ask(attribute.name))
+
+        tag = self._tui.ask('anna tägi')
+
+        citation.attributes.append(CitationAttribute('tag'))
+
+        citation.attributes[-1].set_value(tag)
+
+        self.add_citation(citation)
+
+        return True
 
     def return_one_citation(self, title: str):
         """Hakee yhden sitaatin.

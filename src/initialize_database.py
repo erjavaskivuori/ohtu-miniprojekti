@@ -46,11 +46,11 @@ def create_tables(connection):
     
     cursor.execute("""CREATE TABLE IF NOT EXISTS tags (
         id INTEGER PRIMARY KEY,
-        name TEXT;""")
+        name TEXT);""")
     
     cursor.execute("""CREATE TABLE IF NOT EXISTS tagged (
         tag_id INTEGER REFERENCES tags,
-        citation_id INTEGER REFERENCES citations;""")
+        citation_id INTEGER REFERENCES citations);""")
 
     connection.commit()
 
