@@ -34,7 +34,6 @@ Adding Article Gives Correct Prompts
 Wrong Input Gives Correct Prompt In Add Citation Menu
 	Input  lisää
 	Input  viisi
-	Input  1
 	Run Application
 	Output Should Contain  *** VIRHE: Syöte 'viisi' ei kelpaa.
 
