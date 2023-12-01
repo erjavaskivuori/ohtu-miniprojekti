@@ -1,7 +1,7 @@
 from citations.new_citation import Citation, CitationType, CitationAttribute
 from citations.citation_factory import CitationFactory
 from db.citation_repository import citation_repository
-
+from citations.bibtex_maker import BibTexMaker
 
 class CitationManager():
     """Socelluslogiikasta vastaava luokka.
@@ -125,12 +125,26 @@ class CitationManager():
         """
 
         self._citation_repo.clear_table()
+        
+    def create_bib_file(self):
+        filename = self._tui.ask("tiedoston nimi (.bib)")
+        if BibTexMaker.generate_bible_text_file(
+                    self.return_all_citaions(),
+                    filename
+                ):
+           self._tui.print("Tiedosto luotu onnistuneesti")
+        else:
+           self._tui.print_error("Tiedoston luonti epäonnistui") 
+        
+        
+        
 
 #    def delete_citation(self, citation):
 #        None
 
 #    def search_citation(self, citation):
 #        None
+
 
 # if __name__=="__main__":
 #     testi = Citation("a","a","a",11)

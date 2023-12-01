@@ -44,7 +44,7 @@ tarvittavat tiedot."""
         'apua':		Commands.HELP,
         'auta':		Commands.HELP,
         'tägää':	Commands.TAG,
-        'tallenna':	Commands.BIB,
+        'luo':		Commands.BIB,
         'hae':		Commands.SEARCH
     }
 

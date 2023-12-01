@@ -33,7 +33,7 @@ class App:
             if action == Commands.TAG:
                 pass
             if action == Commands.BIB:
-                pass
+                self._cm.create_bib_file()
             if action == Commands.SEARCH:
                 pass
 
