@@ -2,7 +2,6 @@ from citations.new_citation import Citation, CitationType
 
 WRITE_COMMAND = "w+"
 
-
 class BibTexMaker():
     """Luo .bib tiedostoja. Käyttö:
     1: Importtaa BibTexMaker
@@ -23,15 +22,14 @@ class BibTexMaker():
                 print(citations[key])
                 text += BibTexMaker.__generate_citation_text(citations[key])
             text_file.write(text)
-
-        return True  # TODO: Return false if failed
+            
+        return True # TODO: Return false if failed
 
     @staticmethod
     def __generate_citation_text(citation: Citation):
         """Luo yhden sitaatin bibtex formaatissa, palauttaa str.
         """
-        start = "@" + CitationType(citation.type).name.lower() + \
-            "{" + citation.label + ",\n"
+        start = "@" + CitationType(citation.type).name.lower() + "{" + citation.label + ",\n"
         middle = ""
         for attribute in citation.attributes:
             middle += attribute.get_name() + \

@@ -5,7 +5,6 @@ from db.tag_repository import tag_repository
 from citations.bibtex_maker import BibTexMaker
 from citations.citation_strings import ATTR_TRANSLATIONS
 
-
 class CitationManager():
     """Socelluslogiikasta vastaava luokka.
     """
@@ -24,7 +23,7 @@ class CitationManager():
             citation: lisättävä sitaatti Citation-oliona.
         """
         citation_id = self._citation_repo.create_citation(citation)
-
+        
         return citation_id
 
     def add_citation_by_user_input(self):
@@ -32,7 +31,7 @@ class CitationManager():
 
         Args:
             -
-
+            
         TODO:
             * Make it ask relevant data for the citation type
             * Handle error situation and return False            
@@ -55,14 +54,13 @@ class CitationManager():
                 return False
             return True
 
-        citation_type = self._tui.ask(
-            'tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)',
-            type_validator)
+        citation_type = self._tui.ask( \
+        'tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)', \
+        type_validator)
         if citation_type == "\0":
             return False
 
-        citation = CitationFactory.get_new_citation(
-            CitationType(int(citation_type)))
+        citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
 
         for attribute in citation.attributes:
             if attribute.name == "year":
@@ -81,34 +79,35 @@ class CitationManager():
             tag = self._tui.ask('anna tägi')
 
             citation.set_tag(tag)
-
+            
             self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
         return True
 
+    
     def add_tag_for_citation(self):
-
+        
         self._tui.print("Lista kaikista sitaateistasi:")
         self.print_all()
-        citation_id = self._tui.ask(
-            "sen sitaatin id, jolle haluat lisätä tägin")
+        citation_id = self._tui.ask("sen sitaatin id, jolle haluat lisätä tägin")
         self._tui.print("Lista olemassa olevista tageistasi:")
         self.print_all_tags()
         tag = self._tui.ask("Syötä jokin yllä olevista tägeista tai uusi tägi")
-
+        
         try:
             self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
         except:
             self._tui.print_error("sitaatilla on jo tägi")
-
+        
         return True
 
     def print_all_tags(self):
-
+        
         all_tags = self._tag_repo.get_all_tags()
 
         for i in all_tags:
             self._tui.print(i)
+
 
     def return_one_citation(self, title: str):
         """Hakee yhden sitaatin.
@@ -130,24 +129,25 @@ class CitationManager():
         """
 
         return self._citation_repo.get_all_citations()
-
+        
     def print_citation(self, c_id, c):
         attributes = c.get_attributes_dictionary()
         self._tui.print_item_entry(c_id, f"label_tähän")
         self._tui.print_item_attribute("type", c.type.name)
         for key, value in attributes.items():
             self._tui.print_item_attribute(
-                f"{ATTR_TRANSLATIONS[key]} ({key})", value
+                f"{ATTR_TRANSLATIONS[key]} ({key})", value 
             )
         if c.tag != "":
-            self._tui.print_item_attribute("tägi", c.tag)
+            self._tui.print_item_attribute("tägi",c.tag)
+
 
     def print_all(self):
         """Tulostaa kaikki sitaatit.
         """
         for c_id, citation in self._citation_repo.get_all_citations().items():
             self.print_citation(c_id, citation)
-
+    
     def print_by_tag(self):
         """Tulostaa kaikki sitaatit jolla tagi.
         """
@@ -155,23 +155,25 @@ class CitationManager():
         for c_id, citation in self._citation_repo.get_all_citations().items():
             if citation.tag == tag:
                 self.print_citation(c_id, citation)
-
+    
     def clear_all(self):
         """Tyhjentää tietokannan.
         """
 
         self._citation_repo.clear_table()
-
+        
     def create_bib_file(self):
         filename = self._tui.ask("tiedoston nimi (.bib)")
         if BibTexMaker.generate_bible_text_file(
-            self.return_all_citaions(),
-            filename
-        ):
-            self._tui.print("Tiedosto luotu onnistuneesti")
+                    self.return_all_citaions(),
+                    filename
+                ):
+           self._tui.print("Tiedosto luotu onnistuneesti")
         else:
-            self._tui.print_error("Tiedoston luonti epäonnistui")
-
+           self._tui.print_error("Tiedoston luonti epäonnistui") 
+        
+        
+        
 
 #    def delete_citation(self, citation):
 #        None
