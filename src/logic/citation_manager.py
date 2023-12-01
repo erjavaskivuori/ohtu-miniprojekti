@@ -36,17 +36,42 @@ class CitationManager():
             * Make it ask relevant data for the citation type
             * Handle error situation and return False            
         """
+        def year_validator(year):
+            try:
+                i = int(year)
+                if i < 0 or i > 2040:
+                    return False
+            except ValueError:
+                return False
+            return True
+
+        def type_validator(citation_type):
+            try:
+                i = int(citation_type)
+                if i < 1 or i > 3:
+                    return False
+            except ValueError:
+                return False
+            return True
 
         citation_type = self._tui.ask( \
         'tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)', \
-        self.type_validator)
+        type_validator)
+        if citation_type == "\0":
+            return False
 
         citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
 
         for attribute in citation.attributes:
-            attribute.set_value(self._tui.ask(
-                f"{ATTR_TRANSLATIONS[attribute.name]} ({attribute.name})"
-            ))
+            if attribute.name == "year":
+                attribute.set_value(self._tui.ask(
+                    f"{ATTR_TRANSLATIONS[attribute.name]} ({attribute.name})",
+                    year_validator
+                ))
+            else:
+                attribute.set_value(self._tui.ask(
+                    f"{ATTR_TRANSLATIONS[attribute.name]} ({attribute.name})"
+                ))
 
         citation_id = self.add_citation(citation)
 
@@ -59,15 +84,6 @@ class CitationManager():
 
         return True
 
-    @staticmethod
-    def type_validator(citation_type):
-        try:
-            i = int(citation_type)
-            if i < 1 or i > 3:
-                return False
-        except ValueError:
-            return False
-        return True
     
     def add_tag_for_citation(self):
         
