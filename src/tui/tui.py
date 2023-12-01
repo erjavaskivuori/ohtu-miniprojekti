@@ -138,12 +138,12 @@ tarvittavat tiedot."""
             a = self.input()
             if a == "\0" or a.lower() == "ei" or a.lower() == "no" \
                     or a.lower() == "e" or a.lower() == "n":
-                return True
+                return False
             if a.lower() == "kyllä" or a.lower() == "yes" \
                     or a.lower() == "k" or a.lower() == "y":
                 return True
             self.print_error(f"Anna kyllä/ei")
-        return a
+        return False
 
 
     def print_item_entry(self, cite_id :str, txt :str):
