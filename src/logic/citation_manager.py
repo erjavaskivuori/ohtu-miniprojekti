@@ -53,9 +53,7 @@ class CitationManager():
         if self._tui.yesno('Haluatko lisätä tägin'):
             tag = self._tui.ask('anna tägi')
 
-            citation.attributes.append(CitationAttribute('tag'))
-
-            citation.attributes[-1].set_value(tag)
+            citation.set_tag(tag)
             
             self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
@@ -129,6 +127,8 @@ class CitationManager():
                 self._tui.print_item_attribute(
                     f"{ATTR_TRANSLATIONS[key]} ({key})", value 
                 )
+            if c.tag != "":
+                self._tui.print_item_attribute("tägi",c.tag)
 
     def clear_all(self):
         """Tyhjentää tietokannan.

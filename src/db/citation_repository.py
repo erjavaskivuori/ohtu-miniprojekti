@@ -93,9 +93,7 @@ class CitationRepository():
             citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
 
             if row[-1] is not None:
-                citation.attributes.append(CitationAttribute('tag'))
-
-                citation.attributes[-1].set_value(row[-1])
+                citation.set_tag(row[-1])
 
             column = 2
 

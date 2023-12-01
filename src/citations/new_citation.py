@@ -28,6 +28,7 @@ class CitationAttribute:
 class Citation():
     def __init__(self, citation_type: CitationType, attribute_names: list[str]):
         self.type = citation_type
+        self.tag = ""
         self.label = "antakaa_minulle_nimi_:( )"
         self.attributes: list[CitationAttribute] = []
         for s in attribute_names:
@@ -45,3 +46,6 @@ class Citation():
             adict[attribute.get_name()] = attribute.get_value()
 
         return adict
+    
+    def set_tag(self,tag):
+        self.tag = tag
