@@ -20,6 +20,8 @@ def drop_tables(connection):
     cursor = connection.cursor()
 
     cursor.execute("DROP TABLE IF EXISTS citations;")
+    cursor.execute("DROP TABLE IF EXISTS tags;")
+    cursor.execute("DROP TABLE IF EXISTS tagged;")
 
     connection.commit()
 
@@ -38,9 +40,17 @@ def create_tables(connection):
         type TEXT, 
         author TEXT,
         title TEXT,
-        year INT,
+        year INTEGER,
         journal_title TEXT,
         book_title TEXT);""")
+    
+    cursor.execute("""CREATE TABLE IF NOT EXISTS tags (
+        id INTEGER PRIMARY KEY,
+        name TEXT;""")
+    
+    cursor.execute("""CREATE TABLE IF NOT EXISTS tagged (
+        tag_id INTEGER REFERENCES tags,
+        citation_id INTEGER REFERENCES citations;""")
 
     connection.commit()
 
