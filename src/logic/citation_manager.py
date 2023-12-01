@@ -87,24 +87,26 @@ class CitationManager():
     
     def add_tag_for_citation(self):
         
-        citation_id = self._tui.ask("Lista kaikista sitaateistasi:\n", 
-                                    self.print_all(), 
-                                    "\nAnna sen sitaatin id, jolle haluat lisätä tagin")
+        self._tui.print("Lista kaikista sitaateistasi:")
+        self.print_all()
+        citation_id = self._tui.ask("sen sitaatin id, jolle haluat lisätä tägin")
+        self._tui.print("Lista olemassa olevista tageistasi:")
+        self.print_all_tags()
+        tag = self._tui.ask("Syötä jokin yllä olevista tägeista tai uusi tägi")
         
-        tag = self._tui.ask("Lista olemassa olevista tageistasi:\n",
-                            self.print_all_tags(),
-                            "\nSyötä jokin yllä olevista tageista tai uusi tag")
+        try:
+            self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
+        except:
+            self._tui.print_error("sitaatilla on jo tägi")
         
-
-    def get_all_tags(self):
-
-        all_tags = 0 #citation_repositoryyn tagit hakeva metodi
+        return True
 
     def print_all_tags(self):
         
-        all_tags = self.get_all_tags()
+        all_tags = self._tag_repo.get_all_tags()
 
-        # for loopilla print
+        for i in all_tags:
+            self._tui.print(i)
 
 
     def return_one_citation(self, title: str):

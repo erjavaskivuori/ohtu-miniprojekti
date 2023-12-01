@@ -31,7 +31,8 @@ class App:
             if action == Commands.HELP:
                 self._tui.help()
             if action == Commands.TAG:
-                pass
+                if not self._cm.add_tag_for_citation():
+                    self._tui.print_error("Tagin lisäys ei onnistunut")
             if action == Commands.BIB:
                 self._cm.create_bib_file()
             if action == Commands.SEARCH:

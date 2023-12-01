@@ -26,6 +26,12 @@ class TagRepository():
 
     def add_tag_to_citation(self, citation_id, tag):
 
+        cursor = self._connection.cursor()
+        cursor.execute("SELECT citation_id FROM tagged")
+        rows = cursor.fetchall()
+        if citation_id in rows:
+            return False
+
         tag_id = self.create_new_tag(tag)
 
         cursor = self._connection.cursor()
