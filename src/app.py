@@ -13,30 +13,34 @@ class App:
         self._cm = CitationManager(self._tui)
 
     def run(self):
-        """ This starts the application """        
+        """ This starts the application """
         self._tui.greet()
         while True:
-
-            action = self._tui.menu()
-
-            if action == "\0": # Fast escape used ony by tests
-                break
-            if action == Commands.QUIT:
-                break
-            if action == Commands.ADD:
-                if not self._cm.add_citation_by_user_input():
-                    self._tui.print_error("Viitten lisäys ei onnistunut")
-            if action == Commands.LIST:
-                self._cm.print_all()
-            if action == Commands.HELP:
-                self._tui.help()
-            if action == Commands.TAG:
-                if not self._cm.add_tag_for_citation():
-                    self._tui.print_error("Tagin lisäys ei onnistunut")
-            if action == Commands.BIB:
-                self._cm.create_bib_file()
-            if action == Commands.SEARCH:
-                self._cm.print_by_tag()
+            match self._tui.menu():
+                case Commands.ADD:
+                    if not self._cm.add_citation_by_user_input():
+                        self._tui.print_error("Viitten lisäys ei onnistunut")
+                    continue
+                case Commands.LIST:
+                    self._cm.print_all()
+                    continue
+                case Commands.HELP:
+                    self._tui.help()
+                    continue
+                case Commands.TAG:
+                    if not self._cm.add_tag_for_citation():
+                        self._tui.print_error("Tagin lisäys ei onnistunut")
+                    continue
+                case Commands.BIB:
+                    self._cm.create_bib_file()
+                    continue
+                case Commands.SEARCH:
+                    self._cm.print_by_tag()
+                    continue
+                case Commands.QUIT | "\0":  # Fast escape used for tests
+                    break
+                case _:
+                    self._tui.print_error("Komentoa ei ole implementoitu")
 
 
 if __name__ == "__main__":
