@@ -1,24 +1,29 @@
 from citations.new_citation import Citation, CitationType, CitationAttribute
 from citations.citation_factory import CitationFactory
 from db.citation_repository import citation_repository
+from db.tag_repository import tag_repository
 from citations.bibtex_maker import BibTexMaker
 
 class CitationManager():
     """Socelluslogiikasta vastaava luokka.
     """
 
-    def __init__(self, tui, citation_repo=citation_repository):
+    def __init__(self, tui, citation_repo=citation_repository,
+                 tag_repo=tag_repository):
         """Luokan konstruktori. Luo uuden sovelluslogiikasta vastaavan palvelun.
         """
         self._tui = tui
         self._citation_repo = citation_repo
+        self._tag_repo = tag_repo
 
     def add_citation(self, citation: Citation):
         """Luo uuden sitaatin.
         Args:
             citation: lisättävä sitaatti Citation-oliona.
         """
-        self._citation_repo.create_citation(citation)
+        citation_id = self._citation_repo.create_citation(citation)
+        
+        return citation_id
 
     def add_citation_by_user_input(self):
         """Luo uuden sitaatin kysellen käyttäjältä.
@@ -40,6 +45,8 @@ class CitationManager():
         for attribute in citation.attributes:
             attribute.set_value(self._tui.ask(attribute.name))
 
+        citation_id = self.add_citation(citation)
+
         add_tag = self._tui.ask('haluatko lisätä tägin? (kyllä/ei)')
 
         if add_tag.lower() == "kyllä":
@@ -48,8 +55,8 @@ class CitationManager():
             citation.attributes.append(CitationAttribute('tag'))
 
             citation.attributes[-1].set_value(tag)
-
-        self.add_citation(citation)
+            
+            self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
         return True
 

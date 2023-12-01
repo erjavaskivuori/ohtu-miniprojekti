@@ -29,6 +29,8 @@ class CitationRepository():
 
         self._connection.commit()
 
+        return cursor.lastrowid
+
     def get_one_citation(self, title: str):
         """Hakee yhden sitaatin.
 
