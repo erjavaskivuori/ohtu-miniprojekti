@@ -130,9 +130,9 @@ class CitationManager():
 
         return self._citation_repo.get_all_citations()
         
-    def print_citation(self, c):
+    def print_citation(self, c_id, c):
         attributes = c.get_attributes_dictionary()
-        self._tui.print_item_entry("tästä_label", attributes['title'])
+        self._tui.print_item_entry(c_id, f"label_tähän")
         self._tui.print_item_attribute("type", c.type.name)
         for key, value in attributes.items():
             self._tui.print_item_attribute(
@@ -145,16 +145,16 @@ class CitationManager():
     def print_all(self):
         """Tulostaa kaikki sitaatit.
         """
-        for c in self._citation_repo.get_all_citations().values():
-            self.print_citation(c)
+        for c_id, citation in self._citation_repo.get_all_citations().items():
+            self.print_citation(c_id, citation)
     
     def print_by_tag(self):
         """Tulostaa kaikki sitaatit jolla tagi.
         """
         tag = self._tui.ask("tägi")
-        for c in self._citation_repo.get_all_citations().values():
-            if c.tag == tag:
-                self.print_citation(c)
+        for c_id, citation in self._citation_repo.get_all_citations().items():
+            if citation.tag == tag:
+                self.print_citation(c_id, citation)
     
     def clear_all(self):
         """Tyhjentää tietokannan.
