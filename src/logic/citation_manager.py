@@ -3,6 +3,7 @@ from citations.citation_factory import CitationFactory
 from db.citation_repository import citation_repository
 from db.tag_repository import tag_repository
 from citations.bibtex_maker import BibTexMaker
+from citations.citation_strings import ATTR_TRANSLATIONS
 
 class CitationManager():
     """Socelluslogiikasta vastaava luokka.
@@ -43,7 +44,9 @@ class CitationManager():
         citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
 
         for attribute in citation.attributes:
-            attribute.set_value(self._tui.ask(attribute.name))
+            attribute.set_value(self._tui.ask(
+                f"{ATTR_TRANSLATIONS[attribute.name]} ({attribute.name})"
+            ))
 
         citation_id = self.add_citation(citation)
 
