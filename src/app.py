@@ -36,7 +36,7 @@ class App:
             if action == Commands.BIB:
                 self._cm.create_bib_file()
             if action == Commands.SEARCH:
-                pass
+                self._cm.print_by_tag()
 
 
 if __name__ == "__main__":

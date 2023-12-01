@@ -129,25 +129,33 @@ class CitationManager():
         """
 
         return self._citation_repo.get_all_citations()
+        
+    def print_citation(self, c):
+        attributes = c.get_attributes_dictionary()
+        self._tui.print_item_entry("tästä_label", attributes['title'])
+        self._tui.print_item_attribute("type", c.type.name)
+        for key, value in attributes.items():
+            self._tui.print_item_attribute(
+                f"{ATTR_TRANSLATIONS[key]} ({key})", value 
+            )
+        if c.tag != "":
+            self._tui.print_item_attribute("tägi",c.tag)
+
 
     def print_all(self):
         """Tulostaa kaikki sitaatit.
         """
-
-        citations = self._citation_repo.get_all_citations()
-
-        for key in citations:
-            c = citations[key]
-            attributes = c.get_attributes_dictionary()
-            self._tui.print_item_entry(key, attributes['title'])
-            self._tui.print_item_attribute("type", c.type.name)
-            for key, value in attributes.items():
-                self._tui.print_item_attribute(
-                    f"{ATTR_TRANSLATIONS[key]} ({key})", value 
-                )
-            if c.tag != "":
-                self._tui.print_item_attribute("tägi",c.tag)
-
+        for c in self._citation_repo.get_all_citations().values():
+            self.print_citation(c)
+    
+    def print_by_tag(self):
+        """Tulostaa kaikki sitaatit jolla tagi.
+        """
+        tag = self._tui.ask("tägi")
+        for c in self._citation_repo.get_all_citations().values():
+            if c.tag == tag:
+                self.print_citation(c)
+    
     def clear_all(self):
         """Tyhjentää tietokannan.
         """
