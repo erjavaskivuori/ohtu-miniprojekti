@@ -127,6 +127,24 @@ tarvittavat tiedot."""
             self.print_error(f"Syöte '{a}' ei kelpaa.")
         return a
 
+    def yesno(self, question):
+        """ ask(str) - ask yes/no question 
+        
+            str:	String to output before asking for input
+        
+        """
+        while True:
+            self.output(f"\n{question}: ")
+            a = self.input()
+            if a == "\0" or a.lower() == "ei" or a.lower() == "no" \
+                    or a.lower() == "e" or a.lower() == "n":
+                return True
+            if a.lower() == "kyllä" or a.lower() == "yes" \
+                    or a.lower() == "k" or a.lower() == "y":
+                return True
+            self.print_error(f"Anna kyllä/ei")
+        return a
+
 
     def print_item_entry(self, cite_id :str, txt :str):
         """ print_item_entry() - For printing identifying line of citation"""

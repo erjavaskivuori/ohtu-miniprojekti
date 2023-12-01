@@ -50,9 +50,7 @@ class CitationManager():
 
         citation_id = self.add_citation(citation)
 
-        add_tag = self._tui.ask('haluatko lisätä tägin? (kyllä/ei)')
-
-        if add_tag.lower() == "kyllä":
+        if self._tui.yesno('Haluatko lisätä tägin'):
             tag = self._tui.ask('anna tägi')
 
             citation.attributes.append(CitationAttribute('tag'))
