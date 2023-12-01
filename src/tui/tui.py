@@ -5,21 +5,21 @@ from enum import Enum
 
 class Commands(Enum):
     """ Commands """
-    QUIT = 0
-    ADD = 1
-    LIST = 2
-    HELP = 3
-    TAG = 4
-    BIB = 5
-    SEARCH = 6
+    QUIT =      0
+    ADD =       1
+    LIST =      2
+    HELP =      3
+    TAG =       4
+    BIB =       5
+    SEARCH =    6
 
 
 class ANSI:
-    reset = "\033[0m"
-    bold = "\033[1m"
-    red = "\033[31m"
-    green = "\033[32m"
-    magenta = "\033[35m"
+    reset =     "\033[0m"
+    bold =      "\033[1m"
+    red =       "\033[31m"
+    green =     "\033[32m"
+    magenta =   "\033[35m"
 
 
 class Tui():
