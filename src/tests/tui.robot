@@ -15,7 +15,7 @@ Menu Prompt Is Shown
 Print Help Menu
 	Input  menu
 	Run Application
-	Output Should Contain  Apu:
+	Output Should Contain  Komennot:
 
 Wrong Input Gives Correct Prompt In Main Menu
 	Input  lop
