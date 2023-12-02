@@ -1,9 +1,15 @@
 from citations.new_citation import Citation, CitationType
 from citations.citation_factory import CitationFactory
-from db.citation_repository import citation_repository
-from db.tag_repository import tag_repository
 from citations.bibtex_maker import BibTexMaker
 from citations.citation_strings import ATTR_TRANSLATIONS
+from db.citation_repository import citation_repository
+from db.tag_repository import tag_repository
+from tui.tui import Tui
+
+# Näin että stringit aina mätsäävät eikä kirjoitusvirhe
+# esimerkiksi failaa testejä
+TIEDOSTON_LUONTI_EPAONNISTUI = "Tiedoston luonti epäonnistui"
+TIEDOSTON_LUONTI_ONNISTUI = "Tiedosto luotu onnistuneesti"
 
 
 class CitationManager():
@@ -14,7 +20,7 @@ class CitationManager():
                  tag_repo=tag_repository):
         """Luokan konstruktori. Luo uuden sovelluslogiikasta vastaavan palvelun.
         """
-        self._tui = tui
+        self._tui: Tui = tui
         self._citation_repo = citation_repo
         self._tag_repo = tag_repo
 
@@ -148,9 +154,17 @@ class CitationManager():
 
     def print_all(self):
         """Tulostaa kaikki sitaatit.
+
+        Returns:
+            Palauttaa oliko printattavaa. (bool)
         """
-        for c_id, citation in self._citation_repo.get_all_citations().items():
+        citations = self._citation_repo.get_all_citations()
+        if len(citations) < 1:
+            self._tui.print("Ei sitaatteja.")
+            return False
+        for c_id, citation in citations.items():
             self.print_citation(c_id, citation)
+        return True
 
     def print_by_tag(self):
         """Tulostaa kaikki sitaatit jolla tagi.
@@ -167,14 +181,20 @@ class CitationManager():
         self._citation_repo.clear_table()
 
     def create_bib_file(self):
+        """Luo .bib tiedoston.
+
+        Returns: 
+            Onnistuiko tiedoston luonti. (bool)
+        """
         filename = self._tui.ask("tiedoston nimi (.bib)")
         if BibTexMaker.try_generate_bible_text_file(
             self.return_all_citations(),
             filename
         ):
-            self._tui.print("Tiedosto luotu onnistuneesti")
-        else:
-            self._tui.print_error("Tiedoston luonti epäonnistui")
+            self._tui.output(TIEDOSTON_LUONTI_ONNISTUI)
+            return True
+        self._tui.output(TIEDOSTON_LUONTI_EPAONNISTUI)
+        return False
 
 
 #    def delete_citation(self, citation):

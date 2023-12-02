@@ -98,7 +98,7 @@ class CitationRepository():
             column = 2
 
             for attribute in citation.attributes:
-                while row[column] == '':
+                while column < len(row) and row[column] == '':
                     column += 1
                     if column == len(row):
                         break
@@ -108,7 +108,6 @@ class CitationRepository():
                 column += 1
 
             citations[row[0]] = citation
-
         return citations
 
     def clear_table(self):

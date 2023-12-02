@@ -1,8 +1,10 @@
 import unittest
 from logic.citation_manager import CitationManager
 from citations.new_citation import Citation, CitationType
+from citations.citation_factory import CitationFactory
 from tui.tui import Tui
 from tui.tui_io import TuiIO
+from tui.stub_io import StubIO
 
 AUTHOR = "author"
 TITLE = "title"
@@ -12,7 +14,9 @@ BOOK_TITLE = "booktitle"
 
 class TestCitationManager(unittest.TestCase):
     def setUp(self):
-        self.manager = CitationManager(Tui(TuiIO()))
+        self.io = StubIO()
+        self.tui = Tui(self.io)
+        self.manager = CitationManager(self.tui)
         self.manager.clear_all()  # Clear database before tests
         self.book = Citation(CitationType(1), [AUTHOR, TITLE, YEAR])
         self.article = Citation(CitationType(2), [AUTHOR, TITLE, YEAR, JOURNAL_TITLE])
@@ -66,6 +70,22 @@ class TestCitationManager(unittest.TestCase):
         self.assertTrue(self.manager.is_int_and_in_range_1_to_3_validator(1))
         self.assertFalse(self.manager.is_int_and_in_range_1_to_3_validator(0))
         self.assertFalse(self.manager.is_int_and_in_range_1_to_3_validator("asd"))
-        
-    #def test_create_file(self):
-    #    self.manager.create_bib_file()
+
+    def test_fail_to_create_file(self):
+        self.io.add_input("??")
+        #managerin pitäisi nyt kysyä askilla
+        vastaus = self.manager.create_bib_file()
+        self.assertFalse(vastaus)
+    
+    def test_create_file(self):
+        ##"src/tests/bibtest", käytä tätä jos haluat testata filujen luontia
+        self.io.add_input("src/tests/bibtest")
+        #managerin pitäisi nyt kysyä askilla
+        vastaus = self.manager.create_bib_file()
+        self.assertTrue(vastaus)
+    
+    def test_print_citations(self):
+        self.manager.add_citation(self.article)
+        self.assertTrue(self.manager.print_all())
+        self.manager.clear_all()
+        self.assertFalse(self.manager.print_all())
