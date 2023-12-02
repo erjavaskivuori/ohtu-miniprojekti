@@ -13,12 +13,10 @@ class CitationFactory():
         """
         # hopefully temporary "if else hell":
         match citation_type:
-            case CitationType.BOOK:
-                return Citation(citation_type, BOOK_STRINGS)
             case CitationType.ARTICLE:
                 return Citation(citation_type, ARTICLE_STRINGS)
             case CitationType.INPROCEEDINGS:
                 return Citation(citation_type, INPROCEEDINGS_STRINGS)
-        # default to book for now
-        return Citation(citation_type, BOOK_STRINGS)
+            case _:
+                return Citation(citation_type, BOOK_STRINGS)
 
