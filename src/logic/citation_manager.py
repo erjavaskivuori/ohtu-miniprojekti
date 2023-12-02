@@ -126,7 +126,8 @@ class CitationManager():
         """Listaa kaikki sitaatit.
 
         Returns:
-            Palauttaa listan kaikista sitaateista.
+            Palauttaa dictionaryn kaikista sitaateista.
+            Dictionary on muotoa ("id", Citation-olio).
         """
 
         return self._citation_repo.get_all_citations()
