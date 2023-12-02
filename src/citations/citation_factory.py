@@ -2,6 +2,7 @@
 from citations.new_citation import Citation, CitationType
 from citations.citation_strings import *
 
+
 class CitationFactory():
     """Luo käyttövalmiin Citation olion kun sille antaa CitationTypen.
     Citation olio sisältää kaikki vaaditut arvot CitationAttribute listalla
@@ -19,4 +20,3 @@ class CitationFactory():
                 return Citation(citation_type, INPROCEEDINGS_STRINGS)
             case _:
                 return Citation(citation_type, BOOK_STRINGS)
-

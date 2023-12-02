@@ -7,7 +7,7 @@ class BibTexMaker():
     1: Importtaa BibTexMaker
     2: Kutsu BibTexMake.generate_bible_text_file(sitaattilista, filun nimi)
     3: ???
-    4: Tiedosto ilmestyy ylimpään kansioon (\ohtu-miniprojekti)
+    4: Tiedosto ilmestyy projektin ylimpään kansioon
     """
 
     @staticmethod

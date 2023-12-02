@@ -4,8 +4,6 @@ from citations.new_citation import Citation, CitationType, CitationAttribute
 from citations.citation_strings import BOOK_STRINGS, ARTICLE_STRINGS, INPROCEEDINGS_STRINGS
 from citations.bibtex_maker import BibTexMaker
 
-CONTENT = "content"
-
 class TestBibtexMaker(unittest.TestCase):
     
     def test_fail_making_file(self):
