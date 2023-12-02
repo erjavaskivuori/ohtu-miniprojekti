@@ -7,7 +7,7 @@ class BibTexMaker():
     1: Importtaa BibTexMaker
     2: Kutsu BibTexMake.generate_bible_text_file(sitaattilista, filun nimi)
     3: ???
-    4: Tiedosto ilmestyy /src kansioon
+    4: Tiedosto ilmestyy ylimpään kansioon (\ohtu-miniprojekti)
     """
 
     @staticmethod
@@ -16,14 +16,17 @@ class BibTexMaker():
         Luo .bib päätteisen tekstitiedoston listasta Citation olioita. 
         Annetun filenamen ei tarvitse/kannata sisältää .bib päätettä.
         """
-        with open(file_name + ".bib", WRITE_COMMAND, encoding="utf-8") as text_file:
-            text = ""
-            for key in citations:
-                print(citations[key])
-                text += BibTexMaker.__generate_citation_text(citations[key])
-            text_file.write(text)
-            
-        return True # TODO: Return false if failed
+        try:
+            with open(file_name + ".bib", WRITE_COMMAND, encoding="utf-8") as text_file:
+                text = ""
+                for key in citations:
+                    print(citations[key])
+                    text += BibTexMaker.__generate_citation_text(citations[key])
+                text_file.write(text)
+                return True
+        except IOError as e:
+            print(e)
+        return False
 
     @staticmethod
     def __generate_citation_text(citation: Citation):
@@ -32,7 +35,7 @@ class BibTexMaker():
         start = "@" + CitationType(citation.type).name.lower() + "{" + citation.label + ",\n"
         middle = ""
         for attribute in citation.attributes:
-            middle += attribute.get_name() + \
-                " = {" + attribute.get_value() + "},\n"
+            middle += attribute.get_name()
+            middle += " = {" + str(attribute.get_value()) + "},\n"
         end = "}\n\n"
         return start + middle + end
