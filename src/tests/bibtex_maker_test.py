@@ -8,11 +8,11 @@ class TestBibtexMaker(unittest.TestCase):
     
     def test_fail_making_file(self):
         citation = {"asd", CitationFactory.get_new_citation(CitationType.BOOK)}
-        self.assertFalse(BibTexMaker.generate_bible_text_file(citation, "???"))
+        self.assertFalse(BibTexMaker.try_generate_bible_text_file(citation, "???"))
 
     def test_create_file(self):
         citation = {}
         citation[0] = CitationFactory.get_new_citation(CitationType.BOOK)
-        self.assertTrue(BibTexMaker.generate_bible_text_file(citation, "src/tests/bibtest"))
+        self.assertTrue(BibTexMaker.try_generate_bible_text_file(citation, "src/tests/bibtest"))
         
     

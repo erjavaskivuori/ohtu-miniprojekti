@@ -168,7 +168,7 @@ class CitationManager():
 
     def create_bib_file(self):
         filename = self._tui.ask("tiedoston nimi (.bib)")
-        if BibTexMaker.generate_bible_text_file(
+        if BibTexMaker.try_generate_bible_text_file(
             self.return_all_citations(),
             filename
         ):

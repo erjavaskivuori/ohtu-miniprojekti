@@ -66,3 +66,6 @@ class TestCitationManager(unittest.TestCase):
         self.assertTrue(self.manager.is_int_and_in_range_1_to_3_validator(1))
         self.assertFalse(self.manager.is_int_and_in_range_1_to_3_validator(0))
         self.assertFalse(self.manager.is_int_and_in_range_1_to_3_validator("asd"))
+        
+    #def test_create_file(self):
+    #    self.manager.create_bib_file()

@@ -11,7 +11,7 @@ class BibTexMaker():
     """
 
     @staticmethod
-    def generate_bible_text_file(citations, file_name: str):
+    def try_generate_bible_text_file(citations, file_name: str):
         """
         Luo .bib päätteisen tekstitiedoston listasta Citation olioita. 
         Annetun filenamen ei tarvitse/kannata sisältää .bib päätettä.
