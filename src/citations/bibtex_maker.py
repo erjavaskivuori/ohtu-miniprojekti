@@ -1,7 +1,7 @@
 from citations.new_citation import Citation, CitationType
 
 WRITE_COMMAND = "w+"
-
+ILLEGAL_CHARACTERS = "#%{&}<>*?$!:'@+`|="
 class BibTexMaker():
     """Luo .bib tiedostoja. Käyttö:
     1: Importtaa BibTexMaker
@@ -16,6 +16,8 @@ class BibTexMaker():
         Luo .bib päätteisen tekstitiedoston listasta Citation olioita. 
         Annetun filenamen ei tarvitse/kannata sisältää .bib päätettä.
         """
+        if (any(elem in file_name for elem in ILLEGAL_CHARACTERS)):
+            return False
         try:
             with open(file_name + ".bib", WRITE_COMMAND, encoding="utf-8") as text_file:
                 text = ""

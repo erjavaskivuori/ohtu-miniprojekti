@@ -8,7 +8,8 @@ from tui.tui import Tui
 
 # Näin että stringit aina mätsäävät eikä kirjoitusvirhe
 # esimerkiksi failaa testejä
-TIEDOSTON_LUONTI_EPAONNISTUI = "Tiedoston luonti epäonnistui"
+TIEDOSTON_LUONTI_EPAONNISTUI = "Tiedoston luonti epäonnistui \
+(tarkista oikeudet tai käytitkö kiellettyjä merkkejä)"
 TIEDOSTON_LUONTI_ONNISTUI = "Tiedosto luotu onnistuneesti"
 
 
