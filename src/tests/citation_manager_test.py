@@ -79,7 +79,7 @@ class TestCitationManager(unittest.TestCase):
     
     def test_create_file(self):
         ##"src/tests/bibtest", käytä tätä jos haluat testata filujen luontia
-        self.io.add_input("src/tests/bibtest")
+        self.io.add_input("src/bibtest")
         #managerin pitäisi nyt kysyä askilla
         vastaus = self.manager.create_bib_file()
         self.assertTrue(vastaus)
