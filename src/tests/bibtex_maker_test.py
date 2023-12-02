@@ -6,13 +6,14 @@ from citations.bibtex_maker import BibTexMaker
 
 class TestBibtexMaker(unittest.TestCase):
     
+    def setUp(self):
+        self.citations = dict()
+        self.citations["asd"] = CitationFactory.get_new_citation(CitationType.BOOK)
+    
     def test_fail_making_file(self):
-        citation = {"asd", CitationFactory.get_new_citation(CitationType.BOOK)}
-        self.assertFalse(BibTexMaker.try_generate_bible_text_file(citation, "???"))
+        self.assertFalse(BibTexMaker.try_generate_bible_text_file(self.citations, "???#&*" ))
 
     def test_create_file(self):
-        citation = {}
-        citation[0] = CitationFactory.get_new_citation(CitationType.BOOK)
-        self.assertTrue(BibTexMaker.try_generate_bible_text_file(citation, "src/bibtest"))
+        self.assertTrue(BibTexMaker.try_generate_bible_text_file(self.citations, "src/bibtest"))
         
     
