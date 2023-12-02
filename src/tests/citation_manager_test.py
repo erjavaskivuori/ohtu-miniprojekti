@@ -57,3 +57,12 @@ class TestCitationManager(unittest.TestCase):
     #     self.manager.add_citation(self.article)
     #     self.assertEqual(self.manager.print_all(), None)
 
+    def test_year_validator(self):
+        self.assertTrue(self.manager.year_validator(1984))
+        self.assertFalse(self.manager.year_validator(-1984))
+        self.assertFalse(self.manager.year_validator("höpöhöpö"))
+    
+    def test_is_int_and_in_range_validator_validator(self):
+        self.assertTrue(self.manager.is_int_and_in_range_1_to_3_validator(1))
+        self.assertFalse(self.manager.is_int_and_in_range_1_to_3_validator(0))
+        self.assertFalse(self.manager.is_int_and_in_range_1_to_3_validator("asd"))

@@ -40,7 +40,7 @@ class CitationManager():
 
         citation_type = self._tui.ask(
             'tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)',
-            self.type_validator)
+            self.is_int_and_in_range_1_to_3_validator)
         if citation_type == "\0":
             return False
 
@@ -80,7 +80,7 @@ class CitationManager():
         return True
 
     @staticmethod
-    def type_validator(citation_type):
+    def is_int_and_in_range_1_to_3_validator(citation_type):
         try:
             i = int(citation_type)
             if i < 1 or i > 3:
