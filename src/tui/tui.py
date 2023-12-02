@@ -77,7 +77,7 @@ tarvittavat tiedot."""
     def help(self):
         """ help() - prints out usage and command information """
         self.output(self.usage)
-        self.output("\nApu:\n")
+        self.output("\n\nKomennot:\n")
         for cat, cmd_in_cat in self.categories.items():
             self.output(f"\n  {ANSI.bold}{cat}{ANSI.reset}\n")
 
@@ -89,7 +89,6 @@ tarvittavat tiedot."""
                 self.output(f"   {keys[0]:8s}   {self.descriptions[desc]:40s}")
                 self.output(f"[myös: {', '.join(keys[1:])}]\n"
                             if len(keys) > 1 else "\n")
-        self.output("\n")
 
     def menu(self):
         """ menu() - prints out menu prompt and demands valid command """

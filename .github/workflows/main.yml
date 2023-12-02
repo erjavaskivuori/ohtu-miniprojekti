@@ -26,5 +26,11 @@ jobs:
         run: poetry run pytest src
       - name: Robot tests
         run: poetry run robot src
+      - name: Test branch coverage
+        run: poetry run coverage run --branch -m pytest
+      - name: Make XML report from coverage run
+        run: poetry run coverage xml
       - name: Pylint check
         run: poetry run pylint src
+      - name: Inform Codecov about new coverage report
+        run: bash <(curl -s https://codecov.io/bash)
