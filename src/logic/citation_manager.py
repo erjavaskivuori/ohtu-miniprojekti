@@ -125,7 +125,7 @@ class CitationManager():
 
         return self._citation_repo.get_one_citation(title)
 
-    def return_all_citaions(self):
+    def return_all_citations(self):
         """Listaa kaikki sitaatit.
 
         Returns:
@@ -169,7 +169,7 @@ class CitationManager():
     def create_bib_file(self):
         filename = self._tui.ask("tiedoston nimi (.bib)")
         if BibTexMaker.generate_bible_text_file(
-            self.return_all_citaions(),
+            self.return_all_citations(),
             filename
         ):
             self._tui.print("Tiedosto luotu onnistuneesti")

@@ -50,7 +50,7 @@ class TestCitationManager(unittest.TestCase):
         self.manager.add_citation(self.inproceedings)
         # self.assertEqual(self.manager.return_all_citaions(),
         #                 [self.citation, self.citation2])
-        self.assertEqual(len(self.manager.return_all_citaions()), 2)
+        self.assertEqual(len(self.manager.return_all_citations()), 2)
 
     # def test_print_all(self):
     #     self.manager.add_citation(self.book)
