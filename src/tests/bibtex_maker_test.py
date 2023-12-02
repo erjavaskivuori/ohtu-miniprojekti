@@ -13,7 +13,8 @@ class TestBibtexMaker(unittest.TestCase):
         self.assertFalse(BibTexMaker.generate_bible_text_file(citation, "???"))
 
     def test_create_file(self):
-        citation = {"asd", CitationFactory.get_new_citation(CitationType.BOOK)}
+        citation = {}
+        citation[0] = CitationFactory.get_new_citation(CitationType.BOOK)
         self.assertTrue(BibTexMaker.generate_bible_text_file(citation, "src/tests/bibtest"))
         
     
