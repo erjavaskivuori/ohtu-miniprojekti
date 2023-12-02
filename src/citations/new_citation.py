@@ -46,6 +46,6 @@ class Citation():
             adict[attribute.get_name()] = attribute.get_value()
 
         return adict
-    
-    def set_tag(self,tag):
+
+    def set_tag(self, tag):
         self.tag = tag

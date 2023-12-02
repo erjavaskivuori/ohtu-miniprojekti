@@ -21,12 +21,9 @@ class TagRepository():
             self._connection.commit()
 
             return cursor.lastrowid
-
-        else:
-            return all_tags[tag]
+        return all_tags[tag]
 
     def add_tag_to_citation(self, citation_id, tag):
-
         cursor = self._connection.cursor()
         cursor.execute("SELECT citation_id FROM tagged")
         rows = cursor.fetchall()
@@ -39,6 +36,7 @@ class TagRepository():
         cursor.execute("""INSERT INTO tagged (tag_id, citation_id) VALUES (?, ?)""", [
                        tag_id, citation_id])
         self._connection.commit()
+        return True
 
     def get_all_tags(self):
 
