@@ -76,7 +76,7 @@ class CitationManager():
 
             self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
-        return True
+        return citation_id
 
     @staticmethod
     def year_validator(year):
@@ -115,11 +115,11 @@ class CitationManager():
 
         try:
             self.add_tag_for_citation(citation_id, tag.lower())
-        except:
+        except UserWarning:
             self._tui.print_error("sitaatilla on jo tägi")
 
         return True
-    
+
     def add_tag_for_citation(self, citation_id, tag):
         """Creates tag for citation.
 
@@ -167,7 +167,7 @@ class CitationManager():
         """
 
         attributes = c.get_attributes_dictionary()
-        self._tui.print_item_entry(c_id, f"label_tähän")
+        self._tui.print_item_entry(c_id, "label_tähän")
         self._tui.print_item_attribute("type", c.type.name)
         for key, value in attributes.items():
             self._tui.print_item_attribute(

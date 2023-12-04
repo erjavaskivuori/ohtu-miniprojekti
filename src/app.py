@@ -28,7 +28,7 @@ class App:
                     self._tui.help()
                     continue
                 case Commands.TAG:
-                    if not self._cm.add_tag_for_citation():
+                    if not self._cm.add_tag_for_citation_by_user_input():
                         self._tui.print_error("Tagin lisäys ei onnistunut")
                     continue
                 case Commands.BIB:

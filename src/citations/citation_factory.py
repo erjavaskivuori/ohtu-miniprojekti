@@ -1,6 +1,7 @@
 """Tarjoaa pääsyn Citation ja CitationType luokkaan"""
 from citations.new_citation import Citation, CitationType
-from citations.citation_strings import *
+from citations.citation_strings import ARTICLE_STRINGS, INPROCEEDINGS_STRINGS, \
+                                        BOOK_STRINGS
 
 
 class CitationFactory():

@@ -1,7 +1,8 @@
 from database_connection import form_database_connection
 from citations.new_citation import Citation, CitationType
-from citations.citation_factory import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, \
-                                BOOK_TITLE, CitationFactory
+from citations.citation_factory import CitationFactory
+from citations.citation_strings import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, \
+                                        BOOK_TITLE
 
 
 
@@ -64,15 +65,7 @@ class CitationRepository():
             attribute.set_value(row[column])
             column += 1
         return citation
-    """
-    id INTEGER PRIMARY KEY,
-        type TEXT, 
-        author TEXT,
-        title TEXT,
-        year INTEGER,
-        journal_title TEXT,
-        book_title TEXT
-    """
+
     def get_all_citations(self):
         cursor = self._connection.cursor()
         cursor.execute(
