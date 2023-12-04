@@ -55,6 +55,25 @@ Added Citation With Tag Can Be Found on Citation List
 	Output Should Contain  Joku journaltitle
 	Output Should Contain  tagi
 
+# Käyttäjänä haluan mahdollisuuden generoida järjestelmässä 
+# olevista viitteistä LaTeX-dokumenttiin sopivan BibTeX-muotoisen tiedoston
+Create BibTex File From Citation
+    input  luo
+	input  tiedoston_nimi
+	Run Application
+	Output Should Contain Line  Tiedosto luotu onnistuneesti
+
+# Käyttäjänä haluan pystyä hakemaan viitteitä tagilla.
+Create Citation Article With Tag
+	Create Citation Article With Tag
+	Input  listaa
+	Input  tagi
+	Run Application
+	Output Should Contain  Nimi Sukunimi
+	Output Should Contain  Otsikko on Aina Kiva Olla
+	Output Should Contain  2004
+	Output Should Contain  Joku journaltitle
+	Output Should Contain  tagi
 
 Resetting Database Works
 	Create Citation Article Without Tag
