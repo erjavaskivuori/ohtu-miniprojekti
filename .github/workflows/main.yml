@@ -35,5 +35,7 @@ jobs:
       - name: Pylint check
         run: poetry run pylint src
         continue-on-error: true
-      - name: Inform Codecov about new coverage report
-        run: bash <(curl -s https://codecov.io/bash)
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
