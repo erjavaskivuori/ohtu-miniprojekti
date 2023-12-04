@@ -51,6 +51,13 @@ class TagRepository():
             tags[row[1]] = row[0]
 
         return tags
+    
+    def clear_tables(self):
+        cursor = self._connection.cursor()
+        cursor.execute("DELETE FROM tags")
+        cursor.execute("DELETE FROM tagged")
+        self._connection.commit()
+
 
 
 tag_repository = TagRepository(form_database_connection())
