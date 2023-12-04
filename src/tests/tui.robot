@@ -68,7 +68,7 @@ Create BibTex File From Citation
 	Output Should Contain  Tiedosto luotu onnistuneesti
 
 # Käyttäjänä haluan pystyä hakemaan viitteitä tagilla.
-Create Citation Article With Tag
+Search Citation Article With Tag
 	Create Citation Article With Tag
 	Input  listaa
 	Run Application
