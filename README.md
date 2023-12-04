@@ -1,8 +1,6 @@
 # Ohtu miniprojekti
 ![GHA workflow badge](https://github.com/erjavaskivuori/ohtu-miniprojekti/workflows/CI/badge.svg)[![codecov](https://codecov.io/github/erjavaskivuori/ohtu-miniprojekti/graph/badge.svg?token=BJ1NFKVKDF)](https://codecov.io/github/erjavaskivuori/ohtu-miniprojekti)
 
-[Testikattavuusraportti](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/testikattavuus.png)
-
 [Product backlog ja sprint backlog](https://docs.google.com/spreadsheets/d/1TeniUNzDz5KInh-D-tHVcKsYnXuUdVKj35sreIyCLF8/edit?usp=sharing)
 
 [Retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro.md)
