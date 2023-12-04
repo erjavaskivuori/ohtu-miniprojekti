@@ -104,21 +104,40 @@ class CitationManager():
         Returns:
             True
         """
+        if self.return_all_citations() == {}:
+            self._tui.print_error("sinulla ei ole vielä yhtään sitaattia")
+            return False
 
         self._tui.print("Lista kaikista sitaateistasi:")
         self.print_all()
         citation_id = self._tui.ask(
             "sen sitaatin id, jolle haluat lisätä tägin")
-        self._tui.print("Lista olemassa olevista tageistasi:")
-        self.print_all_tags()
-        tag = self._tui.ask("Syötä jokin yllä olevista tägeista tai uusi tägi")
 
-        try:
-            self.add_tag_for_citation(citation_id, tag.lower())
-        except UserWarning:
+        if not self.citation_exists(citation_id):
+            self._tui.print_error("Antamaasi id:tä ei ole olemassa")
+            citation_id = self._tui.ask(
+            "sen sitaatin id, jolle haluat lisätä tägin")
+
+        if self.get_all_tags() != {}:
+            self._tui.print("Lista olemassa olevista tageistasi:")
+            self.print_all_tags()
+            tag = self._tui.ask("Syötä jokin yllä olevista tägeista tai uusi tägi")
+        else:
+            tag = self._tui.ask("uusi tägi")
+
+        if not self.add_tag_for_citation(citation_id, tag.lower()):
             self._tui.print_error("sitaatilla on jo tägi")
 
         return True
+
+    def citation_exists(self, citation_id):
+        all_citations = self.return_all_citations()
+
+        for citation in all_citations.items():
+            if int(citation[0]) == int(citation_id):
+                return True
+
+        return False
 
     def add_tag_for_citation(self, citation_id, tag):
         """Creates tag for citation.
