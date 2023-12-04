@@ -1,5 +1,5 @@
 # Ohtu miniprojekti
-![GHA workflow badge](https://github.com/erjavaskivuori/ohtu-miniprojekti/workflows/CI/badge.svg)
+![GHA workflow badge](https://github.com/erjavaskivuori/ohtu-miniprojekti/workflows/CI/badge.svg)[![codecov](https://codecov.io/github/erjavaskivuori/ohtu-miniprojekti/graph/badge.svg?token=BJ1NFKVKDF)](https://codecov.io/github/erjavaskivuori/ohtu-miniprojekti)
 
 [Testikattavuusraportti](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/testikattavuus.png)
 
