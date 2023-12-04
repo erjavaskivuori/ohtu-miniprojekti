@@ -89,3 +89,13 @@ class TestCitationManager(unittest.TestCase):
         self.assertTrue(self.manager.print_all())
         self.manager.clear_all()
         self.assertFalse(self.manager.print_all())
+
+    def test_add_tag_to_citation(self):
+        test_tag = "tag1"
+        citation_id = self.manager.add_citation(self.article)
+        self.manager.add_tag_for_citation(citation_id, test_tag)
+        all_tags = self.manager.get_all_tags()
+        keys = [key for key in all_tags]
+        self.assertEqual(keys[0], test_tag)
+
+    

@@ -27,8 +27,9 @@ class TagRepository():
         cursor = self._connection.cursor()
         cursor.execute("SELECT citation_id FROM tagged")
         rows = cursor.fetchall()
-        if citation_id in rows:
-            return False
+        for i in rows:
+            if citation_id == i[0]:
+                return False
 
         tag_id = self.create_new_tag(tag)
 

@@ -129,9 +129,12 @@ class CitationManager():
         """
         self._tag_repo.add_tag_to_citation(citation_id, tag)
 
+    def get_all_tags(self):
+        return self._tag_repo.get_all_tags()
+
     def print_all_tags(self):
 
-        all_tags = self._tag_repo.get_all_tags()
+        all_tags = self.get_all_tags()
 
         for i in all_tags:
             self._tui.print(i)
