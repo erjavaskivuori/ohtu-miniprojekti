@@ -14,31 +14,33 @@ TIEDOSTON_LUONTI_ONNISTUI = "Tiedosto luotu onnistuneesti"
 
 
 class CitationManager():
-    """Socelluslogiikasta vastaava luokka.
+    """Class responsible of the application logic.
     """
 
     def __init__(self, tui, citation_repo=citation_repository,
                  tag_repo=tag_repository):
-        """Luokan konstruktori. Luo uuden sovelluslogiikasta vastaavan palvelun.
+        """Class constructor. Creates service responsible of the application logic.
+
+        Args:
+            tui: user interface as a Tui object
+            citation_repo: Defaults to citation_repository.
+            tag_repo: Defaults to tag_repository.
         """
         self._tui: Tui = tui
         self._citation_repo = citation_repo
         self._tag_repo = tag_repo
 
     def add_citation(self, citation: Citation):
-        """Luo uuden sitaatin.
+        """Creates new citation.
         Args:
-            citation: lisättävä sitaatti Citation-oliona.
+            citation: citation to be created as a Citation object.
         """
         citation_id = self._citation_repo.create_citation(citation)
 
         return citation_id
 
     def add_citation_by_user_input(self):
-        """Luo uuden sitaatin kysellen käyttäjältä.
-
-        Args:
-            -
+        """Creates new citation by user input.
 
         TODO:
             * Make it ask relevant data for the citation type
@@ -96,7 +98,12 @@ class CitationManager():
             return False
         return True
 
-    def add_tag_for_citation(self):
+    def add_tag_for_citation_by_user_input(self):
+        """Adds tag for a citation by user input.
+
+        Returns:
+            True
+        """
 
         self._tui.print("Lista kaikista sitaateistasi:")
         self.print_all()
@@ -107,11 +114,20 @@ class CitationManager():
         tag = self._tui.ask("Syötä jokin yllä olevista tägeista tai uusi tägi")
 
         try:
-            self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
+            self.add_tag_for_citation(citation_id, tag.lower())
         except:
             self._tui.print_error("sitaatilla on jo tägi")
 
         return True
+    
+    def add_tag_for_citation(self, citation_id, tag):
+        """Creates tag for citation.
+
+        Args:
+            citation_id (int): citation's id
+            tag (str): tag's name
+        """
+        self._tag_repo.add_tag_to_citation(citation_id, tag)
 
     def print_all_tags(self):
 
@@ -121,28 +137,35 @@ class CitationManager():
             self._tui.print(i)
 
     def return_one_citation(self, title: str):
-        """Hakee yhden sitaatin.
+        """Method to get one citation from database.
 
         Args:
-            title: sitaatin otsikko.
+            title: title of a citation.
 
         Returns:
-            Palauttaa sitaatin, joka vastaa hakua. None jos sitaattia ei löydy.
+            Title of a citation. None if there isn't mathcing citations.
         """
 
         return self._citation_repo.get_one_citation(title)
 
     def return_all_citations(self):
-        """Listaa kaikki sitaatit.
+        """Method to list all saved citations.
 
         Returns:
-            Palauttaa dictionaryn kaikista sitaateista.
-            Dictionary on muotoa ("id", Citation-olio).
+            Dictionary of all citations.
+            Dictionary contains ("id", Citation object).
         """
 
         return self._citation_repo.get_all_citations()
 
     def print_citation(self, c_id, c):
+        """Method to print citation.
+
+        Args:
+            c_id: id of the citation to be printed
+            c: Citation object
+        """
+
         attributes = c.get_attributes_dictionary()
         self._tui.print_item_entry(c_id, f"label_tähän")
         self._tui.print_item_attribute("type", c.type.name)
@@ -154,10 +177,10 @@ class CitationManager():
             self._tui.print_item_attribute("tägi", c.tag)
 
     def print_all(self):
-        """Tulostaa kaikki sitaatit.
+        """Method to print all the citations saved in database.
 
         Returns:
-            Palauttaa oliko printattavaa. (bool)
+            True
         """
         citations = self._citation_repo.get_all_citations()
         if len(citations) < 1:
@@ -168,7 +191,7 @@ class CitationManager():
         return True
 
     def print_by_tag(self):
-        """Tulostaa kaikki sitaatit jolla tagi.
+        """Method to print all the citations with a tag.
         """
         tag = self._tui.ask("tägi")
         for c_id, citation in self._citation_repo.get_all_citations().items():
@@ -176,16 +199,17 @@ class CitationManager():
                 self.print_citation(c_id, citation)
 
     def clear_all(self):
-        """Tyhjentää tietokannan.
+        """Clears all the databses.
         """
 
         self._citation_repo.clear_table()
+        self._tag_repo.clear_tables()
 
     def create_bib_file(self):
-        """Luo .bib tiedoston.
+        """Creates .bib file.
 
         Returns: 
-            Onnistuiko tiedoston luonti. (bool)
+            True if succeed, False if didn't succeed
         """
         filename = self._tui.ask("tiedoston nimi (.bib)")
         if BibTexMaker.try_generate_bible_text_file(
