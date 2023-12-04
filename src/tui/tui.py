@@ -54,7 +54,7 @@ tarvittavat tiedot."""
         Commands.ADD:		"Lisää viite",
         Commands.LIST:		"Listaa viitteet",
         Commands.HELP:		"Tulosta valikko/ohjeet",
-        Commands.TAG:		"Anna viitteelle tagi",
+        Commands.TAG:		"Anna viitteelle tägi",
         Commands.BIB:		"Kirjoita viiteluettelo BiBTeX muodossa",
         Commands.SEARCH:	"Hae viitteet tägillä"
     }
