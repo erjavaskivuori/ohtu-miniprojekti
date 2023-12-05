@@ -42,18 +42,27 @@ class App:
                     self._cm.print_by_tag()
                     continue
                 case Commands.DELETE:
-                    self._cm.delete_citation()
+                    self._delete()
                     continue
                 case Commands.DROP:
-                    if self._cm.clear_all():
-                        self._tui.print("Viitteet tyhjennetty")
-                    else:
-                        self._tui.print_error("Tyhjennys ei onnistunut")
+                    self._drop()
                     continue
                 case Commands.QUIT | "\0":  # Fast escape used for tests
                     break
                 case _:
                     self._tui.print_error("Komentoa ei ole implementoitu")
+
+    def _drop(self):
+        self._cm.clear_all()
+        self._tui.print("Viitteet tyhjennetty")
+#        else:
+#            self._tui.print_error("Tyhjennys ei onnistunut")
+
+    def _delete(self):
+        if self._cm.delete_citation():
+            self._tui.print("Viite poistettu")
+#        else:
+#            self._tui.print_error("Viitteen poisto ei onnistunut")
 
 
 if __name__ == "__main__":

@@ -249,6 +249,8 @@ class CitationManager():
         self._citation_repo.delete_citation(citation_id)
         self._tag_repo.delete_by_citation_id(citation_id)
 
+        return True # Fail should be handled
+
 #    def search_citation(self, citation):
 #        None
 

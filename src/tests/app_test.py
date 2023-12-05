@@ -4,10 +4,12 @@ from tui.tui import Commands, Tui
 from tui.stub_io import StubIO
 from tui.tui_io import TuiIO
 from app import App
+from initialize_database import initialize_database
 
 
 class TestApp(unittest.TestCase):
     def setUp(self):
+        initialize_database()
         self.io = StubIO()
         self.tui = Tui(self.io)
         self.app = App(self.tui)
@@ -21,7 +23,7 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn("Komennot:", "".join(self.io.outputs))
 
-    def test_app_commands_drop_add_list_tag(self):
+    def test_app_commands_drop_add_list_tag_delete(self):
         self.io.add_input("tyhjennä")
         self.app.run()
         self.assertIn("Viitteet tyhjennetty", "".join(self.io.outputs))
@@ -58,5 +60,17 @@ class TestApp(unittest.TestCase):
         self.io.add_input("testi_tägi666")
         self.app.run()
         self.assertIn("Tägin lisäys ei", "".join(self.io.outputs))
+        
+        self.io.outputs=[]
+        self.io.add_input("poista")
+        self.io.add_input("1")
+        self.app.run()
+        self.assertIn("Viite poistettu", "".join(self.io.outputs))
+
+#        self.io.outputs=[]
+#        self.io.add_input("poista")
+#        self.io.add_input("666")
+#        self.app.run()
+#        self.assertIn("Viitteen poisto ei", "".join(self.io.outputs))
         
         
