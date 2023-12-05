@@ -32,40 +32,6 @@ class CitationRepository():
 
         return cursor.lastrowid
 
-    def get_one_citation(self, title: str):
-        """Hakee yhden sitaatin.
-
-        Args:
-            title (str): title, jonka perusteella sitaatti haetaan
-
-        Returns:
-            _type_: Sitatti, joka vastaa hakua. None jos sitaattia ei löydy.
-        """
-        cursor = self._connection.cursor()
-        cursor.execute(
-            "SELECT * FROM citations WHERE title = ?", [title])
-        row = cursor.fetchone()
-
-        if row is None:
-            return None
-
-        citation_type = row[1]
-
-        citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
-
-        column = 2
-
-        for attribute in citation.attributes:
-            while row[column] == '':
-                column += 1
-                if column == len(citation.attributes)-1:
-                    break
-            if column == len(citation.attributes)-1:
-                break
-            attribute.set_value(row[column])
-            column += 1
-        return citation
-
     def get_all_citations(self):
         cursor = self._connection.cursor()
         cursor.execute(

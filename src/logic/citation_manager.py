@@ -35,7 +35,6 @@ class CitationManager():
         citation = CitationFactory.get_new_citation(CitationType(ctype))
         citation.set_label(label)
 
-        print(attrs)
         for name, value in attrs.items():
             for a in citation.attributes:
                 if a.get_name() == name:
@@ -75,19 +74,6 @@ class CitationManager():
 
     def get_all_tags(self):
         return self._tag_repo.get_all_tags()
-
-
-    def return_one_citation(self, title: str):
-        """Method to get one citation from database.
-
-        Args:
-            title: title of a citation.
-
-        Returns:
-            Title of a citation. None if there isn't mathcing citations.
-        """
-
-        return self._citation_repo.get_one_citation(title)
 
     def return_all_citations(self):
         """Method to list all saved citations.
@@ -167,11 +153,3 @@ class CitationManager():
         self._tag_repo.delete_by_citation_id(citation_id)
 
         return True # Fail should be handled
-
-#    def search_citation(self, citation):
-#        None
-
-
-# if __name__=="__main__":
-#     testi = Citation("a","a","a",11)
-#     print(testi)
