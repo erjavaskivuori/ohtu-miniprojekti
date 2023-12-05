@@ -42,9 +42,9 @@ class App:
     def __bib(self):
         filename = self._tui.ask( MSG.Bib.ask_filename )
         if self._cm.create_bib_file(filename):
-            self._tui.print(MSG.Bib.create_ok)
+            self._tui.print_info(MSG.Bib.create_ok)
         else:
-            self._tui.print(MSG.Bib.create_fail)
+            self._tui.print_error(MSG.Bib.create_fail)
 
     def __search(self):
         tag = self._tui.ask( MSG.Search.ask_tag )
@@ -93,7 +93,7 @@ class App:
 
         self._cm.add_tag_for_citation(citation_id, tag.lower())
 
-        self._tui.print( MSG.Tag.success )
+        self._tui.print_info( MSG.Tag.success )
         return True
 
 
@@ -147,7 +147,7 @@ class App:
                 if self._tui.yesno( MSG.Add.ask_add_tag ) else ""
 
         self._cm.add_citation( ctype, label, tag, adict )
-        self._tui.print( MSG.Add.success )
+        self._tui.print_info( MSG.Add.success )
 #        else:
 #            self._tui.print_error( MSG.Add.fail )
 
@@ -155,14 +155,14 @@ class App:
     def __drop(self):
         if self._tui.yesno( MSG.Drop.ask_sure ):
             self._cm.clear_all()
-            self._tui.print( MSG.Drop.success )
+            self._tui.print_info( MSG.Drop.success )
         else:
             self._tui.print( MSG.Drop.aborted )
 
     def __delete(self):
         citation_id = self._tui.ask( MSG.Delete.ask_id )
         self._cm.delete_citation(citation_id)
-        self._tui.print( MSG.Delete.success )
+        self._tui.print_info( MSG.Delete.success )
 #        else:
 #            self._tui.print_error( MSG.Delete.fail )
 

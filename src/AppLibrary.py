@@ -12,33 +12,20 @@ class AppLibrary:
         self._io.add_input(value)
 
     def output_should_contain_line(self, value):
-        print("We are in AppLibrary.output_should_contain()")
-        outputs = self._io.outputs
-
-        if not value in outputs:
-            raise AssertionError(
-                f"Output \"{value}\" is not line in {str(outputs)}"
-            )
+        if not value in self._io.outputs:
+            out = "\n".join(self._io.outputs)
+            raise AssertionError( f"\"{value}\" is not a line in:\n\n{out}" )
 
     def output_should_contain(self, value):
-        print("We are in AppLibrary.output_should_contain()")
-        outputs = self._io.outputs
-        found = [line for line in outputs if line.find(value)>0]
-
-        if not found:
-            raise AssertionError(
-                f"String \"{value}\" is not found in {str(outputs)}"
-            )
+        if value not in "".join(self._io.outputs):
+            out = "\n".join(self._io.outputs)
+            raise AssertionError( f"\"{value}\" is found in:\n\n{out}" )
 
     def output_should_not_contain(self, value):
-        print("We are in AppLibrary.output_should_contain()")
-        outputs = self._io.outputs
-        found = [line for line in outputs if line.find(value)>0]
+        if value in "".join(self._io.outputs):
+            out = "\n".join(self._io.outputs)
+            raise AssertionError( f"\"{value}\" is not found in:\n\n{out}" )
 
-        if found:
-            raise AssertionError(
-                f"String \"{value}\" is found in {str(outputs)}"
-            )
 
     def reset_database(self):
 # pylint: disable=W0212

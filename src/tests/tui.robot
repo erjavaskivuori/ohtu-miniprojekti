@@ -20,7 +20,7 @@ Print Help Menu
 Wrong Input Gives Correct Prompt In Main Menu
 	Input  lop
 	Run Application
-	Output Should Contain  *** VIRHE: lop: tuntematon komento.
+	Output Should Contain  VIRHE: lop: tuntematon komento.
 
 Adding Article Gives Correct Prompts
 	Input  lisää
@@ -38,7 +38,7 @@ Wrong Input Gives Correct Prompt In Add Citation Menu
 	Input  label_eka
 	Input  viisi
 	Run Application
-	Output Should Contain  *** VIRHE: Syöte 'viisi' ei kelpaa.
+	Output Should Contain  VIRHE: Syöte 'viisi' ei kelpaa.
 
 Added Citation Can Be Found on Citation List
 	Create Citation Article Without Tag
@@ -63,7 +63,7 @@ Create BibTex File From Citation
     input  luo
 	input  tiedoston_nimi
 	Run Application
-	Output Should Contain Line  Tiedosto luotu onnistuneesti\n
+	Output Should Contain  Tiedosto luotu onnistuneesti
 
 # Käyttäjänä haluan pystyä hakemaan viitteitä tagilla.
 Create Citation Article With Tag

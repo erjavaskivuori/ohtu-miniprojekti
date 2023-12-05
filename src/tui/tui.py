@@ -62,7 +62,7 @@ tarvittavat tiedot."""
         Commands.BIB:		"Kirjoita viiteluettelo BiBTeX muodossa",
         Commands.SEARCH:	"Hae viitteet tägillä",
         Commands.DELETE:	"Poistaa yksittäisen sitaatin",
-        Commands.DROP:	"Poistaa kaikki sitaatit"
+        Commands.DROP:		"Poistaa kaikki sitaatit"
     }
 
     categories = {
@@ -167,4 +167,8 @@ tarvittavat tiedot."""
 
     def print_error(self, msg: str):
         """ print_error(msg) - For printing ERROR messages in RED color """
-        self.output(f"{ANSI.red}*** VIRHE: {msg}{ANSI.reset}\n")
+        self.output(f"{ANSI.red} * VIRHE: {msg}{ANSI.reset}\n")
+
+    def print_info(self, msg: str):
+        """ print_info(msg) - For printing INFO messages in GREEN color """
+        self.output(f"{ANSI.green} * {msg}{ANSI.reset}\n")
