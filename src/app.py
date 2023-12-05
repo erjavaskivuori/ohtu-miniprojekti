@@ -18,10 +18,7 @@ class App:
         while True:
             match self._tui.menu():
                 case Commands.ADD:
-                    if self._cm.add_citation_by_user_input():
-                        self._tui.print("Viite lisätty onnistuneesti")
-                    else:
-                        self._tui.print_error("Viitten lisäys ei onnistunut")
+                    self.__add()
                     continue
                 case Commands.LIST:
                     self._cm.print_all()
@@ -30,10 +27,7 @@ class App:
                     self._tui.help()
                     continue
                 case Commands.TAG:
-                    if self._cm.add_tag_for_citation_by_user_input():
-                        self._tui.print("Tägi lisätty onnistuneesti")
-                    else:
-                        self._tui.print_error("Tägin lisäys ei onnistunut")
+                    self.__tag()
                     continue
                 case Commands.BIB:
                     self._cm.create_bib_file()
@@ -42,10 +36,10 @@ class App:
                     self._cm.print_by_tag()
                     continue
                 case Commands.DELETE:
-                    self._delete()
+                    self.__delete()
                     continue
                 case Commands.DROP:
-                    self._drop()
+                    self.__drop()
                     continue
                 case Commands.QUIT | "\0":  # Fast escape used for tests
                     break
@@ -53,13 +47,26 @@ class App:
                     self._tui.print_error("Komentoa ei ole implementoitu")
                     break
 
-    def _drop(self):
+
+    def __tag(self):
+        if self._cm.add_tag_for_citation_by_user_input():
+            self._tui.print("Tägi lisätty onnistuneesti")
+        else:
+            self._tui.print_error("Tägin lisäys ei onnistunut")
+
+    def __add(self):
+        if self._cm.add_citation_by_user_input():
+            self._tui.print("Viite lisätty onnistuneesti")
+        else:
+            self._tui.print_error("Viitten lisäys ei onnistunut")
+
+    def __drop(self):
         self._cm.clear_all()
         self._tui.print("Viitteet tyhjennetty")
 #        else:
 #            self._tui.print_error("Tyhjennys ei onnistunut")
 
-    def _delete(self):
+    def __delete(self):
         self._cm.delete_citation()
         self._tui.print("Viite poistettu")
 #        else:
