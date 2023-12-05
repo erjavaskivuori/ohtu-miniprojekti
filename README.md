@@ -10,7 +10,7 @@
 - Hae uusin asennuspaketti [täältä](https://github.com/erjavaskivuori/ohtu-miniprojekti/releases/latest)
 - Pura lataamasi paketti esim: `tar xfvz viikko9.tar.gz`
 - Avaa terminaali juuri puretussa kansiossa (esim ohtu-miniprojekti-viikko9)
-- Suorita riippuvuuksien asennus komennolla: `poetry install --no-root`
+- Suorita riippuvuuksien asennus komennolla: `PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring poetry install --without dev --no-root`
 - Alusta tietokonata komennolla: `poetry run python3 src/build.py`
 
 ## Käyttöohjeet
