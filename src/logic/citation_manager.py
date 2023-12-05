@@ -6,13 +6,6 @@ from db.citation_repository import citation_repository
 from db.tag_repository import tag_repository
 from tui.tui import Tui
 
-# Näin että stringit aina mätsäävät eikä kirjoitusvirhe
-# esimerkiksi failaa testejä
-TIEDOSTON_LUONTI_EPAONNISTUI = "Tiedoston luonti epäonnistui \
-(tarkista oikeudet tai käytitkö kiellettyjä merkkejä)"
-TIEDOSTON_LUONTI_ONNISTUI = "Tiedosto luotu onnistuneesti"
-
-
 class CitationManager():
     """Class responsible of the application logic.
     """
@@ -198,25 +191,17 @@ class CitationManager():
         self._tag_repo.clear_tables()
         return True # What if drop fails?
 
-    def create_bib_file(self):
+    def create_bib_file(self, filename):
         """Creates .bib file.
 
         Returns: 
             True if succeed, False if didn't succeed
         """
-        filename = self._tui.ask("tiedoston nimi (.bib)")
-        if BibTexMaker.try_generate_bible_text_file(
-            self.return_all_citations(),
-            filename
-        ):
-            self._tui.output(TIEDOSTON_LUONTI_ONNISTUI)
-            return True
-        self._tui.output(TIEDOSTON_LUONTI_EPAONNISTUI)
-        return False
+        return BibTexMaker.try_generate_bible_text_file(
+            self.return_all_citations(), filename )
 
 
-    def delete_citation(self):
-        citation_id = self._tui.ask("sitaatin id")
+    def delete_citation(self, citation_id):
         self._citation_repo.delete_citation(citation_id)
         self._tag_repo.delete_by_citation_id(citation_id)
 

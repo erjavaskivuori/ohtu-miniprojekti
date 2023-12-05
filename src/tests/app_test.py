@@ -73,8 +73,15 @@ class TestApp(unittest.TestCase):
 
     def test_app_commands_drop_add_list_tag_search_delete(self):
         self.io.add_input("tyhjennä")
+        self.io.add_input("kyllä")
         self.app.run()
         self.assertIn("Viitteet tyhjennetty", "".join(self.io.outputs))
+    
+        self.io.outputs=[]
+        self.io.add_input("tyhjennä")
+        self.io.add_input("ei")
+        self.app.run()
+        self.assertIn("Tyhjennys peruutettu.", "".join(self.io.outputs))
     
         self.io.add_input("lisää")
         self.app.run()

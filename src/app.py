@@ -6,6 +6,16 @@ from tui.tui import Tui, Commands
 from tui.tui_io import TuiIO
 
 
+# Näin että stringit aina mätsäävät eikä kirjoitusvirhe
+# esimerkiksi failaa testejä
+class MSG:
+    class Bib:
+        create_ok = "Tiedosto luotu onnistuneesti"
+        create_fail = "Tiedoston luonti epäonnistui \
+(tarkista oikeudet tai käytitkö kiellettyjä merkkejä)"
+
+
+
 class App:
     """ THE APPLICATION !!! """
 
@@ -39,7 +49,11 @@ class App:
                 break
 
     def __bib(self):
-        self._cm.create_bib_file()
+        filename = self._tui.ask("tiedoston nimi (.bib)")
+        if self._cm.create_bib_file(filename):
+            self._tui.print(MSG.Bib.create_ok)
+        else:
+            self._tui.print(MSG.Bib.create_fail)
 
     def __search(self):
         tag = self._tui.ask("tägi")
@@ -120,13 +134,15 @@ Kirja (1), Artikkeli (2) ja Inproceedings (3)", validate_type ) )
 
 
     def __drop(self):
-        self._cm.clear_all()
-        self._tui.print("Viitteet tyhjennetty")
-#        else:
-#            self._tui.print_error("Tyhjennys ei onnistunut")
+        if self._tui.yesno("Oletko ihan varma (kyllä/ei):"):
+            self._cm.clear_all()
+            self._tui.print("Viitteet tyhjennetty")
+        else:
+            self._tui.print("Tyhjennys peruutettu.")
 
     def __delete(self):
-        self._cm.delete_citation()
+        citation_id = self._tui.ask("sitaatin id")
+        self._cm.delete_citation(citation_id)
         self._tui.print("Viite poistettu")
 #        else:
 #            self._tui.print_error("Viitteen poisto ei onnistunut")

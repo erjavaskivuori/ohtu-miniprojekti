@@ -63,7 +63,7 @@ Create BibTex File From Citation
     input  luo
 	input  tiedoston_nimi
 	Run Application
-	Output Should Contain Line  Tiedosto luotu onnistuneesti
+	Output Should Contain Line  Tiedosto luotu onnistuneesti\n
 
 # Käyttäjänä haluan pystyä hakemaan viitteitä tagilla.
 Create Citation Article With Tag
