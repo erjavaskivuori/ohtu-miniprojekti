@@ -5,13 +5,17 @@
 
 [Retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro.md)
 
+## Asennusohjeet
+- Asenna koneelle ajantasaiset versiot SQLite ja poetry -ohjelmista, sekä niiden riippuvuudet (poetry 1.7.1 ja SQlite 3.40.1 sekä niitä uudemmat yhteensopivat versiot toiminevat)
+- Hae uusin asennuspaketti [täältä](https://github.com/erjavaskivuori/ohtu-miniprojekti/releases/latest)
+- Pura lataamasi paketti esim: `tar xfvz viikko9.tar.gz`
+- Avaa terminaali juuri puretussa kansiossa (esim ohtu-miniprojekti-viikko9)
+- Suorita riippuvuuksien asennus komennolla: `poetry install --no-root`
+- Alusta tietokonata komennolla: `poetry run python3 src/build.py`
+
 ## Käyttöohjeet
-1. Ohjelma toimii komentorivillä. Sinulla tulee olla asennettuna [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) ja vähintään [Python](https://www.python.org/downloads/) 3.10.
-2. Kloonaa komentorivin komennolla `git clone git@github.com:erjavaskivuori/ohtu-miniprojekti.git` ohjelma haluttuun paikkaan.
-3. Asenna riippuvuudet komennolla `poetry install`
-4. Suorita tietokannan alustus komennolla `python3 ohtu-miniprojekti/src/build.py`
-5. Suorita python ohjelma komennolla `python3 ohtu-miniprojekti/src/app.py`
-6. Ohjelma antaa kaikki ohjeet viitteiden hallintaan. Käskyillä `menu`, `apua` tai `auta` saat kaikki komennot näkyviin.
+- Ohjelma käynnistetään projektin juurikansiossa (esim ohtu-miniprojekti-viikko9) komennolla: `poetry run python3 src/app.py`
+- Ohjelman käyttöohjeet löytyvät itse ohjelmasta komentamalla `menu` päävalikossa, joka avautuu heti ohjelman käynnistymisen jälkeen.
 
 ## Definition of done
 
