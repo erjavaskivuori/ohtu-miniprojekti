@@ -18,7 +18,9 @@ class App:
         while True:
             match self._tui.menu():
                 case Commands.ADD:
-                    if not self._cm.add_citation_by_user_input():
+                    if self._cm.add_citation_by_user_input():
+                        self._tui.print("Viite lisätty onnistuneesti")
+                    else:
                         self._tui.print_error("Viitten lisäys ei onnistunut")
                     continue
                 case Commands.LIST:
@@ -28,8 +30,10 @@ class App:
                     self._tui.help()
                     continue
                 case Commands.TAG:
-                    if not self._cm.add_tag_for_citation_by_user_input():
-                        self._tui.print_error("Tagin lisäys ei onnistunut")
+                    if self._cm.add_tag_for_citation_by_user_input():
+                        self._tui.print("Tägi lisätty onnistuneesti")
+                    else:
+                        self._tui.print_error("Tägin lisäys ei onnistunut")
                     continue
                 case Commands.BIB:
                     self._cm.create_bib_file()
@@ -41,7 +45,10 @@ class App:
                     self._cm.delete_citation()
                     continue
                 case Commands.DROP:
-                    self._cm.clear_all()
+                    if self._cm.clear_all():
+                        self._tui.print("Viitteet tyhjennetty")
+                    else:
+                        self._tui.print_error("Tyhjennys ei onnistunut")
                     continue
                 case Commands.QUIT | "\0":  # Fast escape used for tests
                     break

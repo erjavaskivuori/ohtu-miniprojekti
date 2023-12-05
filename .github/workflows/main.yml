@@ -27,14 +27,12 @@ jobs:
         run: poetry run pytest src
       - name: Robot tests
         run: poetry run robot src
-        continue-on-error: true
       - name: Test branch coverage
         run: poetry run coverage run --branch -m pytest
       - name: Make XML report from coverage run
         run: poetry run coverage xml
       - name: Pylint check
         run: poetry run pylint src
-        continue-on-error: true
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:

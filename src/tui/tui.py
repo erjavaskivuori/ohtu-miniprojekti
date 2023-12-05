@@ -49,8 +49,8 @@ tarvittavat tiedot."""
         'tägää':	Commands.TAG,
         'luo':		Commands.BIB,
         'hae':		Commands.SEARCH,
-        'poista':   Commands.DELETE,
-        'tyhjennä': Commands.DROP
+        'poista':	Commands.DELETE,
+        'tyhjennä':	Commands.DROP
     }
 
     descriptions = {
@@ -61,15 +61,15 @@ tarvittavat tiedot."""
         Commands.TAG:		"Anna viitteelle tägi",
         Commands.BIB:		"Kirjoita viiteluettelo BiBTeX muodossa",
         Commands.SEARCH:	"Hae viitteet tägillä",
-        Commands.DELETE:    "Poistaa yksittäisen sitaatin",
-        Commands.DROP:      "Poistaa kaikki sitaatit"
+        Commands.DELETE:	"Poistaa yksittäisen sitaatin",
+        Commands.DROP:	"Poistaa kaikki sitaatit"
     }
 
     categories = {
         "Lisää ja päivitä":	[Commands.ADD, Commands.TAG],
         "Näytä":		[Commands.LIST, Commands.SEARCH],
         "Sekalaista":		[Commands.HELP],
-        "Poista":       [Commands.DELETE, Commands.DROP],
+        "Poista":		[Commands.DELETE, Commands.DROP],
         "Tallenna & Lopeta":	[Commands.QUIT, Commands.BIB]
     }
 

@@ -226,6 +226,7 @@ class CitationManager():
 
         self._citation_repo.clear_table()
         self._tag_repo.clear_tables()
+        return True # What if drop fails?
 
     def create_bib_file(self):
         """Creates .bib file.
