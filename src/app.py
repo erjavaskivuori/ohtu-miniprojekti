@@ -14,39 +14,40 @@ class App:
 
     def run(self):
         """ This starts the application """
-        self._tui.greet()
-        while True:
-            match self._tui.menu():
-                case Commands.ADD:
-                    self.__add()
-                    continue
-                case Commands.LIST:
-                    self._cm.print_all()
-                    continue
-                case Commands.HELP:
-                    self._tui.help()
-                    continue
-                case Commands.TAG:
-                    self.__tag()
-                    continue
-                case Commands.BIB:
-                    self._cm.create_bib_file()
-                    continue
-                case Commands.SEARCH:
-                    self._cm.print_by_tag()
-                    continue
-                case Commands.DELETE:
-                    self.__delete()
-                    continue
-                case Commands.DROP:
-                    self.__drop()
-                    continue
-                case Commands.QUIT | "\0":  # Fast escape used for tests
-                    break
-                case _:
-                    self._tui.print_error("Komentoa ei ole implementoitu")
-                    break
+        commands = {
+            Commands.ADD:		self.__add,
+            Commands.LIST:		self.__list,
+            Commands.HELP:		self.__help,
+            Commands.TAG:		self.__tag,
+            Commands.BIB:		self.__bib,
+            Commands.SEARCH:		self.__search,
+            Commands.DELETE:		self.__delete,
+            Commands.DROP:		self.__drop
+        }
 
+        self._tui.greet()
+
+        while True:
+            command = self._tui.menu()
+            if command in (Commands.QUIT, "\0"):
+                break
+            if command in commands:
+                commands[command]()
+            else:
+                self._tui.print_error("Komentoa ei ole implementoitu")
+                break
+
+    def __bib(self):
+        self._cm.create_bib_file()
+
+    def __search(self):
+        self._cm.print_by_tag()
+
+    def __help(self):
+        self._tui.help()
+
+    def __list(self):
+        self._cm.print_all()
 
     def __tag(self):
         if self._cm.add_tag_for_citation_by_user_input():
