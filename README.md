@@ -6,9 +6,9 @@
 [Retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro.md)
 
 ## Asennusohjeet
-- Asenna koneelle ajantasaiset versiot SQLite ja poetry -ohjelmista, sekä niiden riippuvuudet (poetry 1.7.1 ja SQlite 3.40.1 sekä niitä uudemmat yhteensopivat versiot toiminevat)
+- Asenna koneelle ajantasaiset versiot [SQLite](https://www.sqlite.org/) ja [poetry](https://python-poetry.org/) -ohjelmista, sekä niiden riippuvuudet (poetry 1.7.1 ja SQlite 3.40.1 sekä niitä uudemmat yhteensopivat versiot toiminevat)
 - Hae uusin asennuspaketti [täältä](https://github.com/erjavaskivuori/ohtu-miniprojekti/releases/latest)
-- Pura lataamasi paketti esim: `tar xfvz viikko9.tar.gz`
+- Pura lataamasi paketti esim: `tar xfz viikko9.tar.gz`
 - Avaa terminaali juuri puretussa kansiossa (esim ohtu-miniprojekti-viikko9)
 - Suorita riippuvuuksien asennus komennolla: `PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring poetry install --without dev --no-root`
 - Alusta tietokonata komennolla: `poetry run python3 src/build.py`
