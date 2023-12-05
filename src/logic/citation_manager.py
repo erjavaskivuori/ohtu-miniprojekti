@@ -1,4 +1,4 @@
-from citations.new_citation import Citation, CitationType
+from citations.new_citation import CitationType
 from citations.citation_factory import CitationFactory
 from citations.bibtex_maker import BibTexMaker
 from citations.citation_strings import ATTR_TRANSLATIONS
@@ -30,73 +30,39 @@ class CitationManager():
         self._citation_repo = citation_repo
         self._tag_repo = tag_repo
 
-    def add_citation(self, citation: Citation):
-        """Creates new citation.
-        Args:
-            citation: citation to be created as a Citation object.
+
+    def get_attrs_by_ctype(self, ctype):
+        """Returns list of attribute names needes for citation type
         """
+        return [ x.name for x in CitationFactory.get_new_citation(
+            CitationType(int(ctype)) ).attributes ]
+
+
+    def add_citation(self, ctype, label, tag, attrs):
+        """ Creates new citation
+        """
+        citation = CitationFactory.get_new_citation(CitationType(ctype))
+        citation.set_label(label)
+
+        print(attrs)
+        for name, value in attrs.items():
+            for a in citation.attributes:
+                if a.get_name() == name:
+                    a.set_value( value )
+
         citation_id = self._citation_repo.create_citation(citation)
 
-        return citation_id
-
-    def add_citation_by_user_input(self):
-        """Creates new citation by user input.
-
-        TODO:
-            * Make it ask relevant data for the citation type
-            * Handle error situation and return False            
-        """
-
-        citation_type = self._tui.ask(
-            'tyypin numero, vaihtoehtoja ovat Kirja (1), Artikkeli (2) ja Inproceedings (3)',
-            self.is_int_and_in_range_1_to_3_validator)
-        if citation_type == "\0":
-            return False
-
-        citation = CitationFactory.get_new_citation(
-            CitationType(int(citation_type)))
-
-        for attribute in citation.attributes:
-            if attribute.name == "year":
-                attribute.set_value(self._tui.ask(
-                    f"{ATTR_TRANSLATIONS[attribute.name]} ({attribute.name})",
-                    self.year_validator
-                ))
-            else:
-                attribute.set_value(self._tui.ask(
-                    f"{ATTR_TRANSLATIONS[attribute.name]} ({attribute.name})"
-                ))
-
-        citation_id = self.add_citation(citation)
-
-        if self._tui.yesno('Haluatko lisätä tägin'):
-            tag = self._tui.ask('anna tägi')
-
+        if tag != "":
             citation.set_tag(tag)
-
             self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
-        return citation_id
+        return True # Maybe something can go wrong with db or so??
 
-    @staticmethod
-    def year_validator(year):
-        try:
-            i = int(year)
-            if i < 0 or i > 2040:
-                return False
-        except ValueError:
-            return False
-        return True
+#    def is_label_in_use(self, label):
+#        """ Return true if label is already in use
+#        """
+#        return False # self._citation_repo.label_used(label) ??
 
-    @staticmethod
-    def is_int_and_in_range_1_to_3_validator(citation_type):
-        try:
-            i = int(citation_type)
-            if i < 1 or i > 3:
-                return False
-        except ValueError:
-            return False
-        return True
 
     def add_tag_for_citation_by_user_input(self):
         """Adds tag for a citation by user input.
@@ -109,7 +75,7 @@ class CitationManager():
             return False
 
         self._tui.print("Lista kaikista sitaateistasi:")
-#        self.print_all()
+
         citation_id = self._tui.ask(
             "sen sitaatin id, jolle haluat lisätä tägin")
 

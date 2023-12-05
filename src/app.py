@@ -1,6 +1,7 @@
 """ app.py - The main application """
 
 from logic.citation_manager import CitationManager
+from citations.citation_strings import ATTR_TRANSLATIONS
 from tui.tui import Tui, Commands
 from tui.tui_io import TuiIO
 
@@ -64,10 +65,59 @@ class App:
             self._tui.print_error("Tägin lisäys ei onnistunut")
 
     def __add(self):
-        if self._cm.add_citation_by_user_input():
-            self._tui.print("Viite lisätty onnistuneesti")
-        else:
-            self._tui.print_error("Viitten lisäys ei onnistunut")
+        """ Asks all the nessessary information to make citation and calls cm
+        """
+        # Validator for type
+        def validate_type(x):
+            try:
+                return int(x) > 0 and int(x) < 4
+            except ValueError:
+                pass
+            return False
+
+        # Validator for year
+        def validate_year(x):
+            try:
+                return int(x) > 0 and int(x) < 2030
+            except ValueError:
+                pass
+            return False
+
+        # citation label
+        while True:
+            label = self._tui.ask("tunniste")
+            if label == "\0":
+                return False
+#            if self._cm.is_label_in_use(label):
+#                self._tui.print_error("Tunniste on jo käytössä")
+#                continue
+            break
+
+        # citation type
+        try:
+            ctype = int(self._tui.ask( "tyypin numero, vaihtoehtoja ovat \
+Kirja (1), Artikkeli (2) ja Inproceedings (3)", validate_type ) )
+        except ValueError:
+            return False
+
+        # other attributes
+        attrs = self._cm.get_attrs_by_ctype(ctype)
+        adict={}
+        for attr in attrs:
+            adict[attr] = self._tui.ask(
+                f"{ATTR_TRANSLATIONS[attr]} ({attr})",
+                validate_year if attr == "year" else lambda x: True
+            )
+
+        # add the tag
+        tag = self._tui.ask("tägi") \
+                if self._tui.yesno("Lisätäänkö tägi (kyllä/ei):") else ""
+
+        self._cm.add_citation( ctype, label, tag, adict )
+        self._tui.print("Viite lisätty onnistuneesti")
+#        else:
+#            self._tui.print_error("Viitten lisäys ei onnistunut")
+
 
     def __drop(self):
         self._cm.clear_all()

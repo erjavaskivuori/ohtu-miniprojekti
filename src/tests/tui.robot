@@ -24,16 +24,18 @@ Wrong Input Gives Correct Prompt In Main Menu
 
 Adding Article Gives Correct Prompts
 	Input  lisää
+	Input  label_eka
 	Input  2
 	Run Application
 	Output Should Contain  Syötä tekijä (author):
 	Output Should Contain  Syötä otsikko (title): 
 	Output Should Contain  Syötä vuosi (year): 
 	Output Should Contain  Syötä lehden nimi (journaltitle): 
-	Output Should Contain  Haluatko lisätä tägin: 
+	Output Should Contain  Lisätäänkö tägi (kyllä/ei): 
 
 Wrong Input Gives Correct Prompt In Add Citation Menu
 	Input  lisää
+	Input  label_eka
 	Input  viisi
 	Run Application
 	Output Should Contain  *** VIRHE: Syöte 'viisi' ei kelpaa.
@@ -87,6 +89,7 @@ Resetting Database Works
 *** Keywords ***
 Create Citation Article Without Tag
 	Input  lisää
+	Input  label1
 	Input  2
 	Input  Nimi Sukunimi
 	Input  Otsikko on Aina Kiva Olla
@@ -96,6 +99,7 @@ Create Citation Article Without Tag
 
 Create Citation Article With Tag
 	Input  lisää
+	Input  label2
 	Input  2
 	Input  Nimi Sukunimi
 	Input  Otsikko on Aina Kiva Olla

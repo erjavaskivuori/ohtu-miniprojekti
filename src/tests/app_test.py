@@ -32,6 +32,45 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn("ei ole implementoitu", "".join(self.io.outputs))
 
+    def test_app_commands_list_empty(self):
+        self.io.add_input("listaa")
+        self.app.run()
+        self.assertIn("Viitteitä ei löydy.", "".join(self.io.outputs))
+
+    def test_app_commands_add_wrong_type(self):
+        self.io.add_input("lisää")
+        self.io.add_input("test")
+        self.io.add_input("8")
+        self.app.run()
+        self.assertIn("Syöte '8' ei kelpaa.", "".join(self.io.outputs))
+
+        self.io.outputs=[]
+        self.io.add_input("lisää")
+        self.io.add_input("test")
+        self.io.add_input("muikku")
+        self.app.run()
+        self.assertIn("Syöte 'muikku' ei kelpaa.", "".join(self.io.outputs))
+
+    def test_app_commands_add_wrong_year(self):
+        self.io.add_input("lisää")
+        self.io.add_input("test")
+        self.io.add_input("1")
+        self.io.add_input("testi_lisäys")
+        self.io.add_input("test")
+        self.io.add_input("3000")
+        self.app.run()
+        self.assertIn("Syöte '3000' ei kelpaa.", "".join(self.io.outputs))
+
+        self.io.outputs=[]
+        self.io.add_input("lisää")
+        self.io.add_input("test")
+        self.io.add_input("1")
+        self.io.add_input("testi_lisäys")
+        self.io.add_input("test")
+        self.io.add_input("kissa")
+        self.app.run()
+        self.assertIn("Syöte 'kissa' ei kelpaa.", "".join(self.io.outputs))
+
     def test_app_commands_drop_add_list_tag_search_delete(self):
         self.io.add_input("tyhjennä")
         self.app.run()
@@ -39,10 +78,11 @@ class TestApp(unittest.TestCase):
     
         self.io.add_input("lisää")
         self.app.run()
-        self.assertIn("lisäys ei", "".join(self.io.outputs))
+        self.assertNotIn("Viite lisätty", "".join(self.io.outputs))
         
         self.io.outputs=[]
         self.io.add_input("lisää")
+        self.io.add_input("test")
         self.io.add_input("1")
         self.io.add_input("testi_lisäys")
         self.io.add_input("test")

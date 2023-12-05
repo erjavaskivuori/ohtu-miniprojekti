@@ -49,3 +49,6 @@ class Citation():
 
     def set_tag(self, tag):
         self.tag = tag
+
+    def set_label(self, label):
+        self.label = label
