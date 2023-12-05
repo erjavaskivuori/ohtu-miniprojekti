@@ -146,7 +146,7 @@ class CitationManager():
             citation_id (int): citation's id
             tag (str): tag's name
         """
-        self._tag_repo.add_tag_to_citation(citation_id, tag)
+        return self._tag_repo.add_tag_to_citation(citation_id, tag)
 
     def get_all_tags(self):
         return self._tag_repo.get_all_tags()
