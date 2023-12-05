@@ -13,7 +13,9 @@ class MSG:
         create_ok = "Tiedosto luotu onnistuneesti"
         create_fail = "Tiedoston luonti epäonnistui \
 (tarkista oikeudet tai käytitkö kiellettyjä merkkejä)"
-
+    class Tag:
+        fail_empty = "sinulla ei ole vielä yhtään sitaattia"
+        fail_unknown = "Antamaasi id:tä ei ole olemassa"
 
 
 class App:
@@ -21,7 +23,7 @@ class App:
 
     def __init__(self, io=TuiIO()):
         self._tui = Tui(io)
-        self._cm = CitationManager(self._tui)
+        self._cm = CitationManager()
 
     def run(self):
         """ This starts the application """
@@ -64,6 +66,7 @@ class App:
         plist = self._cm.get_plist()
         self.__print_plist(plist)
 
+
     def __print_plist(self, plist):
         if len(plist) == 0:
             self._tui.print("Viitteitä ei löydy.")
@@ -72,11 +75,38 @@ class App:
             for key, value in attrs:
                 self._tui.print_item_attribute( key, value )
 
+
+
     def __tag(self):
-        if self._cm.add_tag_for_citation_by_user_input():
-            self._tui.print("Tägi lisätty onnistuneesti")
+        if self._cm.return_all_citations() == {}:
+            self._tui.print_error( MSG.Tag.fail_empty )
+            return False
+
+        self._tui.print("Lista kaikista sitaateistasi:")
+        self.__list()
+
+        citation_id = self._tui.ask(
+            "sen sitaatin id, jolle haluat lisätä tägin")
+
+        if not self._cm.citation_exists(citation_id):
+            self._tui.print_error( MSG.Tag.fail_unknown )
+            return False
+
+        if self._cm.get_all_tags() != {}:
+            self._tui.print("Lista olemassa olevista tageistasi:")
+            self._tui.print("\n".join(self._cm.get_all_tags()))
+            tag = self._tui.ask(
+                "Syötä jokin yllä olevista tägeista tai uusi tägi")
         else:
-            self._tui.print_error("Tägin lisäys ei onnistunut")
+            tag = self._tui.ask("uusi tägi")
+
+        if not self._cm.add_tag_for_citation(citation_id, tag.lower()):
+            self._tui.print_error("sitaatilla on jo tägi")
+
+        self._tui.print("Tägi lisätty onnistuneesti")
+        return True
+
+
 
     def __add(self):
         """ Asks all the nessessary information to make citation and calls cm

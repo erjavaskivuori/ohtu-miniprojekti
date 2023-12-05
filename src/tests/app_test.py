@@ -70,6 +70,19 @@ class TestApp(unittest.TestCase):
         self.io.add_input("kissa")
         self.app.run()
         self.assertIn("Syöte 'kissa' ei kelpaa.", "".join(self.io.outputs))
+        
+    def test_app_add_with_tag(self):
+        self.io.add_input("lisää")
+        self.io.add_input("test")
+        self.io.add_input("1")
+        self.io.add_input("testi_lisäys")
+        self.io.add_input("test")
+        self.io.add_input("2004")
+        self.io.add_input("kyllä")
+        self.io.add_input("tag")
+        self.app.run()
+        self.assertIn("Syötä tägi:", "".join(self.io.outputs))
+    
 
     def test_app_commands_drop_add_list_tag_search_delete(self):
         self.io.add_input("tyhjennä")
@@ -97,7 +110,7 @@ class TestApp(unittest.TestCase):
         self.io.add_input("ei")
         self.app.run()
         self.assertIn("Viite lisätty", "".join(self.io.outputs))
-        
+
         self.io.outputs=[]
         self.io.add_input("listaa")
         self.app.run()
@@ -115,7 +128,7 @@ class TestApp(unittest.TestCase):
         self.io.add_input("666")
         self.io.add_input("testi_tägi666")
         self.app.run()
-        self.assertIn("Tägin lisäys ei", "".join(self.io.outputs))
+        self.assertIn("id:tä ei ole olemassa", "".join(self.io.outputs))
         
         self.io.outputs=[]
         self.io.add_input("hae")

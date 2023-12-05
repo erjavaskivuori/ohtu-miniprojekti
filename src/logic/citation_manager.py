@@ -4,13 +4,12 @@ from citations.bibtex_maker import BibTexMaker
 from citations.citation_strings import ATTR_TRANSLATIONS
 from db.citation_repository import citation_repository
 from db.tag_repository import tag_repository
-from tui.tui import Tui
 
 class CitationManager():
     """Class responsible of the application logic.
     """
 
-    def __init__(self, tui, citation_repo=citation_repository,
+    def __init__(self, citation_repo=citation_repository,
                  tag_repo=tag_repository):
         """Class constructor. Creates service responsible of the application logic.
 
@@ -19,7 +18,6 @@ class CitationManager():
             citation_repo: Defaults to citation_repository.
             tag_repo: Defaults to tag_repository.
         """
-        self._tui: Tui = tui
         self._citation_repo = citation_repo
         self._tag_repo = tag_repo
 
@@ -57,45 +55,14 @@ class CitationManager():
 #        return False # self._citation_repo.label_used(label) ??
 
 
-    def add_tag_for_citation_by_user_input(self):
-        """Adds tag for a citation by user input.
-
-        Returns:
-            True
-        """
-        if self.return_all_citations() == {}:
-            self._tui.print_error("sinulla ei ole vielä yhtään sitaattia")
-            return False
-
-        self._tui.print("Lista kaikista sitaateistasi:")
-
-        citation_id = self._tui.ask(
-            "sen sitaatin id, jolle haluat lisätä tägin")
-
-        if not self.citation_exists(citation_id):
-            self._tui.print_error("Antamaasi id:tä ei ole olemassa")
-            return False
-
-        if self.get_all_tags() != {}:
-            self._tui.print("Lista olemassa olevista tageistasi:")
-            self.print_all_tags()
-            tag = self._tui.ask("Syötä jokin yllä olevista tägeista tai uusi tägi")
-        else:
-            tag = self._tui.ask("uusi tägi")
-
-        if not self.add_tag_for_citation(citation_id, tag.lower()):
-            self._tui.print_error("sitaatilla on jo tägi")
-
-        return True
-
     def citation_exists(self, citation_id):
         all_citations = self.return_all_citations()
 
         for citation in all_citations.items():
             if int(citation[0]) == int(citation_id):
                 return True
-
         return False
+
 
     def add_tag_for_citation(self, citation_id, tag):
         """Creates tag for citation.
@@ -109,12 +76,6 @@ class CitationManager():
     def get_all_tags(self):
         return self._tag_repo.get_all_tags()
 
-    def print_all_tags(self):
-
-        all_tags = self.get_all_tags()
-
-        for i in all_tags:
-            self._tui.print(i)
 
     def return_one_citation(self, title: str):
         """Method to get one citation from database.
