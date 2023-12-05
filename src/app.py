@@ -4,18 +4,7 @@ from logic.citation_manager import CitationManager
 from citations.citation_strings import ATTR_TRANSLATIONS
 from tui.tui import Tui, Commands
 from tui.tui_io import TuiIO
-
-
-# Näin että stringit aina mätsäävät eikä kirjoitusvirhe
-# esimerkiksi failaa testejä
-class MSG:
-    class Bib:
-        create_ok = "Tiedosto luotu onnistuneesti"
-        create_fail = "Tiedoston luonti epäonnistui \
-(tarkista oikeudet tai käytitkö kiellettyjä merkkejä)"
-    class Tag:
-        fail_empty = "sinulla ei ole vielä yhtään sitaattia"
-        fail_unknown = "Antamaasi id:tä ei ole olemassa"
+from app_msg import MSG
 
 
 class App:
@@ -47,18 +36,18 @@ class App:
             if command in commands:
                 commands[command]()
             else:
-                self._tui.print_error("Komentoa ei ole implementoitu")
+                self._tui.print_error( MSG.not_implemented )
                 break
 
     def __bib(self):
-        filename = self._tui.ask("tiedoston nimi (.bib)")
+        filename = self._tui.ask( MSG.Bib.ask_filename )
         if self._cm.create_bib_file(filename):
             self._tui.print(MSG.Bib.create_ok)
         else:
             self._tui.print(MSG.Bib.create_fail)
 
     def __search(self):
-        tag = self._tui.ask("tägi")
+        tag = self._tui.ask( MSG.Search.ask_tag )
         plist = self._cm.get_plist_by_tag(tag)
         self.__print_plist(plist)
 
@@ -69,7 +58,7 @@ class App:
 
     def __print_plist(self, plist):
         if len(plist) == 0:
-            self._tui.print("Viitteitä ei löydy.")
+            self._tui.print( MSG.List.empty )
         for (c_id, label), attrs in plist:
             self._tui.print_item_entry(c_id, label)
             for key, value in attrs:
@@ -82,28 +71,26 @@ class App:
             self._tui.print_error( MSG.Tag.fail_empty )
             return False
 
-        self._tui.print("Lista kaikista sitaateistasi:")
+        self._tui.print( MSG.Tag.info_list )
         self.__list()
 
-        citation_id = self._tui.ask(
-            "sen sitaatin id, jolle haluat lisätä tägin")
+        citation_id = self._tui.ask( MSG.Tag.ask_for_id )
 
         if not self._cm.citation_exists(citation_id):
             self._tui.print_error( MSG.Tag.fail_unknown )
             return False
 
         if self._cm.get_all_tags() != {}:
-            self._tui.print("Lista olemassa olevista tageistasi:")
+            self._tui.print( MSG.Tag.info_taglist )
             self._tui.print("\n".join(self._cm.get_all_tags()))
-            tag = self._tui.ask(
-                "Syötä jokin yllä olevista tägeista tai uusi tägi")
+            tag = self._tui.ask( MSG.Tag.ask_tag )
         else:
-            tag = self._tui.ask("uusi tägi")
+            tag = self._tui.ask( MSG.Tag.ask_new_tag )
 
         if not self._cm.add_tag_for_citation(citation_id, tag.lower()):
-            self._tui.print_error("sitaatilla on jo tägi")
+            self._tui.print_error( MSG.Tag.fail_retag )
 
-        self._tui.print("Tägi lisätty onnistuneesti")
+        self._tui.print( MSG.Tag.success )
         return True
 
 
@@ -129,18 +116,17 @@ class App:
 
         # citation label
         while True:
-            label = self._tui.ask("tunniste")
+            label = self._tui.ask( MSG.Add.ask_label )
             if label == "\0":
                 return False
 #            if self._cm.is_label_in_use(label):
-#                self._tui.print_error("Tunniste on jo käytössä")
+#                self._tui.print( MSG.Add.info_label_in_use )
 #                continue
             break
 
         # citation type
         try:
-            ctype = int(self._tui.ask( "tyypin numero, vaihtoehtoja ovat \
-Kirja (1), Artikkeli (2) ja Inproceedings (3)", validate_type ) )
+            ctype = int(self._tui.ask( MSG.Add.ask_type, validate_type ) )
         except ValueError:
             return False
 
@@ -154,28 +140,28 @@ Kirja (1), Artikkeli (2) ja Inproceedings (3)", validate_type ) )
             )
 
         # add the tag
-        tag = self._tui.ask("tägi") \
-                if self._tui.yesno("Lisätäänkö tägi (kyllä/ei):") else ""
+        tag = self._tui.ask( MSG.Add.ask_tag ) \
+                if self._tui.yesno( MSG.Add.ask_add_tag ) else ""
 
         self._cm.add_citation( ctype, label, tag, adict )
-        self._tui.print("Viite lisätty onnistuneesti")
+        self._tui.print( MSG.Add.success )
 #        else:
-#            self._tui.print_error("Viitten lisäys ei onnistunut")
+#            self._tui.print_error( MSG.Add.fail )
 
 
     def __drop(self):
-        if self._tui.yesno("Oletko ihan varma (kyllä/ei):"):
+        if self._tui.yesno( MSG.Drop.ask_sure ):
             self._cm.clear_all()
-            self._tui.print("Viitteet tyhjennetty")
+            self._tui.print( MSG.Drop.success )
         else:
-            self._tui.print("Tyhjennys peruutettu.")
+            self._tui.print( MSG.Drop.aborted )
 
     def __delete(self):
-        citation_id = self._tui.ask("sitaatin id")
+        citation_id = self._tui.ask( MSG.Delete.ask_id )
         self._cm.delete_citation(citation_id)
-        self._tui.print("Viite poistettu")
+        self._tui.print( MSG.Delete.success )
 #        else:
-#            self._tui.print_error("Viitteen poisto ei onnistunut")
+#            self._tui.print_error( MSG.Delete.fail )
 
 
 if __name__ == "__main__":
