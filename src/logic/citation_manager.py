@@ -115,8 +115,7 @@ class CitationManager():
 
         if not self.citation_exists(citation_id):
             self._tui.print_error("Antamaasi id:tä ei ole olemassa")
-            citation_id = self._tui.ask(
-            "sen sitaatin id, jolle haluat lisätä tägin")
+            return False
 
         if self.get_all_tags() != {}:
             self._tui.print("Lista olemassa olevista tageistasi:")

@@ -45,4 +45,18 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn("testi_lisäys", "".join(self.io.outputs))
         
+        self.io.outputs=[]
+        self.io.add_input("tägää")
+        self.io.add_input("1")
+        self.io.add_input("testi_tägi666")
+        self.app.run()
+        self.assertIn("Tägi lisätty", "".join(self.io.outputs))
+        
+        self.io.outputs=[]
+        self.io.add_input("tägää")
+        self.io.add_input("666")
+        self.io.add_input("testi_tägi666")
+        self.app.run()
+        self.assertIn("Tägin lisäys ei", "".join(self.io.outputs))
+        
         
