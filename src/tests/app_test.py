@@ -4,6 +4,7 @@ from tui.tui import Commands, Tui
 from tui.stub_io import StubIO
 from tui.tui_io import TuiIO
 from app import App
+from app_msg import MSG
 from initialize_database import initialize_database
 
 
@@ -13,6 +14,17 @@ class TestApp(unittest.TestCase):
         self.io = StubIO()
         self.tui = Tui(self.io)
         self.app = App(self.tui)
+        
+    def add_citate1(self):
+        self.io.add_input("lisää")
+        self.io.add_input("label1")
+        self.io.add_input("1")
+        self.io.add_input("Test Book")
+        self.io.add_input("Kake")
+        self.io.add_input("202")
+        self.io.add_input("kyllä")
+        self.io.add_input("test_tag1")
+    
         
     def test_app_starts(self):
         self.app.run()
@@ -30,12 +42,12 @@ class TestApp(unittest.TestCase):
     def test_app_menu_unimplemented(self):
         self.app._tui.menu = lambda: 666
         self.app.run()
-        self.assertIn("ei ole implementoitu", "".join(self.io.outputs))
+        self.assertIn( MSG.not_implemented, "".join(self.io.outputs))
 
     def test_app_commands_list_empty(self):
         self.io.add_input("listaa")
         self.app.run()
-        self.assertIn("Viitteitä ei löydy.", "".join(self.io.outputs))
+        self.assertIn( MSG.List.empty , "".join(self.io.outputs))
 
     def test_app_commands_add_wrong_type(self):
         self.io.add_input("lisää")
@@ -81,24 +93,24 @@ class TestApp(unittest.TestCase):
         self.io.add_input("kyllä")
         self.io.add_input("tag")
         self.app.run()
-        self.assertIn("Syötä tägi:", "".join(self.io.outputs))
+        self.assertIn( MSG.Add.ask_tag, "".join(self.io.outputs))
     
 
     def test_app_commands_drop_add_list_tag_search_delete(self):
         self.io.add_input("tyhjennä")
         self.io.add_input("kyllä")
         self.app.run()
-        self.assertIn("Viitteet tyhjennetty", "".join(self.io.outputs))
+        self.assertIn( MSG.Drop.success, "".join(self.io.outputs))
     
         self.io.outputs=[]
         self.io.add_input("tyhjennä")
         self.io.add_input("ei")
         self.app.run()
-        self.assertIn("Tyhjennys peruutettu.", "".join(self.io.outputs))
+        self.assertIn( MSG.Drop.aborted, "".join(self.io.outputs))
     
         self.io.add_input("lisää")
         self.app.run()
-        self.assertNotIn("Viite lisätty", "".join(self.io.outputs))
+        self.assertNotIn( MSG.Add.success, "".join(self.io.outputs))
         
         self.io.outputs=[]
         self.io.add_input("lisää")
@@ -109,7 +121,7 @@ class TestApp(unittest.TestCase):
         self.io.add_input("2004")
         self.io.add_input("ei")
         self.app.run()
-        self.assertIn("Viite lisätty", "".join(self.io.outputs))
+        self.assertIn( MSG.Add.success, "".join(self.io.outputs))
 
         self.io.outputs=[]
         self.io.add_input("listaa")
@@ -121,14 +133,14 @@ class TestApp(unittest.TestCase):
         self.io.add_input("1")
         self.io.add_input("testi_tägi666")
         self.app.run()
-        self.assertIn("Tägi lisätty", "".join(self.io.outputs))
+        self.assertIn( MSG.Tag.success, "".join(self.io.outputs))
         
         self.io.outputs=[]
         self.io.add_input("tägää")
         self.io.add_input("666")
         self.io.add_input("testi_tägi666")
         self.app.run()
-        self.assertIn("id:tä ei ole olemassa", "".join(self.io.outputs))
+        self.assertIn( MSG.Tag.fail_unknown, "".join(self.io.outputs))
         
         self.io.outputs=[]
         self.io.add_input("hae")
@@ -146,25 +158,42 @@ class TestApp(unittest.TestCase):
         self.io.add_input("luo")
         self.io.add_input("unittest")
         self.app.run()
-        self.assertIn("luotu onnistuneesti", "".join(self.io.outputs))
+        self.assertIn( MSG.Bib.create_ok , "".join(self.io.outputs))
+
+        self.io.outputs=[]
+        self.io.add_input("luo")
+        self.io.add_input("?#<2")
+        self.app.run()
+        self.assertIn( MSG.Bib.create_fail, "".join(self.io.outputs))
 
         
         self.io.outputs=[]
         self.io.add_input("poista")
         self.io.add_input("1")
         self.app.run()
-        self.assertIn("Viite poistettu", "".join(self.io.outputs))
+        self.assertIn( MSG.Delete.success, "".join(self.io.outputs))
         
 #        self.io.outputs=[]
 #        self.io.add_input("poista")
 #        self.io.add_input("666")
 #        self.app.run()
-#        self.assertIn("Viitteen poisto ei", "".join(self.io.outputs))
+#        self.assertIn( MSG.Delete.fail , "".join(self.io.outputs))
 
 
         self.io.add_input("lopeta")
         self.app.run()
         
-        
+    def test_app_tagging_fails_on_empty_list(self):
+        self.io.add_input("tägää")
+        self.app.run()
+        self.assertIn( MSG.Tag.fail_empty, "".join(self.io.outputs))
+
+    def test_app_tag_list_gets_printed(self):
+        self.add_citate1()
+        self.io.add_input("tägää")
+        self.io.add_input("1")
+        self.app.run()
+        self.assertIn( "test_tag1", "".join(self.io.outputs))
+
 
         

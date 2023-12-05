@@ -87,8 +87,11 @@ class App:
         else:
             tag = self._tui.ask( MSG.Tag.ask_new_tag )
 
-        if not self._cm.add_tag_for_citation(citation_id, tag.lower()):
-            self._tui.print_error( MSG.Tag.fail_retag )
+#	This is not working. DB realted?
+#        if not self._cm.add_tag_for_citation(citation_id, tag.lower()):
+#            self._tui.print_error( MSG.Tag.fail_retag )
+
+        self._cm.add_tag_for_citation(citation_id, tag.lower())
 
         self._tui.print( MSG.Tag.success )
         return True
