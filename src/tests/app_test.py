@@ -22,6 +22,15 @@ class TestApp(unittest.TestCase):
         self.io.add_input("menu")
         self.app.run()
         self.assertIn("Komennot:", "".join(self.io.outputs))
+        
+    def test_app_robot_exit(self):
+        self.app._tui.menu = lambda: "\0"
+        self.app.run()
+
+    def test_app_menu_unimplemented(self):
+        self.app._tui.menu = lambda: 666
+        self.app.run()
+        self.assertIn("ei ole implementoitu", "".join(self.io.outputs))
 
     def test_app_commands_drop_add_list_tag_search_delete(self):
         self.io.add_input("tyhjennä")
@@ -71,7 +80,7 @@ class TestApp(unittest.TestCase):
         self.io.add_input("luo")
         self.io.add_input("unittest")
         self.app.run()
-        self.assertIn("luotu", "".join(self.io.outputs))
+        self.assertIn("luotu onnistuneesti", "".join(self.io.outputs))
 
         
         self.io.outputs=[]
@@ -79,11 +88,17 @@ class TestApp(unittest.TestCase):
         self.io.add_input("1")
         self.app.run()
         self.assertIn("Viite poistettu", "".join(self.io.outputs))
-
+        
 #        self.io.outputs=[]
 #        self.io.add_input("poista")
 #        self.io.add_input("666")
 #        self.app.run()
 #        self.assertIn("Viitteen poisto ei", "".join(self.io.outputs))
+
+
+        self.io.add_input("lopeta")
+        self.app.run()
         
+        
+
         

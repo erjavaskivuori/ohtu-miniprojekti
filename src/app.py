@@ -51,6 +51,7 @@ class App:
                     break
                 case _:
                     self._tui.print_error("Komentoa ei ole implementoitu")
+                    break
 
     def _drop(self):
         self._cm.clear_all()
@@ -59,8 +60,8 @@ class App:
 #            self._tui.print_error("Tyhjennys ei onnistunut")
 
     def _delete(self):
-        if self._cm.delete_citation():
-            self._tui.print("Viite poistettu")
+        self._cm.delete_citation()
+        self._tui.print("Viite poistettu")
 #        else:
 #            self._tui.print_error("Viitteen poisto ei onnistunut")
 
