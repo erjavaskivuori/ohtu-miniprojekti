@@ -12,6 +12,7 @@ class Commands(Enum):
     TAG =       4
     BIB =       5
     SEARCH =    6
+    DELETE =    7
 
 
 class ANSI:
@@ -46,7 +47,8 @@ tarvittavat tiedot."""
         'auta':		Commands.HELP,
         'tägää':	Commands.TAG,
         'luo':		Commands.BIB,
-        'hae':		Commands.SEARCH
+        'hae':		Commands.SEARCH,
+        'poista':   Commands.DELETE
     }
 
     descriptions = {
@@ -56,13 +58,15 @@ tarvittavat tiedot."""
         Commands.HELP:		"Tulosta valikko/ohjeet",
         Commands.TAG:		"Anna viitteelle tägi",
         Commands.BIB:		"Kirjoita viiteluettelo BiBTeX muodossa",
-        Commands.SEARCH:	"Hae viitteet tägillä"
+        Commands.SEARCH:	"Hae viitteet tägillä",
+        Commands.DELETE:    "Poistaa yksittäisen sitaatin"
     }
 
     categories = {
         "Lisää ja päivitä":	[Commands.ADD, Commands.TAG],
         "Näytä":		[Commands.LIST, Commands.SEARCH],
         "Sekalaista":		[Commands.HELP],
+        "Poista":       [Commands.DELETE],
         "Tallenna & Lopeta":	[Commands.QUIT, Commands.BIB]
     }
 

@@ -103,6 +103,12 @@ class CitationRepository():
             citations[row[0]] = citation
         return citations
 
+    def delete_citation(self, citation_id):
+        cursor = self._connection.cursor()
+        cursor.execute("""DELETE FROM citations WHERE id=?
+        """,[citation_id])
+        self._connection.commit()
+
     def clear_table(self):
         cursor = self._connection.cursor()
         cursor.execute("DELETE FROM citations")

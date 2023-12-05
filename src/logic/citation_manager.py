@@ -244,8 +244,9 @@ class CitationManager():
         return False
 
 
-#    def delete_citation(self, citation):
-#        None
+    def delete_citation(self):
+        citation_id = self._tui.ask("sitaatin id")
+        return self._citation_repo.delete_citation(citation_id)
 
 #    def search_citation(self, citation):
 #        None

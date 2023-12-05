@@ -37,6 +37,8 @@ class App:
                 case Commands.SEARCH:
                     self._cm.print_by_tag()
                     continue
+                case Commands.DELETE:
+                    self._cm.delete_citation()
                 case Commands.QUIT | "\0":  # Fast escape used for tests
                     break
                 case _:
