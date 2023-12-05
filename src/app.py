@@ -39,6 +39,10 @@ class App:
                     continue
                 case Commands.DELETE:
                     self._cm.delete_citation()
+                    continue
+                case Commands.DROP:
+                    self._cm.clear_all()
+                    continue
                 case Commands.QUIT | "\0":  # Fast escape used for tests
                     break
                 case _:

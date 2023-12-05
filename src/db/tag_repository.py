@@ -59,6 +59,11 @@ class TagRepository():
         cursor.execute("DELETE FROM tagged")
         self._connection.commit()
 
-
+    def delete_by_citation_id(self, citation_id):
+        cursor = self._connection.cursor()
+        cursor.execute("""DELETE FROM tagged
+                       WHERE citation_id=?
+                       """,[citation_id])
+        self._connection.commit()
 
 tag_repository = TagRepository(form_database_connection())
