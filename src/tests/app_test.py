@@ -23,7 +23,7 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn("Komennot:", "".join(self.io.outputs))
 
-    def test_app_commands_drop_add_list_tag_delete(self):
+    def test_app_commands_drop_add_list_tag_search_delete(self):
         self.io.add_input("tyhjennä")
         self.app.run()
         self.assertIn("Viitteet tyhjennetty", "".join(self.io.outputs))
@@ -60,6 +60,19 @@ class TestApp(unittest.TestCase):
         self.io.add_input("testi_tägi666")
         self.app.run()
         self.assertIn("Tägin lisäys ei", "".join(self.io.outputs))
+        
+        self.io.outputs=[]
+        self.io.add_input("hae")
+        self.io.add_input("testi_tägi666")
+        self.app.run()
+        self.assertIn("testi_lisäys", "".join(self.io.outputs))
+        
+        self.io.outputs=[]
+        self.io.add_input("luo")
+        self.io.add_input("unittest")
+        self.app.run()
+        self.assertIn("luotu", "".join(self.io.outputs))
+
         
         self.io.outputs=[]
         self.io.add_input("poista")
