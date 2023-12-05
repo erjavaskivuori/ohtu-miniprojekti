@@ -77,6 +77,12 @@ class TestApp(unittest.TestCase):
         self.assertIn("testi_lisäys", "".join(self.io.outputs))
         
         self.io.outputs=[]
+        self.io.add_input("hae")
+        self.io.add_input("etlöydy")
+        self.app.run()
+        self.assertIn("Viitteitä ei löydy.", "".join(self.io.outputs))
+        
+        self.io.outputs=[]
         self.io.add_input("luo")
         self.io.add_input("unittest")
         self.app.run()

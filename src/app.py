@@ -17,7 +17,7 @@ class App:
         commands = {
             Commands.ADD:		self.__add,
             Commands.LIST:		self.__list,
-            Commands.HELP:		self.__help,
+            Commands.HELP:		self._tui.help,
             Commands.TAG:		self.__tag,
             Commands.BIB:		self.__bib,
             Commands.SEARCH:		self.__search,
@@ -41,13 +41,21 @@ class App:
         self._cm.create_bib_file()
 
     def __search(self):
-        self._cm.print_by_tag()
-
-    def __help(self):
-        self._tui.help()
+        tag = self._tui.ask("tägi")
+        plist = self._cm.get_plist_by_tag(tag)
+        self.__print_plist(plist)
 
     def __list(self):
-        self._cm.print_all()
+        plist = self._cm.get_plist()
+        self.__print_plist(plist)
+
+    def __print_plist(self, plist):
+        if len(plist) == 0:
+            self._tui.print("Viitteitä ei löydy.")
+        for (c_id, label), attrs in plist:
+            self._tui.print_item_entry(c_id, label)
+            for key, value in attrs:
+                self._tui.print_item_attribute( key, value )
 
     def __tag(self):
         if self._cm.add_tag_for_citation_by_user_input():

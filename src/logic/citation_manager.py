@@ -109,7 +109,7 @@ class CitationManager():
             return False
 
         self._tui.print("Lista kaikista sitaateistasi:")
-        self.print_all()
+#        self.print_all()
         citation_id = self._tui.ask(
             "sen sitaatin id, jolle haluat lisätä tägin")
 
@@ -179,45 +179,50 @@ class CitationManager():
 
         return self._citation_repo.get_all_citations()
 
-    def print_citation(self, c_id, c):
-        """Method to print citation.
+    def plist_entry(self, c_id, c):
+        """Generates tuples ready print from citation
 
         Args:
             c_id: id of the citation to be printed
             c: Citation object
+            
+        Returns:
+            (id, label), attrs[(key,val),(key,val)...]
         """
-
-        attributes = c.get_attributes_dictionary()
-        self._tui.print_item_entry(c_id, "label_tähän")
-        self._tui.print_item_attribute("type", c.type.name)
-        for key, value in attributes.items():
-            self._tui.print_item_attribute(
-                f"{ATTR_TRANSLATIONS[key]} ({key})", value
-            )
+        attrs=[]
+        attrs.append( ("type", c.type.name) )
+        for key, value in c.get_attributes_dictionary().items():
+            attrs.append( (f"{ATTR_TRANSLATIONS[key]} ({key})", value) )
         if c.tag != "":
-            self._tui.print_item_attribute("tägi", c.tag)
+            attrs.append( ("tägi", c.tag) )
+        return ( (c_id, c.label) ,attrs )
 
-    def print_all(self):
-        """Method to print all the citations saved in database.
+    def get_plist(self):
+        """Get print list of all citations
 
         Returns:
-            True
+            List of citations in tuples ready to print
         """
+        plist=[]
         citations = self._citation_repo.get_all_citations()
-        if len(citations) < 1:
-            self._tui.print("Ei sitaatteja.")
-            return False
         for c_id, citation in citations.items():
-            self.print_citation(c_id, citation)
-        return True
+            plist.append(self.plist_entry(c_id, citation))
+        return plist
 
-    def print_by_tag(self):
-        """Method to print all the citations with a tag.
+
+    def get_plist_by_tag(self, tag):
+        """Get print list entries tagges with tag
+
+        Returns:
+            List of citations in tuples ready to print
         """
-        tag = self._tui.ask("tägi")
-        for c_id, citation in self._citation_repo.get_all_citations().items():
+        plist=[]
+        citations = self._citation_repo.get_all_citations()
+        for c_id, citation in citations.items():
             if citation.tag == tag:
-                self.print_citation(c_id, citation)
+                plist.append(self.plist_entry(c_id, citation))
+        return plist
+
 
     def clear_all(self):
         """Clears all the databses.
