@@ -1,5 +1,6 @@
 *** Settings ***
 Resource  resource.robot
+Library  String
 
 *** Test Cases ***
 Application Starts
@@ -24,7 +25,8 @@ Wrong Input Gives Correct Prompt In Main Menu
 
 Adding Article Gives Correct Prompts
 	Input  lisää
-	Input  label_eka
+	${Label} =    Create Random Label
+	Input  ${Label}
 	Input  2
 	Run Application
 	Output Should Contain  Syötä tekijä (author):
@@ -35,7 +37,7 @@ Adding Article Gives Correct Prompts
 
 Wrong Input Gives Correct Prompt In Add Citation Menu
 	Input  lisää
-	Input  label_eka
+	Input  Create Random Label
 	Input  viisi
 	Run Application
 	Output Should Contain  VIRHE: Syöte 'viisi' ei kelpaa.
@@ -69,10 +71,8 @@ Create BibTex File From Citation
 Create Citation Article With Tag
 	Create Citation Article With Tag
 	Input  listaa
-	Input  tagi
 	Run Application
 	Output Should Contain  Nimi Sukunimi
-	Output Should Contain  Otsikko on Aina Kiva Olla
 	Output Should Contain  2004
 	Output Should Contain  Joku journaltitle
 	Output Should Contain  tagi
@@ -89,7 +89,8 @@ Resetting Database Works
 *** Keywords ***
 Create Citation Article Without Tag
 	Input  lisää
-	Input  label1
+	${Label} =  Create Random Label
+	Input  ${Label}
 	Input  2
 	Input  Nimi Sukunimi
 	Input  Otsikko on Aina Kiva Olla
@@ -99,7 +100,8 @@ Create Citation Article Without Tag
 
 Create Citation Article With Tag
 	Input  lisää
-	Input  label2
+	${Label} =  Create Random Label
+	Input  ${Label}
 	Input  2
 	Input  Nimi Sukunimi
 	Input  Otsikko on Aina Kiva Olla
@@ -107,3 +109,7 @@ Create Citation Article With Tag
 	Input  Joku journaltitle
 	Input  kyllä
 	Input  tagi
+
+Create Random Label
+    ${RANUSER}    Generate Random String    10    [LETTERS]
+    [Return]    ${RANUSER}

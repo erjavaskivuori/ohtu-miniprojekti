@@ -26,10 +26,10 @@ class CitationAttribute:
 
 
 class Citation():
-    def __init__(self, citation_type: CitationType, attribute_names: list[str]):
+    def __init__(self, citation_type: CitationType, attribute_names: list[str], label = "nimetön"):
         self.type = citation_type
         self.tag = ""
-        self.label = "antakaa_minulle_nimi"
+        self.label = label
         self.attributes: list[CitationAttribute] = []
         for s in attribute_names:
             self.attributes.append(CitationAttribute(s))

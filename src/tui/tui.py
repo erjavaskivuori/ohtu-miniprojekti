@@ -152,9 +152,9 @@ tarvittavat tiedot."""
             self.print_error(f"Anna kyllä tai ei, '{a}' ei kelpaa.")
         return False
 
-    def print_item_entry(self, cite_id: str, txt: str):
+    def print_item_entry(self, cite_id: str, label: str):
         """ print_item_entry() - For printing identifying line of citation"""
-        self.output(f"\n{ANSI.magenta}id:{cite_id}\t{txt}{ANSI.reset}\n")
+        self.output(f"\n{ANSI.magenta}id:{cite_id}\t{'tunniste:':30s}{label}{ANSI.reset}\n")
 
     def print_item_attribute(self, key: str, value: str):
         """ print_item_attribute(key, value) -

@@ -122,9 +122,9 @@ class App:
             label = self._tui.ask( MSG.Add.ask_label )
             if label == "\0":
                 return False
-#            if self._cm.is_label_in_use(label):
-#                self._tui.print( MSG.Add.info_label_in_use )
-#                continue
+            if self._cm.is_label_in_use(label):
+                self._tui.print( MSG.Add.info_label_in_use )
+                continue
             break
 
         # citation type

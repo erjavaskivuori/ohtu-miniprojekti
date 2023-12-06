@@ -48,10 +48,10 @@ class CitationManager():
 
         return True # Maybe something can go wrong with db or so??
 
-#    def is_label_in_use(self, label):
-#        """ Return true if label is already in use
-#        """
-#        return False # self._citation_repo.label_used(label) ??
+    def is_label_in_use(self, label):
+        """ Return true if label is already in use
+        """
+        return self._citation_repo.is_label_already_used(label)
 
 
     def citation_exists(self, citation_id):
