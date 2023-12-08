@@ -103,6 +103,15 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn("Syöte 'koira' ei kelpaa.", "".join(self.io.outputs))
 
+    def test_app_tag_retagging_works(self):
+        self.add_citate1()
+        self.io.add_input("tägää")
+        self.io.add_input("1")
+        self.io.add_input("k")
+        self.io.add_input("täg_kaksi")
+        self.app.run()
+        self.assertIn( MSG.Tag.success, "".join(self.io.outputs))
+
     def test_app_fails_adding_duplicate_labels(self):
         self.add_citate1()
         self.io.add_input("lisää")
@@ -113,6 +122,12 @@ class TestApp(unittest.TestCase):
     def test_app_delete_fails_on_empty(self):
         self.io.add_input("poista")
         self.io.add_input("666")
+        self.app.run()
+        self.assertIn( MSG.Delete.fail, "".join(self.io.outputs))
+
+    def test_app_delete_fails_on_str_id(self):
+        self.io.add_input("poista")
+        self.io.add_input("satan")
         self.app.run()
         self.assertIn( MSG.Delete.fail, "".join(self.io.outputs))
 
