@@ -16,4 +16,11 @@ class TestBibtexMaker(unittest.TestCase):
     def test_create_file(self):
         self.assertTrue(BibTexMaker.try_generate_bible_text_file(self.citations, "bib_testing_file"))
         
+    def test_ioerror(self):
+        def ioerror_fun(citation):
+            raise IOError
+        BibTexMaker._BibTexMaker__generate_citation_text = ioerror_fun
+      
+        self.assertFalse(BibTexMaker.try_generate_bible_text_file(self.citations, "bib_testing_file"))
+        
     
