@@ -1,4 +1,8 @@
 import sqlite3
+import sys
+import os
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+# pylint: disable=C0413
 from config import DATABASE_FILE_PATH, POPULATE_CITATIONS_PATH
 
 

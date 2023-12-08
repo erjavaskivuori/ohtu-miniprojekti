@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-root
       - name: Initialize database
-        run: poetry run python3 src/build.py
+        run: poetry run python3 src/db/build.py
       - name: Run tests
         run: poetry run pytest src
       - name: Robot tests
