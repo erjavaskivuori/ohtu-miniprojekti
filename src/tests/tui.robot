@@ -104,6 +104,13 @@ Deleting Citation Fails Because of Wrong Index
 	Run Application
 	Output Should Contain  * VIRHE: Viitteen poisto ei onnistunut
 
+Deleting Citation Fails Because Index Is String
+	Create Citation Article Without Tag
+	Input  poista
+	Input  abcd
+	Run Application
+	Output Should Contain  * VIRHE: Viitteen poisto ei onnistunut  
+
 # Käyttäjänä voin poistaa kaikki viitteet
 Delete All Citations
 	Create Citation Article Without Tag
