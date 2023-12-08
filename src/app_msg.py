@@ -1,11 +1,11 @@
-
+from citations.bibtex_maker import BIBFILE_TARGET_FOLDER
 # Näin että stringit aina mätsäävät eikä kirjoitusvirhe
 # esimerkiksi failaa testejä
 class MSG:
     not_implemented = "Komentoa ei ole implementoitu"
 
     class Bib:
-        create_ok = "Tiedosto luotu onnistuneesti"
+        create_ok = "Tiedosto luotu onnistuneesti sijaintiin " + BIBFILE_TARGET_FOLDER
         create_fail = "Tiedoston luonti epäonnistui \
 (tarkista oikeudet tai käytitkö kiellettyjä merkkejä)"
         ask_filename = "tiedoston nimi (.bib)"

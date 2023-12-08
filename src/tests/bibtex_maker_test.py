@@ -14,6 +14,6 @@ class TestBibtexMaker(unittest.TestCase):
         self.assertFalse(BibTexMaker.try_generate_bible_text_file(self.citations, "???#&*" ))
 
     def test_create_file(self):
-        self.assertTrue(BibTexMaker.try_generate_bible_text_file(self.citations, "src/bibtest"))
+        self.assertTrue(BibTexMaker.try_generate_bible_text_file(self.citations, "bib_testing_file"))
         
     
