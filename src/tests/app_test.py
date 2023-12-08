@@ -5,7 +5,7 @@ from tui.stub_io import StubIO
 from tui.tui_io import TuiIO
 from app import App
 from app_msg import MSG
-from initialize_database import initialize_database
+from db.initialize import initialize_database
 
 
 class TestApp(unittest.TestCase):

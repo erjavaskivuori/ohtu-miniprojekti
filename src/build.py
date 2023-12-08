@@ -1,4 +1,4 @@
-from initialize_database import initialize_database
+from db.initialize import initialize_database
 
 
 def build():
