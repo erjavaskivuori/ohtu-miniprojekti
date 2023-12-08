@@ -1,4 +1,4 @@
-from database_connection import form_database_connection
+from db.connection import form_database_connection
 from citations.new_citation import Citation, CitationType
 from citations.citation_factory import CitationFactory
 from citations.citation_strings import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, \

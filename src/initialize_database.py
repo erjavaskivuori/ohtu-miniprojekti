@@ -1,4 +1,4 @@
-from database_connection import form_database_connection
+from db.connection import form_database_connection
 
 
 def initialize_database():
