@@ -67,6 +67,14 @@ class App:
 
 
     def __tag(self):
+        # Validator to be int
+        def validate_int(x):
+            try:
+                int(x)
+            except ValueError:
+                return False
+            return True
+            
         if self._cm.return_all_citations() == {}:
             self._tui.print_error( MSG.Tag.fail_empty )
             return False
@@ -74,7 +82,7 @@ class App:
         self._tui.print( MSG.Tag.info_list )
         self.__list()
 
-        citation_id = self._tui.ask( MSG.Tag.ask_for_id )
+        citation_id = self._tui.ask( MSG.Tag.ask_for_id, validate_int )
 
         if not self._cm.citation_exists(citation_id):
             self._tui.print_error( MSG.Tag.fail_unknown )
