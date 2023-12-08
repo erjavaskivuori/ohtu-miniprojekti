@@ -70,12 +70,25 @@ Create BibTex File From Citation
 # Käyttäjänä haluan pystyä hakemaan viitteitä tagilla.
 Search Citation Article With Tag
 	Create Citation Article With Tag
-	Input  listaa
+	Input  hae
+	Input  tagi
 	Run Application
-	Output Should Contain  Nimi Sukunimi
-	Output Should Contain  2004
-	Output Should Contain  Joku journaltitle
 	Output Should Contain  tagi
+
+
+Seacrh Of Citation Fails Because of Wrong Tag
+	Create Citation Article With Tag
+	Input  hae
+	Input  tagi2
+	Run Application
+	Output Should Contain  Viitteitä ei löydy.
+
+Search Of Citation Fails Because of Empty Tag
+	Create Citation Article With Tag
+	Input  hae
+	Input  ${EMPTY}
+	Run Application
+	Output Should Contain  VIRHE: Syöte '' ei kelpaa.
 
 Resetting Database Works
 	Create Citation Article Without Tag
