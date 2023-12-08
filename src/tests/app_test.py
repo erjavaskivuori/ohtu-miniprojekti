@@ -25,6 +25,15 @@ class TestApp(unittest.TestCase):
         self.io.add_input("kyllä")
         self.io.add_input("test_tag1")
     
+    def add_citate2(self):
+        self.io.add_input("lisää")
+        self.io.add_input("label2")
+        self.io.add_input("1")
+        self.io.add_input("Test Book 2")
+        self.io.add_input("Kaké")
+        self.io.add_input("2022")
+        self.io.add_input("ei")
+    
         
     def test_app_starts(self):
         self.app.run()
@@ -227,6 +236,12 @@ class TestApp(unittest.TestCase):
         self.io.add_input("hae")
         self.app.run()
         self.assertIn( MSG.Search.fail_empty, "".join(self.io.outputs))
+
+    def test_app_search_fails_with_no_tags(self):
+        self.add_citate2()
+        self.io.add_input("hae")
+        self.app.run()
+        self.assertIn( MSG.Search.fail_no_tags, "".join(self.io.outputs))
 
     def test_app_tag_list_gets_printed(self):
         self.add_citate1()
