@@ -75,7 +75,6 @@ Search Citation Article With Tag
 	Run Application
 	Output Should Contain  tagi
 
-
 Seacrh Of Citation Fails Because of Wrong Tag
 	Create Citation Article With Tag
 	Input  hae
@@ -89,6 +88,23 @@ Search Of Citation Fails Because of Empty Tag
 	Input  ${EMPTY}
 	Run Application
 	Output Should Contain  VIRHE: Syöte '' ei kelpaa.
+
+# Käyttäjänä voin poistaa viiteluettelosta viitteen
+Delete Citation Article
+	Create Citation Article Without Tag
+	Input  poista
+	Input  2
+	Run Application
+	Output Should Contain   * Viite poistettu
+
+#Deleting Citation Fails Because of Wrong Index
+#	Create Citation Article Without Tag
+#	Input  poista
+#	Input  3
+#	Run Application
+#	Output Should Contain  * VIRHE: Viitteen poisto ei onnistunut
+
+# Käyttäjänä voin poistaa kaikki viitteet
 
 Resetting Database Works
 	Create Citation Article Without Tag
