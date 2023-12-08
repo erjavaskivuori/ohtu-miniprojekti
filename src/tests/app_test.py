@@ -56,7 +56,7 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn("Syöte '8' ei kelpaa.", "".join(self.io.outputs))
 
-        self.io.outputs=[]
+    def test_app_commands_add_wrong_type_str(self):
         self.io.add_input("lisää")
         self.io.add_input("test")
         self.io.add_input("muikku")
@@ -73,7 +73,7 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn("Syöte '3000' ei kelpaa.", "".join(self.io.outputs))
 
-        self.io.outputs=[]
+    def test_app_commands_add_wrong_year_str(self):
         self.io.add_input("lisää")
         self.io.add_input("test")
         self.io.add_input("1")
@@ -94,7 +94,27 @@ class TestApp(unittest.TestCase):
         self.io.add_input("tag")
         self.app.run()
         self.assertIn( MSG.Add.ask_tag, "".join(self.io.outputs))
-    
+        
+    def test_app_tag_fails_id_str(self):
+        self.add_citate1()
+        self.io.add_input("tägää")
+        self.io.add_input("koira")
+        self.io.add_input("1")
+        self.app.run()
+        self.assertIn("Syöte 'koira' ei kelpaa.", "".join(self.io.outputs))
+
+    def test_app_fails_adding_duplicate_labels(self):
+        self.add_citate1()
+        self.io.add_input("lisää")
+        self.io.add_input("label1")
+        self.app.run()
+        self.assertIn(MSG.Add.info_label_in_use, "".join(self.io.outputs))
+
+    def test_app_delete_fails_on_empty(self):
+        self.io.add_input("poista")
+        self.io.add_input("666")
+        self.app.run()
+        self.assertIn( MSG.Delete.fail, "".join(self.io.outputs))
 
     def test_app_commands_drop_add_list_tag_search_delete(self):
         self.io.add_input("tyhjennä")
