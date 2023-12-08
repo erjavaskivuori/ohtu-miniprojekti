@@ -2,7 +2,7 @@ from database_connection import form_database_connection
 
 
 def initialize_database():
-    """Alustaa tietokannan taulut."""
+    """Initializes database tables"""
 
     connection = form_database_connection()
 
@@ -11,10 +11,10 @@ def initialize_database():
 
 
 def drop_tables(connection):
-    """Poistaa tietokannan taulut.
+    """Drops all tables from the database.
 
     Args:
-        connection: Tietokantayhteyden Connection-olio.
+        connection: Databases Connection-object.
     """
 
     cursor = connection.cursor()
@@ -27,10 +27,10 @@ def drop_tables(connection):
 
 
 def create_tables(connection):
-    """Luo tietokannan taulut.
+    """Creates the database tables.
 
     Args:
-        connection: Tietokantayhteyden Connection-olio.
+        connection: Databases Connection-object.
     """
 
     cursor = connection.cursor()

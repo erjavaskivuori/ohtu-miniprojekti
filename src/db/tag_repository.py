@@ -3,10 +3,10 @@ from database_connection import form_database_connection
 
 class TagRepository():
     def __init__(self, connection: form_database_connection):
-        """Luokan kontruktori.
+        """Constructor.
 
         Args:
-            connection: Tietokantayhteyden Connection-olio.
+            connection: Databases Connection-object.
         """
 
         self._connection = connection

@@ -26,7 +26,7 @@ class CitationAttribute:
 
 
 class Citation():
-    def __init__(self, citation_type: CitationType, attribute_names: list[str], label = "nimetön"):
+    def __init__(self, citation_type: CitationType, attribute_names: list[str], label):
         self.type = citation_type
         self.tag = ""
         self.label = label

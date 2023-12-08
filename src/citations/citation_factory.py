@@ -1,17 +1,15 @@
-"""Tarjoaa pääsyn Citation ja CitationType luokkaan"""
 from citations.new_citation import Citation, CitationType
 from citations.citation_strings import ARTICLE_STRINGS, INPROCEEDINGS_STRINGS, \
                                         BOOK_STRINGS
 
 
 class CitationFactory():
-    """Luo käyttövalmiin Citation olion kun sille antaa CitationTypen.
-    Citation olio sisältää kaikki vaaditut arvot CitationAttribute listalla
-    riippuen siitä mikä CitationType annettiin.
+    """Creates a ready to use Citation when given a CitationType.
+    Citation object contains all CitationAttributes that are needed for the type.
     """
     @staticmethod
     def get_new_citation(citation_type: CitationType):
-        """Palauttaa uuden Citation objectin jonka attribuutit vastaavat annettua tyyppiä.
+        """Returns a new Citation object that matches the CitationType given.
         """
         # hopefully temporary "if else hell":
         match citation_type:

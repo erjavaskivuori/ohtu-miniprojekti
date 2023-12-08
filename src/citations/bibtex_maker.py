@@ -3,27 +3,27 @@ from citations.new_citation import Citation, CitationType
 WRITE_COMMAND = "w+"
 ILLEGAL_CHARACTERS = "#%{&}<>*?$!:'@+`|="
 class BibTexMaker():
-    """Luo .bib tiedostoja. Käyttö:
-    1: Importtaa BibTexMaker
-    2: Kutsu BibTexMake.generate_bible_text_file(sitaattilista, filun nimi)
+    """Creates .bib files. Usage:
+    1: Import BibTexMaker
+    2: Call BibTexMake.generate_bible_text_file(citation_dictionary, file name)
     3: ???
-    4: Tiedosto ilmestyy projektin ylimpään kansioon
+    4: File appears in the project root folder
     """
 
     @staticmethod
-    def try_generate_bible_text_file(citations, file_name: str):
+    def try_generate_bible_text_file(citations_dictionary, file_name: str):
         """
-        Luo .bib päätteisen tekstitiedoston listasta Citation olioita. 
-        Annetun filenamen ei tarvitse/kannata sisältää .bib päätettä.
+        Creates a file ending with .bib from a dictionary of citations objects. 
+        Given filename should not contain the ".bib" substring at the end.
         """
         if any(elem in file_name for elem in ILLEGAL_CHARACTERS):
             return False
         try:
             with open(file_name + ".bib", WRITE_COMMAND, encoding="utf-8") as text_file:
                 text = ""
-                for key in citations:
-                    print(citations[key])
-                    text += BibTexMaker.__generate_citation_text(citations[key])
+                for key in citations_dictionary:
+                    print(citations_dictionary[key])
+                    text += BibTexMaker.__generate_citation_text(citations_dictionary[key])
                 text_file.write(text)
                 return True
         except IOError as e:
@@ -32,7 +32,7 @@ class BibTexMaker():
 
     @staticmethod
     def __generate_citation_text(citation: Citation):
-        """Luo yhden sitaatin bibtex formaatissa, palauttaa str.
+        """Returns a .bib format string from a citation object.
         """
         start = "@" + CitationType(citation.type).name.lower() + "{" + citation.label + ",\n"
         middle = ""

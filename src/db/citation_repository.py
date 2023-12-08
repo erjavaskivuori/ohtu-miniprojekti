@@ -9,10 +9,10 @@ from citations.citation_strings import AUTHOR, TITLE, YEAR, JOURNAL_TITLE, \
 class CitationRepository():
 
     def __init__(self, connection: form_database_connection):
-        """Luokan kontruktori.
+        """CitationRepository constructor.
 
         Args:
-            connection: Tietokantayhteyden Connection-olio.
+            connection: Databases Connection-object.
         """
 
         self._connection = connection
