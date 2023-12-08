@@ -12,11 +12,12 @@ class MSG:
 
     class Tag:
         fail_empty = "sinulla ei ole vielä yhtään sitaattia"
+        fail_no_tags = "sinulla ei ole vielä yhtään tägiä"
         fail_unknown = "Antamaasi id:tä ei ole olemassa"
         info_retag = "Sitaatilla on jo tägi haluatko korvata sen (kyllä/ei)"
         success = "Tägi lisätty onnistuneesti"
         info_list = "Lista kaikista sitaateistasi:"
-        info_taglist = "Lista kaikista sitaateistasi:"
+        info_taglist = "Lista kaikista tägeistäsi:"
         ask_for_id = "sen sitaatin id, jolle haluat lisätä tägin"
         ask_tag = "jokin yllä olevista tägeista tai uusi tägi"
         ask_new_tag = "uusi tägi"

@@ -47,9 +47,19 @@ class App:
             self._tui.print_error(MSG.Bib.create_fail)
 
     def __search(self):
-        tag = self._tui.ask( MSG.Search.ask_tag )
-        plist = self._cm.get_plist_by_tag(tag)
-        self.__print_plist(plist)
+        if self._cm.return_all_citations() == {}:
+            self._tui.print_error( MSG.Tag.fail_empty )
+            return False
+        
+        if self._cm.get_all_tags() != {}:
+            self._tui.print( MSG.Tag.info_taglist )
+            self._tui.print("\n".join(self._cm.get_all_tags()))
+            tag = self._tui.ask( MSG.Search.ask_tag )
+            plist = self._cm.get_plist_by_tag(tag)
+            self.__print_plist(plist)
+
+        else:
+            self._tui.print_error(MSG.Tag.fail_no_tags)
 
     def __list(self):
         plist = self._cm.get_plist()
