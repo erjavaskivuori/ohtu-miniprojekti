@@ -105,7 +105,20 @@ Deleting Citation Fails Because of Wrong Index
 	Output Should Contain  * VIRHE: Viitteen poisto ei onnistunut
 
 # Käyttäjänä voin poistaa kaikki viitteet
-# Todo
+Delete All Citations
+	Create Citation Article Without Tag
+	Input  tyhjennä
+	Input  kyllä
+	Run Application
+	Output Should Contain   * Viitteet tyhjennetty.
+
+Deleting All Citations Cancelled
+	Create Citation Article Without Tag
+	Input  tyhjennä
+	Input  ei
+	Run Application
+	Output Should Contain  Tyhjennys peruutettu.
+
 
 Resetting Database Works
 	Create Citation Article Without Tag
