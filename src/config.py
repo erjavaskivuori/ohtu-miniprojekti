@@ -11,3 +11,6 @@ except FileNotFoundError:
 DATABASE_FILENAME = os.getenv("DATABASE_FILENAME") or "database.sqlite"
 DATABASE_FILE_PATH = os.path.join(
     dirname, "..", "src", "db", DATABASE_FILENAME)
+
+POPULATE_CITATIONS_PATH = os.path.join(
+    dirname, "..", "src", "db", "citations_data.txt")
