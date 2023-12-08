@@ -97,14 +97,15 @@ Delete Citation Article
 	Run Application
 	Output Should Contain   * Viite poistettu
 
-#Deleting Citation Fails Because of Wrong Index
-#	Create Citation Article Without Tag
-#	Input  poista
-#	Input  3
-#	Run Application
-#	Output Should Contain  * VIRHE: Viitteen poisto ei onnistunut
+Deleting Citation Fails Because of Wrong Index
+	Create Citation Article Without Tag
+	Input  poista
+	Input  666
+	Run Application
+	Output Should Contain  * VIRHE: Viitteen poisto ei onnistunut
 
 # Käyttäjänä voin poistaa kaikki viitteet
+# Todo
 
 Resetting Database Works
 	Create Citation Article Without Tag
