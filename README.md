@@ -3,7 +3,9 @@
 
 [Product backlog ja sprint backlog](https://docs.google.com/spreadsheets/d/1TeniUNzDz5KInh-D-tHVcKsYnXuUdVKj35sreIyCLF8/edit?usp=sharing)
 
-[Retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro.md)
+[2. Sprintin retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro_2.md)
+
+[3. Sprintin retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro_3.md)
 
 ## Asennusohjeet
 - Asenna koneelle ajantasaiset versiot [SQLite](https://www.sqlite.org/) ja [poetry](https://python-poetry.org/) -ohjelmista, sekä niiden riippuvuudet (poetry 1.7.1 ja SQlite 3.40.1 sekä niitä uudemmat yhteensopivat versiot toiminevat)
