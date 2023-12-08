@@ -74,7 +74,7 @@ class App:
             except ValueError:
                 return False
             return True
-            
+
         if self._cm.return_all_citations() == {}:
             self._tui.print_error( MSG.Tag.fail_empty )
             return False
