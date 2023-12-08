@@ -12,7 +12,6 @@ class MSG:
 
     class Tag:
         fail_empty = "sinulla ei ole vielä yhtään sitaattia"
-        fail_no_tags = "sinulla ei ole vielä yhtään tägiä"
         fail_unknown = "Antamaasi id:tä ei ole olemassa"
         info_retag = "Sitaatilla on jo tägi haluatko korvata sen (kyllä/ei)"
         success = "Tägi lisätty onnistuneesti"
@@ -47,3 +46,6 @@ ja Inproceedings (3)"
 
     class Search:
         ask_tag = "tägi"
+        fail_empty = "sinulla ei ole vielä yhtään sitaattia"
+        fail_no_tags = "sinulla ei ole vielä yhtään tägiä"
+        info_taglist = "Lista kaikista tägeistäsi:"

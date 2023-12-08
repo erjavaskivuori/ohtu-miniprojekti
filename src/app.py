@@ -48,18 +48,18 @@ class App:
 
     def __search(self):
         if self._cm.return_all_citations() == {}:
-            self._tui.print_error( MSG.Tag.fail_empty )
+            self._tui.print_error( MSG.Search.fail_empty )
             return False
 
         if self._cm.get_all_tags() != {}:
-            self._tui.print( MSG.Tag.info_taglist )
+            self._tui.print( MSG.Search.info_taglist )
             self._tui.print("\n".join(self._cm.get_all_tags()))
             tag = self._tui.ask( MSG.Search.ask_tag )
             plist = self._cm.get_plist_by_tag(tag)
             self.__print_plist(plist)
             return True
 
-        self._tui.print_error(MSG.Tag.fail_no_tags)
+        self._tui.print_error(MSG.Search.fail_no_tags)
         return False
 
     def __list(self):

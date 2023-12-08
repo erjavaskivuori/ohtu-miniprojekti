@@ -223,6 +223,11 @@ class TestApp(unittest.TestCase):
         self.app.run()
         self.assertIn( MSG.Tag.fail_empty, "".join(self.io.outputs))
 
+    def test_app_search_fails_on_empty_list(self):
+        self.io.add_input("hae")
+        self.app.run()
+        self.assertIn( MSG.Search.fail_empty, "".join(self.io.outputs))
+
     def test_app_tag_list_gets_printed(self):
         self.add_citate1()
         self.io.add_input("tägää")
