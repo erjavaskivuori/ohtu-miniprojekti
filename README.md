@@ -3,9 +3,9 @@
 
 [Product backlog ja sprint backlog](https://docs.google.com/spreadsheets/d/1TeniUNzDz5KInh-D-tHVcKsYnXuUdVKj35sreIyCLF8/edit?usp=sharing)
 
-[2. Sprintin retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro_2.md)
+[2. Sprintin retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/retro_2.md)
 
-[3. Sprintin retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/src/retro_3.md)
+[3. Sprintin retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/retro_3.md)
 
 ## Asennusohjeet
 - Asenna koneelle ajantasaiset versiot [SQLite](https://www.sqlite.org/) ja [poetry](https://python-poetry.org/) -ohjelmista, sekä niiden riippuvuudet (poetry 1.7.1 ja SQlite 3.40.1 sekä niitä uudemmat yhteensopivat versiot toiminevat)
@@ -13,7 +13,8 @@
 - Pura lataamasi paketti esim: `tar xfz viikko9.tar.gz`
 - Avaa terminaali juuri puretussa kansiossa (esim ohtu-miniprojekti-viikko9)
 - Suorita riippuvuuksien asennus komennolla: `PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring poetry install --without dev --no-root`
-- Alusta tietokonata komennolla: `poetry run python3 src/build.py`
+- Alusta tietokonata komennolla: `poetry run python3 src/db/build.py`
+- Lisää demodataa tietokantaan komennolla: `poetry run python3 src/db/populate.py`
 
 ## Käyttöohjeet
 - Ohjelma käynnistetään projektin juurikansiossa (esim ohtu-miniprojekti-viikko9) komennolla: `poetry run python3 src/app.py`
