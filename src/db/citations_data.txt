@@ -1,0 +1,3 @@
+Thorvalds2001,2,Linux Thorwalds,Open Source Saves The World,2001,Linux Magazine,
+Jobs2011,3,Steve Jobs,Apple Tree,2011,,Apple Collections
+Gates2024,1,Bill Gates,Windows 11 is Coming,2024,,
