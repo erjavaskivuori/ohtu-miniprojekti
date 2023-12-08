@@ -11,7 +11,6 @@ class CitationFactory():
     def get_new_citation(citation_type: CitationType):
         """Returns a new Citation object that matches the CitationType given.
         """
-        # hopefully temporary "if else hell":
         match citation_type:
             case CitationType.ARTICLE:
                 return Citation(citation_type, ARTICLE_STRINGS)
