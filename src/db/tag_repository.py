@@ -24,13 +24,6 @@ class TagRepository():
         return all_tags[tag]
 
     def add_tag_to_citation(self, citation_id, tag):
-        cursor = self._connection.cursor()
-        cursor.execute("SELECT citation_id FROM tagged")
-        rows = cursor.fetchall()
-        for i in rows:
-            if citation_id == i[0]:
-                return False
-
         tag_id = self.create_new_tag(tag)
 
         cursor = self._connection.cursor()
@@ -38,6 +31,13 @@ class TagRepository():
                        tag_id, citation_id])
         self._connection.commit()
         return True
+
+    def tag_by_citation_id(self, citation_id):
+        cursor = self._connection.cursor()
+        cursor.execute("""SELECT t.tag FROM tags t LEFT JOIN tagged td
+                    ON t.id=td.tag_id WHERE td.citation_id=?""", [citation_id])
+        rows = cursor.fetchall()
+        return rows
 
     def get_all_tags(self):
 

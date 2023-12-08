@@ -69,6 +69,10 @@ class CitationManager():
         """
         return self._tag_repo.add_tag_to_citation(citation_id, tag)
 
+    def tag_by_citation(self, citation_id):
+
+        return self._tag_repo.tag_by_citation_id(citation_id)
+
     def get_all_tags(self):
         return self._tag_repo.get_all_tags()
 

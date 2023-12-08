@@ -88,6 +88,11 @@ class App:
             self._tui.print_error( MSG.Tag.fail_unknown )
             return False
 
+        citations_tag = self._cm.tag_by_citation(citation_id)
+
+        if citations_tag != [] and not self._tui.yesno(MSG.Tag.info_retag):
+            return False
+
         if self._cm.get_all_tags() != {}:
             self._tui.print( MSG.Tag.info_taglist )
             self._tui.print("\n".join(self._cm.get_all_tags()))
@@ -95,15 +100,10 @@ class App:
         else:
             tag = self._tui.ask( MSG.Tag.ask_new_tag )
 
-#	This is not working. DB realted?
-#        if not self._cm.add_tag_for_citation(citation_id, tag.lower()):
-#            self._tui.print_error( MSG.Tag.fail_retag )
-
         self._cm.add_tag_for_citation(citation_id, tag.lower())
 
         self._tui.print_info( MSG.Tag.success )
         return True
-
 
 
     def __add(self):
