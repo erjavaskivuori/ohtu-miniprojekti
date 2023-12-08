@@ -161,10 +161,10 @@ class App:
 
     def __delete(self):
         citation_id = self._tui.ask( MSG.Delete.ask_id )
-        self._cm.delete_citation(citation_id)
-        self._tui.print_info( MSG.Delete.success )
-#        else:
-#            self._tui.print_error( MSG.Delete.fail )
+        if self._cm.delete_citation(citation_id):
+            self._tui.print_info( MSG.Delete.success )
+        else:
+            self._tui.print_error( MSG.Delete.fail )
 
 
 if __name__ == "__main__":

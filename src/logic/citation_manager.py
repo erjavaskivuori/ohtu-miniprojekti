@@ -5,6 +5,7 @@ from citations.citation_strings import ATTR_TRANSLATIONS
 from db.citation_repository import citation_repository
 from db.tag_repository import tag_repository
 
+
 class CitationManager():
     """Class responsible of the application logic.
     """
@@ -21,13 +22,11 @@ class CitationManager():
         self._citation_repo = citation_repo
         self._tag_repo = tag_repo
 
-
     def get_attrs_by_ctype(self, ctype):
         """Returns list of attribute names needes for citation type
         """
-        return [ x.name for x in CitationFactory.get_new_citation(
-            CitationType(int(ctype)) ).attributes ]
-
+        return [x.name for x in CitationFactory.get_new_citation(
+            CitationType(int(ctype))).attributes]
 
     def add_citation(self, ctype, label, tag, attrs):
         """ Creates new citation
@@ -38,7 +37,7 @@ class CitationManager():
         for name, value in attrs.items():
             for a in citation.attributes:
                 if a.get_name() == name:
-                    a.set_value( value )
+                    a.set_value(value)
 
         citation_id = self._citation_repo.create_citation(citation)
 
@@ -46,13 +45,12 @@ class CitationManager():
             citation.set_tag(tag)
             self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
-        return True # Maybe something can go wrong with db or so??
+        return True  # Maybe something can go wrong with db or so??
 
     def is_label_in_use(self, label):
         """ Return true if label is already in use
         """
         return self._citation_repo.is_label_already_used(label)
-
 
     def citation_exists(self, citation_id):
         all_citations = self.return_all_citations()
@@ -61,7 +59,6 @@ class CitationManager():
             if int(citation[0]) == int(citation_id):
                 return True
         return False
-
 
     def add_tag_for_citation(self, citation_id, tag):
         """Creates tag for citation.
@@ -91,17 +88,17 @@ class CitationManager():
         Args:
             c_id: id of the citation to be printed
             c: Citation object
-            
+
         Returns:
             (id, label), attrs[(key,val),(key,val)...]
         """
-        attrs=[]
-        attrs.append( ("type", c.type.name) )
+        attrs = []
+        attrs.append(("type", c.type.name))
         for key, value in c.get_attributes_dictionary().items():
-            attrs.append( (f"{ATTR_TRANSLATIONS[key]} ({key})", value) )
+            attrs.append((f"{ATTR_TRANSLATIONS[key]} ({key})", value))
         if c.tag != "":
-            attrs.append( ("tägi", c.tag) )
-        return ( (c_id, c.label) ,attrs )
+            attrs.append(("tägi", c.tag))
+        return ((c_id, c.label), attrs)
 
     def get_plist(self):
         """Get print list of all citations
@@ -109,12 +106,11 @@ class CitationManager():
         Returns:
             List of citations in tuples ready to print
         """
-        plist=[]
+        plist = []
         citations = self._citation_repo.get_all_citations()
         for c_id, citation in citations.items():
             plist.append(self.plist_entry(c_id, citation))
         return plist
-
 
     def get_plist_by_tag(self, tag):
         """Get print list entries tagges with tag
@@ -122,13 +118,12 @@ class CitationManager():
         Returns:
             List of citations in tuples ready to print
         """
-        plist=[]
+        plist = []
         citations = self._citation_repo.get_all_citations()
         for c_id, citation in citations.items():
             if citation.tag == tag:
                 plist.append(self.plist_entry(c_id, citation))
         return plist
-
 
     def clear_all(self):
         """Clears all the databses.
@@ -136,7 +131,7 @@ class CitationManager():
 
         self._citation_repo.clear_table()
         self._tag_repo.clear_tables()
-        return True # What if drop fails?
+        return True  # What if drop fails?
 
     def create_bib_file(self, filename):
         """Creates .bib file.
@@ -145,11 +140,17 @@ class CitationManager():
             True if succeed, False if didn't succeed
         """
         return BibTexMaker.try_generate_bible_text_file(
-            self.return_all_citations(), filename )
-
+            self.return_all_citations(), filename)
 
     def delete_citation(self, citation_id):
+        """Deletes citation from database. if list is empty or 
+        citation_id is not found, returns False
+        """
+
+        if self.return_all_citations() is None or not self.citation_exists(citation_id):
+            return False
+
         self._citation_repo.delete_citation(citation_id)
         self._tag_repo.delete_by_citation_id(citation_id)
 
-        return True # Fail should be handled
+        return True
