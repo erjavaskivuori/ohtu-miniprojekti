@@ -34,6 +34,16 @@ class TestApp(unittest.TestCase):
         self.io.add_input("2022")
         self.io.add_input("ei")
 
+    def add_citate3(self):
+        self.io.add_input("lisää")
+        self.io.add_input("label3")
+        self.io.add_input("1")
+        self.io.add_input("Test Book")
+        self.io.add_input("Kàke")
+        self.io.add_input("2023")
+        self.io.add_input("kyllä")
+        self.io.add_input("test_tag1")
+
     def test_app_starts(self):
         self.app.run()
         self.assertIn("TERVETULOA", "".join(self.io.outputs))
@@ -119,6 +129,11 @@ class TestApp(unittest.TestCase):
         self.io.add_input("täg_kaksi")
         self.app.run()
         self.assertIn(MSG.Tag.success, "".join(self.io.outputs))
+
+    def test_app_add_citations_with_same_tag(self):
+        self.add_citate1()
+        self.add_citate3()
+        self.app.run()
 
     def test_app_fails_adding_duplicate_labels(self):
         self.add_citate1()
