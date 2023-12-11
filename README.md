@@ -31,3 +31,4 @@
 - Yksikkötestaus tehty ja muotoilu tarkistettu (pylint)
 - Dokumentoitu (docstring, asennusohjeet, käyttöohjeet)
 - Integroitu ja testattu CI-palvelimella
+
