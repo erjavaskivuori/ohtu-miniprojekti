@@ -22,8 +22,8 @@ class App:
             Commands.HELP:		self._tui.help,
             Commands.TAG:		self.__tag,
             Commands.BIB:		self.__bib,
-            Commands.SEARCH:		self.__search,
-            Commands.DELETE:		self.__delete,
+            Commands.SEARCH:	self.__search,
+            Commands.DELETE:	self.__delete,
             Commands.DROP:		self.__drop
         }
 
@@ -40,6 +40,9 @@ class App:
                 break
 
     def __bib(self):
+        """Asks for .bib filename and creates new file
+            of saved citations.
+        """
         filename = self._tui.ask( MSG.Bib.ask_filename )
         if self._cm.create_bib_file(filename):
             self._tui.print_info(MSG.Bib.create_ok)
@@ -47,6 +50,13 @@ class App:
             self._tui.print_error(MSG.Bib.create_fail)
 
     def __search(self):
+        """Method for searching all the citations with 
+            certain tag.
+
+        Returns:
+            bool: False if there isn't any tags or citations.
+                    True otherwise.
+        """
         if self._cm.return_all_citations() == {}:
             self._tui.print_error( MSG.Search.fail_empty )
             return False
@@ -63,6 +73,8 @@ class App:
         return False
 
     def __list(self):
+        """Prints out list of all citations.
+        """
         plist = self._cm.get_plist()
         self.__print_plist(plist)
 
@@ -78,8 +90,21 @@ class App:
 
 
     def __tag(self):
-        # Validator to be int
+        """Adds tag for citation.
+
+        Returns:
+            bool: False if any error occurs. Otherwise True.
+        """
+
         def validate_int(x):
+            """Validator for citation id to be int.
+
+            Args:
+                x: user input for citation id
+
+            Returns:
+                bool: True if id is integer, otherwise False.
+            """
             try:
                 int(x)
             except ValueError:
@@ -112,6 +137,12 @@ class App:
         return True
 
     def __ask_tag(self):
+        """Checks if there is existing tags and asks user input for tag name.
+
+        Returns:
+            function: asking for new tag if there isn't existing tags or
+                       also listing existing tags.
+        """
         if self._cm.get_all_tags() != {}:
             self._tui.print( MSG.Tag.info_taglist )
             self._tui.print("\n".join(self._cm.get_all_tags()))
@@ -120,18 +151,39 @@ class App:
 
 
     def __add(self):
-        """ Asks all the nessessary information to make citation and calls cm
+        """Asks the nessessary information and creates new citation.
+
+        Returns:
+            bool: False if user input isn't correct type,
+                    True otherwise.
         """
-        # Validator for type
+
         def validate_type(x):
+            """Validator for citation type.
+
+            Args:
+                x: user input for citation type.
+
+            Returns:
+               bool: True if type is integer between 0 and 4,
+                        False otherwise.
+            """
             try:
                 return int(x) > 0 and int(x) < 4
             except ValueError:
                 pass
             return False
 
-        # Validator for year
         def validate_year(x):
+            """Validator for citation year.
+
+            Args:
+                x: user input for citation year.
+
+            Returns:
+                bool: True if year is integer between 0 and 2030,
+                        False otherwise.
+            """
             try:
                 return int(x) > 0 and int(x) < 2030
             except ValueError:
@@ -164,19 +216,18 @@ class App:
             )
 
         # add the tag
-        if self._tui.yesno( MSG.Add.ask_add_tag ):
-            tag = self.__ask_tag()
+        tag = self.__ask_tag() \
+            if self._tui.yesno( MSG.Add.ask_add_tag ) else ""
 
+        if self._cm.add_citation(ctype, label, tag, adict):
+            self._tui.print_info(MSG.Add.success)
         else:
-            tag=""
-
-        self._cm.add_citation( ctype, label, tag, adict )
-        self._tui.print_info( MSG.Add.success )
-#        else:
-#            self._tui.print_error( MSG.Add.fail )
+            self._tui.print_error( MSG.Add.fail )
 
 
     def __drop(self):
+        """Clears all the tables in database.
+        """
         if self._tui.yesno( MSG.Drop.ask_sure ):
             self._cm.clear_all()
             self._tui.print_info( MSG.Drop.success )
@@ -184,6 +235,8 @@ class App:
             self._tui.print( MSG.Drop.aborted )
 
     def __delete(self):
+        """Deletes one citation from database.
+        """
         citation_id = self._tui.ask( MSG.Delete.ask_id )
         try:
             citation_id = int(citation_id)
