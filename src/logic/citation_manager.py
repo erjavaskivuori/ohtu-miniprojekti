@@ -39,13 +39,17 @@ class CitationManager():
                 if a.get_name() == name:
                     a.set_value(value)
 
-        citation_id = self._citation_repo.create_citation(citation)
+        try:
+            citation_id = self._citation_repo.create_citation(citation)
 
-        if tag != "":
-            citation.set_tag(tag)
-            self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
+            if tag != "":
+                citation.set_tag(tag)
+                self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
-        return True  # Maybe something can go wrong with db or so??
+            return True
+
+        except RuntimeError:
+            return False
 
     def is_label_in_use(self, label):
         """ Return true if label is already in use
