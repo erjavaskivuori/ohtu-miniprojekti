@@ -31,7 +31,6 @@ class CitationRepository():
 
         return cursor.lastrowid
 
- 
     def get_all_citations(self):
         cursor = self._connection.cursor()
         query = """SELECT c.id, c.label, c.type, c.author, c.title,
@@ -46,7 +45,8 @@ class CitationRepository():
 
         for row in rows:
             citation_label, citation_type, *attributes, tag = row[1:]
-            citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
+            citation = CitationFactory.get_new_citation(
+                CitationType(int(citation_type)))
             citation.set_label(citation_label)
             if tag:
                 citation.set_tag(tag)
@@ -57,7 +57,6 @@ class CitationRepository():
             citations[row[0]] = citation
 
         return citations
-
 
     def delete_citation(self, citation_id):
         cursor = self._connection.cursor()
