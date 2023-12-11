@@ -31,44 +31,33 @@ class CitationRepository():
 
         return cursor.lastrowid
 
+ 
     def get_all_citations(self):
         cursor = self._connection.cursor()
-        cursor.execute(
-            """SELECT 
-                c.id, c.label, c.type, c.author, c.title,
-                c.year, c.journal_title, c.book_title, t2.tag
-            FROM citations c 
+        query = """SELECT c.id, c.label, c.type, c.author, c.title,
+                        c.year, c.journal_title, c.book_title, t2.tag
+                FROM citations c 
                 LEFT JOIN tagged t ON c.id=t.citation_id
-                LEFT JOIN tags t2 ON t2.id=t.tag_id
-            """)
-        # If no rows found, returns empty list
+                LEFT JOIN tags t2 ON t2.id=t.tag_id"""
+        cursor.execute(query)
         rows = cursor.fetchall()
 
         citations = {}
 
         for row in rows:
-            citation_label = row[1]
-            citation_type = int(row[2])
-            citation = CitationFactory.get_new_citation(
-                CitationType(citation_type))
+            citation_label, citation_type, *attributes, tag = row[1:]
+            citation = CitationFactory.get_new_citation(CitationType(int(citation_type)))
             citation.set_label(citation_label)
-            if row[-1]:
-                citation.set_tag(row[-1])
+            if tag:
+                citation.set_tag(tag)
 
-            column = 3
-
-            for attribute in citation.attributes:
-                # Skip empty attributes
-                while column < len(row) and row[column] == '':
-                    column += 1
-                    if column == len(row):
-                        break
-
-                attribute.set_value(row[column])
-                column += 1
+            for attribute, value in zip(citation.attributes, attributes):
+                attribute.set_value(value)
 
             citations[row[0]] = citation
+
         return citations
+
 
     def delete_citation(self, citation_id):
         cursor = self._connection.cursor()
