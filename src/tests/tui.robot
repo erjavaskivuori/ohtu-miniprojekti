@@ -89,6 +89,19 @@ Search Of Citation Fails Because of Empty Tag
 	Run Application
 	Output Should Contain  VIRHE: Syöte '' ei kelpaa.
 
+Search of Citation Fails Because no Citations
+    Input  tyhjennä
+	Input  kyllä
+    Input  hae
+	Run Application
+	Output Should Contain  VIRHE: sinulla ei ole vielä yhtään sitaattia
+
+Searvh of Citation Fails Because no Tags
+    Create Citation Article Without Tag
+	Input  hae
+	Run Application
+	Output Should Contain  VIRHE: sinulla ei ole vielä yhtään tägiä
+
 # Käyttäjänä voin poistaa viiteluettelosta viitteen
 Delete Citation Article
 	Create Citation Article Without Tag
