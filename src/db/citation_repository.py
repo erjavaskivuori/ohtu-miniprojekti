@@ -40,18 +40,16 @@ class CitationRepository():
             LEFT JOIN tagged t ON c.id=t.citation_id \
             LEFT JOIN tags t2 ON t2.id=t.tag_id" )
 
-        citations = {}
         attrs = {}
-        for cid, label, ctype, tag, attrs["author"], \
-                attrs["title"], attrs["year"], attrs["journaltitle"], \
-                attrs["booktitle"] in cursor.fetchall():
-
+        citations = {}
+        for cid, label, ctype, tag, attrs[AUTHOR], \
+                attrs[TITLE], attrs[YEAR], attrs[JOURNAL_TITLE], \
+                attrs[BOOK_TITLE] in cursor.fetchall():
             cite = CitationFactory.get_new_citation(CitationType(int(ctype)))
             cite.set_label(label)
             cite.set_tag(tag if tag else "")
             for attr in cite.attributes:
                 attr.set_value(attrs[attr.get_name()])
-
             citations[cid] = cite
 
         return citations
