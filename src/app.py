@@ -104,17 +104,19 @@ class App:
         if citations_tag != [] and not self._tui.yesno(MSG.Tag.info_retag):
             return False
 
-        if self._cm.get_all_tags() != {}:
-            self._tui.print( MSG.Tag.info_taglist )
-            self._tui.print("\n".join(self._cm.get_all_tags()))
-            tag = self._tui.ask( MSG.Tag.ask_tag )
-        else:
-            tag = self._tui.ask( MSG.Tag.ask_new_tag )
+        tag = self.__ask_tag()
 
         self._cm.add_tag_for_citation(citation_id, tag.lower())
 
         self._tui.print_info( MSG.Tag.success )
         return True
+
+    def __ask_tag(self):
+        if self._cm.get_all_tags() != {}:
+            self._tui.print( MSG.Tag.info_taglist )
+            self._tui.print("\n".join(self._cm.get_all_tags()))
+            return self._tui.ask( MSG.Tag.ask_tag )
+        return self._tui.ask( MSG.Tag.ask_new_tag )
 
 
     def __add(self):
@@ -142,7 +144,7 @@ class App:
             if label == "\0":
                 return False
             if self._cm.is_label_in_use(label):
-                self._tui.print( MSG.Add.info_label_in_use )
+                self._tui.print_error( MSG.Add.info_label_in_use )
                 continue
             break
 
@@ -162,8 +164,11 @@ class App:
             )
 
         # add the tag
-        tag = self._tui.ask( MSG.Add.ask_tag ) \
-                if self._tui.yesno( MSG.Add.ask_add_tag ) else ""
+        if self._tui.yesno( MSG.Add.ask_add_tag ):
+            tag = self.__ask_tag()
+
+        else:
+            tag=""
 
         self._cm.add_citation( ctype, label, tag, adict )
         self._tui.print_info( MSG.Add.success )
