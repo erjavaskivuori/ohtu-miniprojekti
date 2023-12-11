@@ -26,37 +26,36 @@ class CitationRepository():
                         attributes.get(TITLE, ""), attributes.get(YEAR, ""),
                         attributes.get(JOURNAL_TITLE, ""),
                         attributes.get(BOOK_TITLE, "")])
-
         self._connection.commit()
 
         return cursor.lastrowid
 
+
     def get_all_citations(self):
         cursor = self._connection.cursor()
-        query = """SELECT c.id, c.label, c.type, c.author, c.title,
-                        c.year, c.journal_title, c.book_title, t2.tag
-                FROM citations c 
-                LEFT JOIN tagged t ON c.id=t.citation_id
-                LEFT JOIN tags t2 ON t2.id=t.tag_id"""
-        cursor.execute(query)
-        rows = cursor.fetchall()
+        cursor.execute("\
+            SELECT c.id, c.label, c.type, t2.tag, c.author, c.title, \
+                c.year, c.journal_title, c.book_title \
+            FROM citations c \
+            LEFT JOIN tagged t ON c.id=t.citation_id \
+            LEFT JOIN tags t2 ON t2.id=t.tag_id" )
 
         citations = {}
+        attrs = {}
+        for cid, label, ctype, tag, attrs["author"], \
+                attrs["title"], attrs["year"], attrs["journaltitle"], \
+                attrs["booktitle"] in cursor.fetchall():
 
-        for row in rows:
-            citation_label, citation_type, *attributes, tag = row[1:]
-            citation = CitationFactory.get_new_citation(
-                CitationType(int(citation_type)))
-            citation.set_label(citation_label)
-            if tag:
-                citation.set_tag(tag)
+            cite = CitationFactory.get_new_citation(CitationType(int(ctype)))
+            cite.set_label(label)
+            cite.set_tag(tag if tag else "")
+            for attr in cite.attributes:
+                attr.set_value(attrs[attr.get_name()])
 
-            for attribute, value in zip(citation.attributes, attributes):
-                attribute.set_value(value)
-
-            citations[row[0]] = citation
+            citations[cid] = cite
 
         return citations
+
 
     def delete_citation(self, citation_id):
         cursor = self._connection.cursor()
