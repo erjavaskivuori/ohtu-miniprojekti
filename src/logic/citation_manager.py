@@ -47,8 +47,7 @@ class CitationManager():
                 self._tag_repo.add_tag_to_citation(citation_id, tag.lower())
 
             return True
-
-        except RuntimeError:
+        except (RuntimeError, AttributeError):
             return False
 
     def is_label_in_use(self, label):

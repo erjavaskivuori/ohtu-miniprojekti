@@ -36,14 +36,14 @@ class App:
             if command in commands:
                 commands[command]()
             else:
-                self._tui.print_error( MSG.not_implemented )
+                self._tui.print_error(MSG.not_implemented)
                 break
 
     def __bib(self):
         """Asks for .bib filename and creates new file
             of saved citations.
         """
-        filename = self._tui.ask( MSG.Bib.ask_filename )
+        filename = self._tui.ask(MSG.Bib.ask_filename)
         if self._cm.create_bib_file(filename):
             self._tui.print_info(MSG.Bib.create_ok)
         else:
@@ -58,13 +58,13 @@ class App:
                     True otherwise.
         """
         if self._cm.return_all_citations() == {}:
-            self._tui.print_error( MSG.Search.fail_empty )
+            self._tui.print_error(MSG.Search.fail_empty)
             return False
 
         if self._cm.get_all_tags() != {}:
-            self._tui.print( MSG.Search.info_taglist )
+            self._tui.print(MSG.Search.info_taglist)
             self._tui.print("\n".join(self._cm.get_all_tags()))
-            tag = self._tui.ask( MSG.Search.ask_tag )
+            tag = self._tui.ask(MSG.Search.ask_tag)
             plist = self._cm.get_plist_by_tag(tag)
             self.__print_plist(plist)
             return True
@@ -78,16 +78,13 @@ class App:
         plist = self._cm.get_plist()
         self.__print_plist(plist)
 
-
     def __print_plist(self, plist):
         if len(plist) == 0:
-            self._tui.print( MSG.List.empty )
+            self._tui.print(MSG.List.empty)
         for (c_id, label), attrs in plist:
             self._tui.print_item_entry(c_id, label)
             for key, value in attrs:
-                self._tui.print_item_attribute( key, value )
-
-
+                self._tui.print_item_attribute(key, value)
 
     def __tag(self):
         """Adds tag for citation.
@@ -112,16 +109,16 @@ class App:
             return True
 
         if self._cm.return_all_citations() == {}:
-            self._tui.print_error( MSG.Tag.fail_empty )
+            self._tui.print_error(MSG.Tag.fail_empty)
             return False
 
-        self._tui.print( MSG.Tag.info_list )
+        self._tui.print(MSG.Tag.info_list)
         self.__list()
 
-        citation_id = self._tui.ask( MSG.Tag.ask_for_id, validate_int )
+        citation_id = self._tui.ask(MSG.Tag.ask_for_id, validate_int)
 
         if not self._cm.citation_exists(citation_id):
-            self._tui.print_error( MSG.Tag.fail_unknown )
+            self._tui.print_error(MSG.Tag.fail_unknown)
             return False
 
         citations_tag = self._cm.tag_by_citation(citation_id)
@@ -133,7 +130,7 @@ class App:
 
         self._cm.add_tag_for_citation(citation_id, tag.lower())
 
-        self._tui.print_info( MSG.Tag.success )
+        self._tui.print_info(MSG.Tag.success)
         return True
 
     def __ask_tag(self):
@@ -144,11 +141,10 @@ class App:
                        also listing existing tags.
         """
         if self._cm.get_all_tags() != {}:
-            self._tui.print( MSG.Tag.info_taglist )
+            self._tui.print(MSG.Tag.info_taglist)
             self._tui.print("\n".join(self._cm.get_all_tags()))
-            return self._tui.ask( MSG.Tag.ask_tag )
-        return self._tui.ask( MSG.Tag.ask_new_tag )
-
+            return self._tui.ask(MSG.Tag.ask_tag)
+        return self._tui.ask(MSG.Tag.ask_new_tag)
 
     def __add(self):
         """Asks the nessessary information and creates new citation.
@@ -192,61 +188,66 @@ class App:
 
         # citation label
         while True:
-            label = self._tui.ask( MSG.Add.ask_label )
+            label = self._tui.ask(MSG.Add.ask_label)
             if label == "\0":
                 return False
             if self._cm.is_label_in_use(label):
-                self._tui.print_error( MSG.Add.info_label_in_use )
+                self._tui.print_error(MSG.Add.info_label_in_use)
                 continue
             break
 
         # citation type
         try:
-            ctype = int(self._tui.ask( MSG.Add.ask_type, validate_type ) )
+            ctype = int(self._tui.ask(MSG.Add.ask_type, validate_type))
         except ValueError:
             return False
 
         # other attributes
         attrs = self._cm.get_attrs_by_ctype(ctype)
-        adict={}
+        adict = {}
         for attr in attrs:
             adict[attr] = self._tui.ask(
                 f"{ATTR_TRANSLATIONS[attr]} ({attr})",
                 validate_year if attr == "year" else lambda x: True
             )
 
-        # add the tag
+        # Add tag (optional)
         tag = self.__ask_tag() \
-            if self._tui.yesno( MSG.Add.ask_add_tag ) else ""
+            if self._tui.yesno(MSG.Add.ask_add_tag) else ""
 
+        return self._add_citation(ctype, label, adict, tag)
+
+    def _add_citation(self, ctype, label, adict, tag):
+        """Adds a tag. Assumes parameters are correct. 
+        """
         if self._cm.add_citation(ctype, label, tag, adict):
             self._tui.print_info(MSG.Add.success)
-        else:
-            self._tui.print_error( MSG.Add.fail )
-
+            return True
+        self._tui.print_error(MSG.Add.fail)
+        return False
 
     def __drop(self):
         """Clears all the tables in database.
         """
-        if self._tui.yesno( MSG.Drop.ask_sure ):
+        if self._tui.yesno(MSG.Drop.ask_sure):
             self._cm.clear_all()
-            self._tui.print_info( MSG.Drop.success )
+            self._tui.print_info(MSG.Drop.success)
         else:
-            self._tui.print( MSG.Drop.aborted )
+            self._tui.print(MSG.Drop.aborted)
 
     def __delete(self):
         """Deletes one citation from database.
         """
-        citation_id = self._tui.ask( MSG.Delete.ask_id )
+        citation_id = self._tui.ask(MSG.Delete.ask_id)
         try:
             citation_id = int(citation_id)
         except ValueError:
-            self._tui.print_error( MSG.Delete.fail )
+            self._tui.print_error(MSG.Delete.fail)
             return
         if self._cm.delete_citation(citation_id):
-            self._tui.print_info( MSG.Delete.success )
+            self._tui.print_info(MSG.Delete.success)
         else:
-            self._tui.print_error( MSG.Delete.fail )
+            self._tui.print_error(MSG.Delete.fail)
 
 
 if __name__ == "__main__":
