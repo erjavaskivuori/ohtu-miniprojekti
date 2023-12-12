@@ -27,3 +27,18 @@ Ongelmia:
 ## Sprint 4
 Ongelmia:
 - Edelleen hankala jakaa taskeja.
+
+## Mikä sujui hyvin
+- Tavoiteet saatiin suoritettua. Ei jäänyt tekemättömiä user storeja tai taskeja.
+- Tekeminen kehittyi koko ajan. Tuote ja tekeminen molemmat kehittyivät jatkuvasti
+
+## Mitä jäi vielä kehitettäväksi?
+- Jatkossa voisi suunnitella enemmän.
+- Suunitelmallista refaktorointia.
+- Sprintin suunnittelu ja tekninen dokumentaatio.
+
+## Mitä opittiin?
+- Monelle oli ensimmäinen ryhmäkoodaaminen, joten opimme tekemään ryhmässä.
+- Oppi lukemaan muiden koodia ja mukautumaan siihen.
+- Osa ryhmästä oppi käyttämään pythonia.
+- Opimme, että kaikki eivät ajattele samalla tavalla. Kaikilla oli omat lähtökohdat ja taustat. Kaikki eivät tee asioita samalla tavalla kuin itse.
