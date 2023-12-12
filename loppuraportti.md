@@ -1,4 +1,10 @@
 # Loppuraportti
+Projektiin osallistuivat seuraavat henkilöt:  
+Erja Vaskivuori  
+Viljami Ilola  
+Heljä Lehtinen  
+Tommi Hyyryläinen  
+Ville Syrjäläinen  
 ## Sprint 1
 Ongelmia:
 - Työajat
