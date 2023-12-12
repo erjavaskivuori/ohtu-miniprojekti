@@ -22,16 +22,16 @@ class CitationManager():
         self._citation_repo = citation_repo
         self._tag_repo = tag_repo
 
-    def get_attrs_by_ctype(self, ctype):
+    def get_attrs_by_citation_type(self, citation_type):
         """Returns list of attribute names needes for citation type
         """
         return [x.name for x in CitationFactory.get_new_citation(
-            CitationType(int(ctype))).attributes]
+            CitationType(int(citation_type))).attributes]
 
-    def add_citation(self, ctype, label, tag, attrs):
+    def add_citation(self, citation_type, label, tag, attrs):
         """ Creates new citation
         """
-        citation = CitationFactory.get_new_citation(CitationType(ctype))
+        citation = CitationFactory.get_new_citation(CitationType(citation_type))
         citation.set_label(label)
 
         for name, value in attrs.items():

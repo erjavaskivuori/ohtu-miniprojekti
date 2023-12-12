@@ -34,3 +34,4 @@
 - Dokumentoitu (docstring, asennusohjeet, käyttöohjeet)
 - Integroitu ja testattu CI-palvelimella
 
+
