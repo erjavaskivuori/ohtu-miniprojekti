@@ -48,3 +48,13 @@ Ongelmia:
 - Oppi lukemaan muiden koodia ja mukautumaan siihen.
 - Osa ryhmästä oppi käyttämään pythonia.
 - Opimme, että kaikki eivät ajattele samalla tavalla. Kaikilla oli omat lähtökohdat ja taustat. Kaikki eivät tee asioita samalla tavalla kuin itse.
+- Uskaltaa sanoa ei.
+
+## Mitä olisimme halunneet oppia?
+- Olisimme halunneet oppia koodaamaan enemmän/paremmin.
+- Refaktorointi.
+- Olisi ollut kiva oppia erilaisia tekniikoita.
+
+## Mikä tuntui turhalta?
+- Jotkin arviointiperusteet. Joissakin kohdissa oli turhaa nillittämistä.
+- Omat virheet ei tuntunut turhilta :)
