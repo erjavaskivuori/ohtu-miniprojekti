@@ -26,6 +26,8 @@
 
 - [3. Sprintin retrospektiivi](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/retro_3.md)
 
+- [Loppuraportti](https://github.com/erjavaskivuori/ohtu-miniprojekti/blob/main/loppuraportti.md)
+
 ### Definition of done
 - User storyn mukainen toiminnallisuus toteutettu
 - Yksikkötestaus tehty ja muotoilu tarkistettu (pylint)
